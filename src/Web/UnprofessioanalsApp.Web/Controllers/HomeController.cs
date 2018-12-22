@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using UnprofessioanalsApp.Web.Models;
+using UnprofessionalsData.Models;
 
 namespace UnprofessioanalsApp.Web.Controllers
 {

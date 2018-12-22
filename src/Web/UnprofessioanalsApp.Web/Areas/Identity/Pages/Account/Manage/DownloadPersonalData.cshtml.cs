@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using UnprofessioanalsApp.Web.Areas.Identity.Data;
+using UnprofessionalsData.Models;
 
 namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account.Manage
 {

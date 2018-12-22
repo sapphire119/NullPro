@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using UnprofessioanalsApp.Web.Areas.Identity.Data;
+using UnprofessionalsData.Models;
 
 namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account.Manage
 {

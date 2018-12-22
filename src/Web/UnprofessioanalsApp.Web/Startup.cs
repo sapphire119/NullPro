@@ -1,17 +1,14 @@
 ﻿namespace UnprofessioanalsApp.Web
 {
 	using Microsoft.AspNetCore.Builder;
-	using Microsoft.AspNetCore.Identity;
-	using Microsoft.AspNetCore.Identity.UI;
 	using Microsoft.AspNetCore.Hosting;
 	using Microsoft.AspNetCore.Http;
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.EntityFrameworkCore;
-	using UnprofessioanalsApp.Web.Data;
 	using Microsoft.Extensions.Configuration;
 	using Microsoft.Extensions.DependencyInjection;
-	using UnprofessioanalsApp.Web.Models;
-	using UnprofessioanalsApp.Web.Areas.Identity.Data;
+	using UnprofessionalsData.Data;
+	using UnprofessionalsData.Models;
 
 	public class Startup
 	{

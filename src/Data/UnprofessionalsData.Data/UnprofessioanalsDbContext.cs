@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using UnprofessioanalsApp.Web.Areas.Identity.Data;
-
-namespace UnprofessioanalsApp.Web.Models
+﻿namespace UnprofessionalsData.Data
 {
+	//install-package Microsoft.AspNetCore.Identity.EntityFrameworkCore
+	using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+	using Microsoft.EntityFrameworkCore;
+	using UnprofessionalsData.Models;
+
 	public class UnprofessioanalsDbContext : IdentityDbContext<UnprofessioanalsAppUser>
     {
         public UnprofessioanalsDbContext(DbContextOptions<UnprofessioanalsDbContext> options)

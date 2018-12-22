@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using UnprofessioanalsApp.Web.Areas.Identity.Data;
+using UnprofessionalsData.Models;
 
 namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account.Manage
 {
-    public partial class IndexModel : PageModel
+	public partial class IndexModel : PageModel
     {
         private readonly UserManager<UnprofessioanalsAppUser> _userManager;
         private readonly SignInManager<UnprofessioanalsAppUser> _signInManager;
