@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -8,18 +11,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using UnprofessionalsApp.Models;
 
-namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account
+namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
 {
-	[AllowAnonymous]
+    [AllowAnonymous]
     public class ExternalLoginModel : PageModel
     {
-        private readonly SignInManager<UnprofessioanalsAppUser> _signInManager;
-        private readonly UserManager<UnprofessioanalsAppUser> _userManager;
+        private readonly SignInManager<UnprofessionalsAppUser> _signInManager;
+        private readonly UserManager<UnprofessionalsAppUser> _userManager;
         private readonly ILogger<ExternalLoginModel> _logger;
 
         public ExternalLoginModel(
-            SignInManager<UnprofessioanalsAppUser> signInManager,
-            UserManager<UnprofessioanalsAppUser> userManager,
+            SignInManager<UnprofessionalsAppUser> signInManager,
+            UserManager<UnprofessionalsAppUser> userManager,
             ILogger<ExternalLoginModel> logger)
         {
             _signInManager = signInManager;
@@ -112,7 +115,7 @@ namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new UnprofessioanalsAppUser { UserName = Input.Email, Email = Input.Email };
+                var user = new UnprofessionalsAppUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

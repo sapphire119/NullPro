@@ -1,15 +1,21 @@
-﻿namespace UnprofessioanalsApp.Web
-{
-	using Microsoft.AspNetCore.Builder;
-	using Microsoft.AspNetCore.Hosting;
-	using Microsoft.AspNetCore.Http;
-	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.EntityFrameworkCore;
-	using Microsoft.Extensions.Configuration;
-	using Microsoft.Extensions.DependencyInjection;
-	using UnprofessionalsApp.Data;
-	using UnprofessionalsApp.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using UnprofessionalsApp.Data;
 
+namespace UnprofessionalsApp.Web
+{
 	public class Startup
 	{
 		public Startup(IConfiguration configuration)
@@ -29,11 +35,11 @@
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 
-			services.AddDbContext<UnprofessioanalsDbContext>(options =>
+			services.AddDbContext<UnprofessionalsDbContext>(options =>
 					options.UseSqlServer(
 						this.Configuration.GetConnectionString("DefaultConnection")));
 
-			services.AddDefaultIdentity<UnprofessioanalsAppUser>(options =>
+			services.AddDefaultIdentity<UnprofessionalsDbContext>(options =>
 			{
 				options.Password.RequiredLength = 6;
 				options.Password.RequireDigit = false;
@@ -41,7 +47,7 @@
 				options.Password.RequireUppercase = false;
 				options.Password.RequireNonAlphanumeric = false;
 			})
-			.AddEntityFrameworkStores<UnprofessioanalsDbContext>();
+			.AddEntityFrameworkStores<UnprofessionalsDbContext>();
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}

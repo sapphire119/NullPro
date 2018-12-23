@@ -8,19 +8,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using UnprofessionalsApp.Models;
 
-namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account.Manage
+namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account.Manage
 {
     public class TwoFactorAuthenticationModel : PageModel
     {
         private const string AuthenicatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}";
 
-        private readonly UserManager<UnprofessioanalsAppUser> _userManager;
-        private readonly SignInManager<UnprofessioanalsAppUser> _signInManager;
+        private readonly UserManager<UnprofessionalsAppUser> _userManager;
+        private readonly SignInManager<UnprofessionalsAppUser> _signInManager;
         private readonly ILogger<TwoFactorAuthenticationModel> _logger;
 
         public TwoFactorAuthenticationModel(
-            UserManager<UnprofessioanalsAppUser> userManager,
-            SignInManager<UnprofessioanalsAppUser> signInManager,
+            UserManager<UnprofessionalsAppUser> userManager,
+            SignInManager<UnprofessionalsAppUser> signInManager,
             ILogger<TwoFactorAuthenticationModel> logger)
         {
             _userManager = userManager;

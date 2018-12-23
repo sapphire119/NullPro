@@ -10,15 +10,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using UnprofessionalsApp.Models;
 
-namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account
+namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginWithRecoveryCodeModel : PageModel
     {
-        private readonly SignInManager<UnprofessioanalsAppUser> _signInManager;
+        private readonly SignInManager<UnprofessionalsAppUser> _signInManager;
         private readonly ILogger<LoginWithRecoveryCodeModel> _logger;
 
-        public LoginWithRecoveryCodeModel(SignInManager<UnprofessioanalsAppUser> signInManager, ILogger<LoginWithRecoveryCodeModel> logger)
+        public LoginWithRecoveryCodeModel(SignInManager<UnprofessionalsAppUser> signInManager, ILogger<LoginWithRecoveryCodeModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;

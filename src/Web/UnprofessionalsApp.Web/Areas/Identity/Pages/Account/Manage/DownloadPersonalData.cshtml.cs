@@ -10,15 +10,15 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using UnprofessionalsApp.Models;
 
-namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account.Manage
+namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account.Manage
 {
     public class DownloadPersonalDataModel : PageModel
     {
-        private readonly UserManager<UnprofessioanalsAppUser> _userManager;
+        private readonly UserManager<UnprofessionalsAppUser> _userManager;
         private readonly ILogger<DownloadPersonalDataModel> _logger;
 
         public DownloadPersonalDataModel(
-            UserManager<UnprofessioanalsAppUser> userManager,
+            UserManager<UnprofessionalsAppUser> userManager,
             ILogger<DownloadPersonalDataModel> logger)
         {
             _userManager = userManager;
@@ -37,7 +37,7 @@ namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account.Manage
 
             // Only include personal data for download
             var personalData = new Dictionary<string, string>();
-            var personalDataProps = typeof(UnprofessioanalsAppUser).GetProperties().Where(
+            var personalDataProps = typeof(UnprofessionalsAppUser).GetProperties().Where(
                             prop => Attribute.IsDefined(prop, typeof(PersonalDataAttribute)));
             foreach (var p in personalDataProps)
             {

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UnprofessionalsApp.Data;
 
 namespace UnprofessionalsApp.Data.Migrations
 {
-    [DbContext(typeof(UnprofessioanalsDbContext))]
-    partial class UnprofessioanalsDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(UnprofessionalsDbContext))]
+    [Migration("20181223181607_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,7 +131,7 @@ namespace UnprofessionalsApp.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("UnprofessionalsApp.Models.UnprofessioanalsAppUser", b =>
+            modelBuilder.Entity("UnprofessionalsApp.Models.UnprofessionalsAppUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -190,7 +192,7 @@ namespace UnprofessionalsApp.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("UnprofessionalsApp.Models.UnprofessioanalsAppUser")
+                    b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -198,7 +200,7 @@ namespace UnprofessionalsApp.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("UnprofessionalsApp.Models.UnprofessioanalsAppUser")
+                    b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -211,7 +213,7 @@ namespace UnprofessionalsApp.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("UnprofessionalsApp.Models.UnprofessioanalsAppUser")
+                    b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -219,7 +221,7 @@ namespace UnprofessionalsApp.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("UnprofessionalsApp.Models.UnprofessioanalsAppUser")
+                    b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

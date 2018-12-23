@@ -8,17 +8,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using UnprofessionalsApp.Models;
 
-namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account.Manage
+namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account.Manage
 {
     public class ResetAuthenticatorModel : PageModel
     {
-        UserManager<UnprofessioanalsAppUser> _userManager;
-        private readonly SignInManager<UnprofessioanalsAppUser> _signInManager;
+        UserManager<UnprofessionalsAppUser> _userManager;
+        private readonly SignInManager<UnprofessionalsAppUser> _signInManager;
         ILogger<ResetAuthenticatorModel> _logger;
 
         public ResetAuthenticatorModel(
-            UserManager<UnprofessioanalsAppUser> userManager,
-            SignInManager<UnprofessioanalsAppUser> signInManager,
+            UserManager<UnprofessionalsAppUser> userManager,
+            SignInManager<UnprofessionalsAppUser> signInManager,
             ILogger<ResetAuthenticatorModel> logger)
         {
             _userManager = userManager;

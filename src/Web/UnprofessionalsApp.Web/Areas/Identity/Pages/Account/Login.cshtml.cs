@@ -11,15 +11,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using UnprofessionalsApp.Models;
 
-namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account
+namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<UnprofessioanalsAppUser> _signInManager;
+        private readonly SignInManager<UnprofessionalsAppUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<UnprofessioanalsAppUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<UnprofessionalsAppUser> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;

@@ -1,19 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using UnprofessionalsApp.Models;
+using UnprofessionalsApp.Data;
 
-namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account
+namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
 {
-	[AllowAnonymous]
+    [AllowAnonymous]
     public class ConfirmEmailModel : PageModel
     {
-        private readonly UserManager<UnprofessioanalsAppUser> _userManager;
+        private readonly UserManager<UnprofessionalsDbContext> _userManager;
 
-        public ConfirmEmailModel(UserManager<UnprofessioanalsAppUser> userManager)
+        public ConfirmEmailModel(UserManager<UnprofessionalsDbContext> userManager)
         {
             _userManager = userManager;
         }

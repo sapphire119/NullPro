@@ -1,4 +1,4 @@
-﻿@inject SignInManager<UnprofessionalsApp.Models.UnprofessioanalsAppUser> SignInManager
+﻿@inject SignInManager<UnprofessionalsAppUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }

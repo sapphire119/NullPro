@@ -12,18 +12,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using UnprofessionalsApp.Models;
 
-namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account.Manage
+namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account.Manage
 {
     public class EnableAuthenticatorModel : PageModel
     {
-        private readonly UserManager<UnprofessioanalsAppUser> _userManager;
+        private readonly UserManager<UnprofessionalsAppUser> _userManager;
         private readonly ILogger<EnableAuthenticatorModel> _logger;
         private readonly UrlEncoder _urlEncoder;
 
         private const string AuthenticatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
 
         public EnableAuthenticatorModel(
-            UserManager<UnprofessioanalsAppUser> userManager,
+            UserManager<UnprofessionalsAppUser> userManager,
             ILogger<EnableAuthenticatorModel> logger,
             UrlEncoder urlEncoder)
         {
@@ -112,7 +112,7 @@ namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account.Manage
             }
         }
 
-        private async Task LoadSharedKeyAndQrCodeUriAsync(UnprofessioanalsAppUser user)
+        private async Task LoadSharedKeyAndQrCodeUriAsync(UnprofessionalsAppUser user)
         {
             // Load the authenticator key & QR code URI to display on the form
             var unformattedKey = await _userManager.GetAuthenticatorKeyAsync(user);
@@ -149,7 +149,7 @@ namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account.Manage
         {
             return string.Format(
                 AuthenticatorUriFormat,
-                _urlEncoder.Encode("UnprofessioanalsApp.Web"),
+                _urlEncoder.Encode("UnprofessionalsApp.Web"),
                 _urlEncoder.Encode(email),
                 unformattedKey);
         }

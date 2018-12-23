@@ -8,16 +8,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using UnprofessionalsApp.Models;
 
-namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account.Manage
+namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account.Manage
 {
     public class ExternalLoginsModel : PageModel
     {
-        private readonly UserManager<UnprofessioanalsAppUser> _userManager;
-        private readonly SignInManager<UnprofessioanalsAppUser> _signInManager;
+        private readonly UserManager<UnprofessionalsAppUser> _userManager;
+        private readonly SignInManager<UnprofessionalsAppUser> _signInManager;
 
         public ExternalLoginsModel(
-            UserManager<UnprofessioanalsAppUser> userManager,
-            SignInManager<UnprofessioanalsAppUser> signInManager)
+            UserManager<UnprofessionalsAppUser> userManager,
+            SignInManager<UnprofessionalsAppUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;

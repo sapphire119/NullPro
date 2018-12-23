@@ -5,15 +5,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using UnprofessionalsApp.Models;
 
-namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account.Manage
+namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account.Manage
 {
     public class PersonalDataModel : PageModel
     {
-        private readonly UserManager<UnprofessioanalsAppUser> _userManager;
+        private readonly UserManager<UnprofessionalsAppUser> _userManager;
         private readonly ILogger<PersonalDataModel> _logger;
 
         public PersonalDataModel(
-            UserManager<UnprofessioanalsAppUser> userManager,
+            UserManager<UnprofessionalsAppUser> userManager,
             ILogger<PersonalDataModel> logger)
         {
             _userManager = userManager;

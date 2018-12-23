@@ -8,18 +8,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using UnprofessionalsApp.Models;
-
-namespace UnprofessioanalsApp.Web.Areas.Identity.Pages.Account.Manage
+namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account.Manage
 {
     public class ChangePasswordModel : PageModel
     {
-        private readonly UserManager<UnprofessioanalsAppUser> _userManager;
-        private readonly SignInManager<UnprofessioanalsAppUser> _signInManager;
+        private readonly UserManager<UnprofessionalsAppUser> _userManager;
+        private readonly SignInManager<UnprofessionalsAppUser> _signInManager;
         private readonly ILogger<ChangePasswordModel> _logger;
 
         public ChangePasswordModel(
-            UserManager<UnprofessioanalsAppUser> userManager,
-            SignInManager<UnprofessioanalsAppUser> signInManager,
+            UserManager<UnprofessionalsAppUser> userManager,
+            SignInManager<UnprofessionalsAppUser> signInManager,
             ILogger<ChangePasswordModel> logger)
         {
             _userManager = userManager;

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <UserSecretsId>aspnet-UnprofessioanalsApp.Web-56AB64B1-28D6-49CC-93B2-A087C06ECCCE</UserSecretsId>
+    <UserSecretsId>aspnet-UnprofessionalsApp.Web-210C1B37-C1C2-45DF-A62B-598D3A9611F1</UserSecretsId>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\UnprofessionalsApp.Data\UnprofessionalsApp.Data.csproj" />
-    <ProjectReference Include="..\..\Data\UnprofessionalsApp.Models\UnprofessionalsApp.Models.csproj" />
   </ItemGroup>
 
 </Project>
