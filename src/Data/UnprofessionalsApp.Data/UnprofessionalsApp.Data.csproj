@@ -31,6 +31,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\UnprofessionalsApp.Common\UnprofessionalsApp.Common.csproj" />
     <ProjectReference Include="..\UnprofessionalsApp.Models\UnprofessionalsApp.Models.csproj" />
   </ItemGroup>
 
