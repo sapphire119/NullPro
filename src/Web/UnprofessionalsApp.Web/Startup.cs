@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UnprofessionalsApp.Data;
 using UnprofessionalsApp.Common;
+using UnprofessionalsApp.Models;
 
 namespace UnprofessionalsApp.Web
 {
@@ -35,12 +36,11 @@ namespace UnprofessionalsApp.Web
 				options.CheckConsentNeeded = context => true;
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
-
 			services.AddDbContext<UnprofessionalsDbContext>(options =>
-					options.UseSqlServer(
-						this.Configuration.GetConnectionString("DefaultConnection")));
+								options.UseSqlServer(
+									this.Configuration.GetConnectionString("DefaultConnection")));
 
-			services.AddDefaultIdentity<UnprofessionalsDbContext>(options =>
+			services.AddDefaultIdentity<UnprofessionalsAppUser>(options =>
 			{
 				options.Password.RequiredLength = 6;
 				options.Password.RequireDigit = false;
@@ -52,8 +52,7 @@ namespace UnprofessionalsApp.Web
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 			//App Services
-
-			services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+			//services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

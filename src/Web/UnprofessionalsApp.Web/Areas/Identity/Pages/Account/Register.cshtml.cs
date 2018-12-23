@@ -40,7 +40,11 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+			//[Required]
+			//[StringLength(1, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.")]
+			//public string UserName { get; set; }
+
+			[Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
