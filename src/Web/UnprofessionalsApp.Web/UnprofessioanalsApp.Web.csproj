@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <UserSecretsId>aspnet-UnprofessioanalsApp.Web-56AB64B1-28D6-49CC-93B2-A087C06ECCCE</UserSecretsId>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\UnprofessionalsApp.Data\UnprofessionalsApp.Data.csproj" />
+    <ProjectReference Include="..\..\Data\UnprofessionalsApp.Models\UnprofessionalsApp.Models.csproj" />
+  </ItemGroup>
+
+</Project>
