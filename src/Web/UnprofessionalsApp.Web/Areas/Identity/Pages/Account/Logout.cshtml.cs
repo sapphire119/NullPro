@@ -11,7 +11,7 @@ using UnprofessionalsApp.Models;
 
 namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
+    [Authorize]
     public class LogoutModel : PageModel
     {
         private readonly SignInManager<UnprofessionalsAppUser> _signInManager;

@@ -69,7 +69,13 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
         {
             returnUrl = returnUrl ?? Url.Content("~/");
 
-            if (ModelState.IsValid)
+			if (this.User.Identity.IsAuthenticated)
+			{
+				_logger.LogInformation("You are already logged in.");
+				return LocalRedirect(returnUrl);
+			}
+
+			if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
