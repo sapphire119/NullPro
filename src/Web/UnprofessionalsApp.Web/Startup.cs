@@ -36,6 +36,7 @@ namespace UnprofessionalsApp.Web
 				options.CheckConsentNeeded = context => true;
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
+
 			services.AddDbContext<UnprofessionalsDbContext>(options =>
 								options.UseSqlServer(
 									this.Configuration.GetConnectionString("DefaultConnection")));
@@ -43,6 +44,7 @@ namespace UnprofessionalsApp.Web
 			services.AddDefaultIdentity<UnprofessionalsAppUser>(options =>
 			{
 				options.Password.RequiredLength = 6;
+
 				options.Password.RequireDigit = false;
 				options.Password.RequireLowercase = false;
 				options.Password.RequireUppercase = false;
