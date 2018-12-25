@@ -52,9 +52,14 @@ namespace UnprofessionalsApp.Web
 
 				options.User.RequireUniqueEmail = true;
 			})
+			.AddRoles<IdentityRole<int>>()
 			.AddEntityFrameworkStores<UnprofessionalsDbContext>();
 
-			services.ConfigureApplicationCookie(options => options.LoginPath = "/Identity/Account/Login");
+			services.ConfigureApplicationCookie(options =>
+			{
+				options.LoginPath = "/Identity/Account/Login";
+				options.Cookie.HttpOnly = true;
+			});
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 			//App Services
@@ -62,7 +67,7 @@ namespace UnprofessionalsApp.Web
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<UnprofessionalsAppUser> userManager, IServiceProvider serviceProvider)
 		{
 			if (env.IsDevelopment())
 			{
@@ -79,8 +84,11 @@ namespace UnprofessionalsApp.Web
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 			app.UseCookiePolicy();
+			
 
 			app.UseAuthentication();
+
+			CreateUserRoles(serviceProvider).GetAwaiter().GetResult();
 
 			app.UseMvc(routes =>
 			{
@@ -88,6 +96,48 @@ namespace UnprofessionalsApp.Web
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
+
+		}
+
+		private async Task CreateUserRoles(IServiceProvider serviceProvider)
+		{
+			var userManager = serviceProvider.GetRequiredService<UserManager<UnprofessionalsAppUser>>();
+			var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
+
+			string[] roleNames = { "Admin", "Manager", "User", "Employee" };
+
+			IdentityResult roleResult;
+
+			foreach (var roleName in roleNames)
+			{
+				var roleExist = await roleManager.RoleExistsAsync(roleName);
+				if (!roleExist)
+				{
+					//create the roles and seed them to the database: Question 1
+					roleResult = await roleManager.CreateAsync(new IdentityRole<int>(roleName));
+				}
+			}
+
+			//Here you could create a super user who will maintain the web app
+			var poweruser = new UnprofessionalsAppUser
+			{
+				UserName = /*Configuration["AppSettings:UserName"]*/"admin",
+				Email = /*Configuration["AppSettings:UserEmail"]*/"admin@admin.admin",
+			};
+			//Ensure you have these values in your appsettings.json file
+			string userPWD = /*Configuration["AppSettings:UserPassword"]*/ "asd123";
+			var _user = await userManager.FindByNameAsync("admin");
+
+			if (_user == null)
+			{
+				var createPowerUser = await userManager.CreateAsync(poweruser, userPWD);
+				if (createPowerUser.Succeeded)
+				{
+					//here we tie the new user to the role
+					await userManager.AddToRoleAsync(poweruser, "Admin");
+
+				}
+			}
 		}
 	}
 }

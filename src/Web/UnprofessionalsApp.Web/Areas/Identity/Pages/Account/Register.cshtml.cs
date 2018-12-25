@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -18,16 +19,19 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<UnprofessionalsAppUser> _signInManager;
-        private readonly UserManager<UnprofessionalsAppUser> _userManager;
+		private readonly RoleManager<IdentityRole> _roleManager;
+		private readonly UserManager<UnprofessionalsAppUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<UnprofessionalsAppUser> userManager,
+			RoleManager<IdentityRole> roleManager,
             SignInManager<UnprofessionalsAppUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
+			_roleManager = roleManager;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
@@ -84,6 +88,10 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
             {
                 var user = new UnprofessionalsAppUser { UserName = Input.Username, Email = Input.Email };
 				
+
+				var currentUser = await _userManager.FindByNameAsync(user.UserName);
+				
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 				
                 if (result.Succeeded)
