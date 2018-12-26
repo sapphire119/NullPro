@@ -18,22 +18,22 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<UnprofessionalsAppUser> _signInManager;
-		private readonly RoleManager<IdentityRole> _roleManager;
-		private readonly UserManager<UnprofessionalsAppUser> _userManager;
+        private readonly SignInManager<UnprofessionalsAppUser> signInManager;
+		private readonly RoleManager<IdentityRole<int>> roleManager;
+		private readonly UserManager<UnprofessionalsAppUser> userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<UnprofessionalsAppUser> userManager,
-			RoleManager<IdentityRole> roleManager,
+			RoleManager<IdentityRole<int>> roleManager,
             SignInManager<UnprofessionalsAppUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
-			_roleManager = roleManager;
-            _userManager = userManager;
-            _signInManager = signInManager;
+			this.roleManager = roleManager;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
         }
@@ -87,12 +87,8 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
 			if (ModelState.IsValid)
             {
                 var user = new UnprofessionalsAppUser { UserName = Input.Username, Email = Input.Email };
-				
 
-				var currentUser = await _userManager.FindByNameAsync(user.UserName);
-				
-
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                var result = await this.userManager.CreateAsync(user, Input.Password);
 				
                 if (result.Succeeded)
                 {
@@ -109,7 +105,7 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
 					//await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
 					//    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-					await _signInManager.SignInAsync(user, isPersistent: false);
+					await signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }
 
