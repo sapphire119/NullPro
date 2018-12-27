@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\UnprofessionalsApp.Data\UnprofessionalsApp.Data.csproj" />
+    <ProjectReference Include="..\..\Services\UnprofessionalsApp.ViewInputModels\UnprofessionalsApp.ViewInputModels.csproj" />
   </ItemGroup>
 
 
