@@ -127,6 +127,182 @@ namespace UnprofessionalsApp.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("UnprofessionalsApp.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("UnprofessionalsApp.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateOfCreation");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int>("PostId");
+
+                    b.Property<int>("Rating");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("UnprofessionalsApp.Models.Firm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CategoryId");
+
+                    b.Property<bool>("IsBlackListed");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("Popularity");
+
+                    b.Property<decimal>("Rating");
+
+                    b.Property<string>("UniqueFirmId");
+
+                    b.Property<string>("UrlToTradersRegistry");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Firms");
+                });
+
+            modelBuilder.Entity("UnprofessionalsApp.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateOfCreation");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int>("ReceiverId");
+
+                    b.Property<int>("SenderId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("UnprofessionalsApp.Models.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId");
+
+                    b.Property<DateTime>("DateOfCreation");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int?>("FirmId");
+
+                    b.Property<int>("Popularity");
+
+                    b.Property<decimal>("Rating");
+
+                    b.Property<string>("Title");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("FirmId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("UnprofessionalsApp.Models.Reply", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CommentId");
+
+                    b.Property<DateTime>("DateOfCreation");
+
+                    b.Property<string>("Description");
+
+                    b.Property<decimal>("Rating");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Replies");
+                });
+
+            modelBuilder.Entity("UnprofessionalsApp.Models.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
+                });
+
+            modelBuilder.Entity("UnprofessionalsApp.Models.TagPost", b =>
+                {
+                    b.Property<int>("TagId");
+
+                    b.Property<int>("PostId");
+
+                    b.HasKey("TagId", "PostId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("TagsPosts");
+                });
+
             modelBuilder.Entity("UnprofessionalsApp.Models.UnprofessionalsAppUser", b =>
                 {
                     b.Property<int>("Id")
@@ -138,10 +314,14 @@ namespace UnprofessionalsApp.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<DateTime>("DateOfRegistration");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("IsBlackListed");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -221,6 +401,87 @@ namespace UnprofessionalsApp.Data.Migrations
                     b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("UnprofessionalsApp.Models.Comment", b =>
+                {
+                    b.HasOne("UnprofessionalsApp.Models.Post", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("UnprofessionalsApp.Models.Firm", b =>
+                {
+                    b.HasOne("UnprofessionalsApp.Models.Category", "Category")
+                        .WithMany("Firms")
+                        .HasForeignKey("CategoryId");
+
+                    b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser", "User")
+                        .WithMany("Firms")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("UnprofessionalsApp.Models.Message", b =>
+                {
+                    b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser", "Reciever")
+                        .WithMany("RecievedMessages")
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser", "Sender")
+                        .WithMany("SentMessages")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("UnprofessionalsApp.Models.Post", b =>
+                {
+                    b.HasOne("UnprofessionalsApp.Models.Category", "Category")
+                        .WithMany("Posts")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("UnprofessionalsApp.Models.Firm", "Firm")
+                        .WithMany("Posts")
+                        .HasForeignKey("FirmId");
+
+                    b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser", "User")
+                        .WithMany("Posts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("UnprofessionalsApp.Models.Reply", b =>
+                {
+                    b.HasOne("UnprofessionalsApp.Models.Comment", "Comment")
+                        .WithMany("Replies")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser", "User")
+                        .WithMany("Replies")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("UnprofessionalsApp.Models.TagPost", b =>
+                {
+                    b.HasOne("UnprofessionalsApp.Models.Post", "Post")
+                        .WithMany("Tags")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("UnprofessionalsApp.Models.Tag", "Tag")
+                        .WithMany("Posts")
+                        .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
