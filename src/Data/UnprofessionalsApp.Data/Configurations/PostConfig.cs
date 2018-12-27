@@ -16,6 +16,8 @@
 
 			builder.Property(e => e.DateOfCreation);
 
+			builder.Property(e => e.ImageUrl);
+
 			builder.Property(e => e.Rating);
 
 			builder.Property(e => e.Popularity);
