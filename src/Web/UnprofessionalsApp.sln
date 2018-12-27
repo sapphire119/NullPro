@@ -3,25 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnprofessionalsApp.Web", "UnprofessionalsApp.Web\UnprofessionalsApp.Web.csproj", "{69A1677D-CB9A-4614-8191-F3FFB7AEF78A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnprofessionalsApp.Web", "UnprofessionalsApp.Web\UnprofessionalsApp.Web.csproj", "{69A1677D-CB9A-4614-8191-F3FFB7AEF78A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{54E1B911-3ACB-471F-AD66-8951BA68CFE5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{6CB25BB6-1C59-48E8-B413-ED01B48FDAFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnprofessionalsApp.Data", "..\Data\UnprofessionalsApp.Data\UnprofessionalsApp.Data.csproj", "{37D8C37C-6729-40A1-9E6A-6DD5536BDD48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnprofessionalsApp.Data", "..\Data\UnprofessionalsApp.Data\UnprofessionalsApp.Data.csproj", "{37D8C37C-6729-40A1-9E6A-6DD5536BDD48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnprofessionalsApp.Models", "..\Data\UnprofessionalsApp.Models\UnprofessionalsApp.Models.csproj", "{0BC8829E-DF5F-4A7C-930A-93C21018599A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnprofessionalsApp.Models", "..\Data\UnprofessionalsApp.Models\UnprofessionalsApp.Models.csproj", "{0BC8829E-DF5F-4A7C-930A-93C21018599A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C8785D32-4679-460D-A2F5-89E1CCA85024}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2EAFEB76-3B79-4E8B-A87A-8C9204C54BA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnprofessionalsApp.Common", "..\Data\UnprofessionalsApp.Common\UnprofessionalsApp.Common.csproj", "{A3D4CFA4-EF6A-4CFF-B046-415A59781C0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnprofessionalsApp.Common", "..\Data\UnprofessionalsApp.Common\UnprofessionalsApp.Common.csproj", "{A3D4CFA4-EF6A-4CFF-B046-415A59781C0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnprofessionalsApp.DataServices", "..\Services\UnprofessionalsApp.DataServices\UnprofessionalsApp.DataServices.csproj", "{ACA72C00-A584-4E26-8F4F-9AD077D074CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnprofessionalsApp.DataServices", "..\Services\UnprofessionalsApp.DataServices\UnprofessionalsApp.DataServices.csproj", "{ACA72C00-A584-4E26-8F4F-9AD077D074CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnprofessionalsApp.ViewInputModels", "..\Services\UnprofessionalsApp.ViewInputModels\UnprofessionalsApp.ViewInputModels.csproj", "{702EE992-BF12-4482-9A5F-3E709CF9554A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnprofessionalsApp.ViewInputModels", "..\Services\UnprofessionalsApp.ViewInputModels\UnprofessionalsApp.ViewInputModels.csproj", "{702EE992-BF12-4482-9A5F-3E709CF9554A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
