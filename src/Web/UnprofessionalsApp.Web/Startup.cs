@@ -1,23 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using UnprofessionalsApp.Data;
-using UnprofessionalsApp.Common;
-using UnprofessionalsApp.Models;
-
-namespace UnprofessionalsApp.Web
+﻿namespace UnprofessionalsApp.Web
 {
+	using Microsoft.AspNetCore.Builder;
+	using Microsoft.AspNetCore.Identity;
+	using Microsoft.AspNetCore.Identity.UI;
+	using Microsoft.AspNetCore.Hosting;
+	using Microsoft.AspNetCore.Http;
+	using Microsoft.AspNetCore.HttpsPolicy;
+	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.EntityFrameworkCore;
+	using Microsoft.Extensions.Configuration;
+	using Microsoft.Extensions.DependencyInjection;
+	using UnprofessionalsApp.Data;
+	using UnprofessionalsApp.Common;
+	using UnprofessionalsApp.Models;
+	using UnprofessionalsApp.Web.Extensions;
+
+	using AutoMapper;
+	using UnprofessionalsApp.ViewInputModels.ViewModels.Posts;
+	using UnprofessionalsApp.Mapping;
+	using UnprofessionalsApp.DataServices.Contracts;
+	using UnprofessionalsApp.DataServices;
+
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Threading.Tasks;
+
 	public class Startup
 	{
 		public Startup(IConfiguration configuration)
@@ -30,6 +38,8 @@ namespace UnprofessionalsApp.Web
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			AutoMapperConfig.RegisterMappings(typeof(AllViewModel));
+
 			services.Configure<CookiePolicyOptions>(options =>
 			{
 				// This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -64,6 +74,8 @@ namespace UnprofessionalsApp.Web
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 			//App Services
 			services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+
+			services.AddTransient<IPostsService, PostsService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,7 +96,6 @@ namespace UnprofessionalsApp.Web
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 			app.UseCookiePolicy();
-			
 
 			app.UseAuthentication();
 
@@ -107,11 +118,9 @@ namespace UnprofessionalsApp.Web
 			var userManager = serviceProvider.GetRequiredService<UserManager<UnprofessionalsAppUser>>();
 			var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
 
-			string[] roleNames = { "Admin", "Manager", "User", "Employee" };
-
 			IdentityResult roleResult;
 
-			foreach (var roleName in roleNames)
+			foreach (var roleName in ProjectConstants.ApprovedRoles)
 			{
 				var roleExist = await roleManager.RoleExistsAsync(roleName);
 				if (!roleExist)
@@ -137,7 +146,7 @@ namespace UnprofessionalsApp.Web
 				if (createPowerUser.Succeeded)
 				{
 					//here we tie the new user to the role
-					await userManager.AddToRoleAsync(poweruser, "Admin");
+					await userManager.AddToRoleAsync(poweruser, ProjectConstants.AdminRole);
 
 				}
 			}

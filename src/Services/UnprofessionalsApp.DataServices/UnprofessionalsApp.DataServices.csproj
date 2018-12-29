@@ -4,4 +4,10 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\UnprofessionalsApp.Common\UnprofessionalsApp.Common.csproj" />
+    <ProjectReference Include="..\..\Data\UnprofessionalsApp.Models\UnprofessionalsApp.Models.csproj" />
+    <ProjectReference Include="..\UnprofessionalsApp.ViewInputModels\UnprofessionalsApp.ViewInputModels.csproj" />
+  </ItemGroup>
+
 </Project>

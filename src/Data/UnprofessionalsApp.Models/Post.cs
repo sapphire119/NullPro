@@ -19,6 +19,8 @@ namespace UnprofessionalsApp.Models
 
 		public string Description { get; set; }
 
+		public string ImageUrl { get; set; }
+
 		public int Popularity { get; set; }
 
 		public decimal Rating { get; set; }

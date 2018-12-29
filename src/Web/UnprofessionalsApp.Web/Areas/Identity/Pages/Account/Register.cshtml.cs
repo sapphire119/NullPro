@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using UnprofessionalsApp.Models;
+using UnprofessionalsApp.Web.Extensions;
 
 namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
 {
@@ -19,19 +20,16 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<UnprofessionalsAppUser> signInManager;
-		private readonly RoleManager<IdentityRole<int>> roleManager;
 		private readonly UserManager<UnprofessionalsAppUser> userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<UnprofessionalsAppUser> userManager,
-			RoleManager<IdentityRole<int>> roleManager,
             SignInManager<UnprofessionalsAppUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
-			this.roleManager = roleManager;
             this.userManager = userManager;
             this.signInManager = signInManager;
             _logger = logger;
@@ -94,7 +92,7 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
                 {
 					_logger.LogInformation("User created a new account with password.");
 
-					
+
 					//var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 					//var callbackUrl = Url.Page(
 					//    "/Account/ConfirmEmail",
@@ -105,7 +103,10 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
 					//await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
 					//    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
+					await this.userManager.AddToRoleAsync(user, ProjectConstants.UserRole);
+
 					await signInManager.SignInAsync(user, isPersistent: false);
+
                     return LocalRedirect(returnUrl);
                 }
 

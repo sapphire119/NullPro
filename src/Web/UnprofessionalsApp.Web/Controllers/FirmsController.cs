@@ -12,5 +12,12 @@
 		{
 			return this.View();
 		}
+
+		public IActionResult Create()
+		{
+			return this.View();
+		}
+
+
 	}
 }
