@@ -1,0 +1,40 @@
+﻿@model IEnumerable<UnprofessionalsApp.ViewInputModels.ViewModels.Posts.AllViewModel>
+
+@{
+	ViewData["Title"] = "All posts";
+}
+
+<h1 class="mt-4 mb-3">
+	Blog Home Two
+	<small>Subheading</small>
+</h1>
+<ol class="breadcrumb">
+	<li class="breadcrumb-item">
+		<a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+	</li>
+	<li class="breadcrumb-item active">Posts</li>
+</ol>
+
+@foreach (var postViewModel in Model)
+{
+	<div class="card mb-4">
+		<div class="card-body">
+			<div class="row">
+				<div class="col-lg-6">
+					<a asp-controller="Posts" asp-action="Details">
+						<img class="img-fluid rounded" src="@postViewModel.ImageUrl" alt="Image for Post">
+					</a>
+				</div>
+				<div class="col-lg-6">
+					<h2 class="card-title">@postViewModel.Title</h2>
+					<p class="card-text">@postViewModel.Description</p>
+					<a asp-controller="Posts" asp-action="Details" asp-route-id="@postViewModel.Id" class="btn btn-primary">Read More &rarr;</a>
+				</div>
+			</div>
+		</div>
+		<div class="card-footer text-muted">
+			Posted on @postViewModel.DateOfCreation by
+			<a asp-area="Identity" asp-controller="Account" asp-action="Details">Start Bootstrap</a>
+		</div>
+	</div>
+}
