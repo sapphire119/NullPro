@@ -7,7 +7,7 @@ namespace UnprofessionalsApp.Models
 	{
 		public string Description { get; set; }
 
-		public decimal Rating { get; set; }
+		public int Rating { get; set; } = 0;
 
 		public DateTime DateOfCreation { get; set; } = DateTime.UtcNow;
 

@@ -10,8 +10,8 @@ using UnprofessionalsApp.Data;
 namespace UnprofessionalsApp.Data.Migrations
 {
     [DbContext(typeof(UnprofessionalsDbContext))]
-    [Migration("20181227162616_EntitesComplete")]
-    partial class EntitesComplete
+    [Migration("20181230183013_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -169,31 +169,27 @@ namespace UnprofessionalsApp.Data.Migrations
 
             modelBuilder.Entity("UnprofessionalsApp.Models.Firm", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CategoryId");
+                    b.Property<string>("LegalForm")
+                        .IsRequired();
 
-                    b.Property<bool>("IsBlackListed");
-
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<int>("Popularity");
 
-                    b.Property<decimal>("Rating");
+                    b.Property<int>("Rating");
 
-                    b.Property<string>("UniqueFirmId");
+                    b.Property<string>("UniqueFirmId")
+                        .IsRequired()
+                        .HasMaxLength(9);
 
-                    b.Property<string>("UrlToTradersRegistry");
-
-                    b.Property<int>("UserId");
+                    b.Property<string>("UrlToTradersRegistry")
+                        .IsRequired();
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Firms");
                 });
@@ -235,9 +231,13 @@ namespace UnprofessionalsApp.Data.Migrations
 
                     b.Property<int?>("FirmId");
 
+                    b.Property<Guid?>("FirmId1");
+
+                    b.Property<string>("ImageUrl");
+
                     b.Property<int>("Popularity");
 
-                    b.Property<decimal>("Rating");
+                    b.Property<int>("Rating");
 
                     b.Property<string>("Title");
 
@@ -247,7 +247,7 @@ namespace UnprofessionalsApp.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("FirmId");
+                    b.HasIndex("FirmId1");
 
                     b.HasIndex("UserId");
 
@@ -266,7 +266,7 @@ namespace UnprofessionalsApp.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<decimal>("Rating");
+                    b.Property<int>("Rating");
 
                     b.Property<int>("UserId");
 
@@ -419,18 +419,6 @@ namespace UnprofessionalsApp.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("UnprofessionalsApp.Models.Firm", b =>
-                {
-                    b.HasOne("UnprofessionalsApp.Models.Category", "Category")
-                        .WithMany("Firms")
-                        .HasForeignKey("CategoryId");
-
-                    b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser", "User")
-                        .WithMany("Firms")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("UnprofessionalsApp.Models.Message", b =>
                 {
                     b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser", "Reciever")
@@ -453,7 +441,7 @@ namespace UnprofessionalsApp.Data.Migrations
 
                     b.HasOne("UnprofessionalsApp.Models.Firm", "Firm")
                         .WithMany("Posts")
-                        .HasForeignKey("FirmId");
+                        .HasForeignKey("FirmId1");
 
                     b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser", "User")
                         .WithMany("Posts")

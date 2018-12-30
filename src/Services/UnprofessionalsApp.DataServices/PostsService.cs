@@ -20,6 +20,7 @@
 
 		public IEnumerable<AllViewModel> GetAllPosts()
 		{
+			//TODO: Test me
 			var allPosts = this.postsRepository.All().To<AllViewModel>().ToList();
 			
 			return allPosts;

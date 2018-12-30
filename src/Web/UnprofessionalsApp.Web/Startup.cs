@@ -99,8 +99,6 @@
 
 			app.UseAuthentication();
 
-			CreateUserRoles(serviceProvider).GetAwaiter().GetResult();
-
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(

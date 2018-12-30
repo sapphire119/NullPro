@@ -9,5 +9,7 @@
 		public const string ManagerRole = "Manager";
 		
 		public const string UserRole = "User";
+
+		public const string CannotCreateDbMessage = @"An error occurred creating the DB.";
 	}
 }

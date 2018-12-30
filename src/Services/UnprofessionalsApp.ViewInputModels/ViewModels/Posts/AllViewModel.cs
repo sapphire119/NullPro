@@ -37,6 +37,7 @@
 
 		public void CreateMappings(IMapperConfigurationExpression configuration)
 		{
+			//TODO: Test me somehow
 			configuration.CreateMap<Post, AllViewModel>()
 				.ForMember(x => x.DateOfCreation,
 					x => x.MapFrom(

@@ -9,24 +9,22 @@
 		public void Configure(EntityTypeBuilder<Firm> builder)
 		{
 			builder.HasKey(e => e.Id);
+			
+			builder.Property(e => e.UniqueFirmId)
+				.HasMaxLength(9)
+				.IsRequired();
 
-			builder.Property(e => e.UniqueFirmId);
+			builder.Property(e => e.Name)
+				.IsRequired();
 
-			builder.Property(e => e.Name);
+			builder.Property(e => e.Popularity)
+				.IsRequired();
 
-			builder.Property(e => e.Popularity);
-
-			builder.Property(e => e.Rating);
-
-			builder.Property(e => e.UrlToTradersRegistry);
-
-			builder.Property(e => e.IsBlackListed);
-
-			builder.HasOne(e => e.User)
-				.WithMany(u => u.Firms);
-
-			builder.HasOne(e => e.Category)
-				.WithMany(c => c.Firms);
+			builder.Property(e => e.Rating)
+				.IsRequired();
+			
+			builder.Property(e => e.LegalForm)
+				.IsRequired();
 		}
 	}
 }
