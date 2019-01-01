@@ -1,0 +1,58 @@
+﻿@page
+@model UnprofessionalsApp.Web.Pages.Firms.IndexModel
+@{
+	ViewData["Title"] = "All Firms Page";
+	var counter = 1;
+}
+
+<div class="dropdown">
+	<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Select Page Size
+	</button>
+	<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		<a class="dropdown-item" asp-page="/firms/index" asp-route-pageSize="10">10</a>
+		<a class="dropdown-item" asp-page="/firms/index" asp-route-pageSize="20">20</a>
+		<a class="dropdown-item" asp-page="/firms/index" asp-route-pageSize="50">50</a>
+	</div>
+</div>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Bulstat / PIK</th>
+			<th scope="col">Firm Name</th>
+			<th scope="col">Popularity</th>
+			<th scope="col">Rating</th>
+			<th scope="col">Legal Form</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var firm in Model.Data)
+		{
+			<tr>
+				<th scope="row">@(counter++)</th>
+				<td><a asp-page="/firms/details" asp-route-firmId="@firm.Id">@firm.UniqueFirmId</a></td>
+				<td>@firm.Name</td>
+				<td>@firm.Popularity</td>
+				<td>@firm.Rating</td>
+				<td>@firm.LegalForm</td>
+			</tr>
+		}
+</table>
+
+<nav aria-label="Page navigation example">
+	<ul class="pagination pg-blue justify-content-center">
+		<li class="page-item @(Model.CurrentPage - 1 <= 0 ? "disabled" : "")">
+			<a asp-page="/firms/index" asp-route-pageSize="@(Model.PageSize)" asp-route-currentpage="@(Model.CurrentPage - 1)" class="page-link">Previous</a>
+		</li>
+		@for (var pageId = 1; pageId <= Model.TotalPages; pageId++)
+		{
+			<li class="page-item @(pageId == Model.CurrentPage ? "active" : "")">
+				<a asp-page="/firms/index" asp-route-pageSize="@(Model.PageSize)" asp-route-currentpage="@pageId" class="page-link">@pageId</a>
+			</li>
+		}
+		<li class="page-item @(Model.CurrentPage + 1 > Model.TotalPages ? "disabled" : "")">
+			<a asp-page="/firms/index" asp-route-pageSize="@(Model.PageSize)" asp-route-currentpage="@(Model.CurrentPage + 1)" class="page-link">Next</a>
+		</li>
+	</ul>
+</nav>
