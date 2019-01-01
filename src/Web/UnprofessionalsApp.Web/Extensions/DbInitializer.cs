@@ -35,6 +35,9 @@ namespace UnprofessionalsApp.Web.Extensions
 					$"{string.Join(Environment.NewLine, unsupportedFiles)}");
 			}
 
+
+			var currentFirms = new List<Firm>();
+
 			// loop through each file 
 			foreach (string sitemap in sitemaps)
 			{
@@ -50,8 +53,6 @@ namespace UnprofessionalsApp.Web.Extensions
 				XDocument xDoc = XDocument.Parse(xmlString);
 
 				var root = xDoc.Root.Elements();
-
-				var currentFirms = new List<Firm>();
 
 				foreach (var xElement in root)
 				{
@@ -93,8 +94,6 @@ namespace UnprofessionalsApp.Web.Extensions
 							};
 
 							if (currentFirms.Any(f => 
-									f.Id == currentFirm.Id || f.UniqueFirmId == currentFirm.UniqueFirmId) ||
-								context.Firms.Any(f => 
 									f.Id == currentFirm.Id || f.UniqueFirmId == currentFirm.UniqueFirmId))
 							{
 								continue;
@@ -103,11 +102,7 @@ namespace UnprofessionalsApp.Web.Extensions
 							currentFirms.Add(currentFirm);
 						}
 
-						context.Firms.AddRange(currentFirms);
-
-						context.SaveChanges();
-
-						if (context.Firms.Count() > 1200)
+						if (currentFirms.Count > 1200)
 						{
 							isDbSeeded = true;
 							break;
@@ -116,6 +111,10 @@ namespace UnprofessionalsApp.Web.Extensions
 
 				}
 			}
+
+			context.AddRange(currentFirms);
+
+			context.SaveChanges();
 		}
 
 		private static IEnumerable<string> GetFileList(string fileSearchPattern, string rootFolderPath)

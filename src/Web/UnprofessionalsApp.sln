@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sandbox", "Sandbox", "{1CA9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "..\Tests\Sandbox\Program\Sandbox.csproj", "{B529A791-6F80-4889-AFF0-6F68C355F15E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnprofessionalsApp.DataTransferObjects", "..\Services\UnprofessionalsApp.DataTransferObjects\UnprofessionalsApp.DataTransferObjects.csproj", "{01B9225E-B25E-4C1F-85EA-B4009854B1B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnprofessionalsApp.DataTransferObjects", "..\Services\UnprofessionalsApp.DataTransferObjects\UnprofessionalsApp.DataTransferObjects.csproj", "{01B9225E-B25E-4C1F-85EA-B4009854B1B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

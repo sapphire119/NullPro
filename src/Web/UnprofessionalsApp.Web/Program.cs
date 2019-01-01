@@ -22,7 +22,7 @@ namespace UnprofessionalsApp.Web
 		{
 			var host = CreateWebHostBuilder(args).Build();
 
-			SeedData(host);
+			//SeedData(host);
 
 			host.Run();
 		}

@@ -38,7 +38,7 @@
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			AutoMapperConfig.RegisterMappings(typeof(AllViewModel));
+			AutoMapperConfig.RegisterMappings(typeof(PostViewModel));
 
 			services.Configure<CookiePolicyOptions>(options =>
 			{
@@ -76,6 +76,7 @@
 			services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
 
 			services.AddTransient<IPostsService, PostsService>();
+			services.AddTransient<IFirmsService, FirmsService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
