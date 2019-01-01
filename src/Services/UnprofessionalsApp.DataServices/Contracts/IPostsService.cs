@@ -7,6 +7,6 @@ namespace UnprofessionalsApp.DataServices.Contracts
 	{
 		TViewModel GetPostById<TViewModel>(int id);
 
-		IEnumerable<AllViewModel> GetAllPosts();
+		IEnumerable<PostViewModel> GetAllPosts();
 	}
 }

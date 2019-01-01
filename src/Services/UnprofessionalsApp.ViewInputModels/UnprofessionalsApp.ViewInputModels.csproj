@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\UnprofessionalsApp.Models\UnprofessionalsApp.Models.csproj" />
+    <ProjectReference Include="..\UnprofessionalsApp.DataTransferObjects\UnprofessionalsApp.DataTransferObjects.csproj" />
     <ProjectReference Include="..\UnprofessionalsApp.Mapping\UnprofessionalsApp.Mapping.csproj" />
   </ItemGroup>
 

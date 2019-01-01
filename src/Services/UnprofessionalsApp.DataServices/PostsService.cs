@@ -18,10 +18,10 @@
 			this.postsRepository = postsRepository;
 		}
 
-		public IEnumerable<AllViewModel> GetAllPosts()
+		public IEnumerable<PostViewModel> GetAllPosts()
 		{
 			//TODO: Test me
-			var allPosts = this.postsRepository.All().To<AllViewModel>().ToList();
+			var allPosts = this.postsRepository.All().To<PostViewModel>().ToList();
 			
 			return allPosts;
 		}
