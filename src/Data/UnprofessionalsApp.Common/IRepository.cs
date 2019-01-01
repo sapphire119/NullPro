@@ -9,9 +9,13 @@ namespace UnprofessionalsApp.Common
 		//Select заявка
 		IQueryable<TEntity> All();
 
+		void Add(TEntity entity);
+
 		Task AddAsync(TEntity entity);
 
 		void Delete(TEntity entity);
+
+		void SaveChanges();
 
 		Task<int> SaveChangesAync();
 	}
