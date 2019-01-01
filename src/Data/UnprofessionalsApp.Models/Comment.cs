@@ -21,5 +21,7 @@ namespace UnprofessionalsApp.Models
 		public virtual Post Post { get; set; }
 
 		public virtual ICollection<Reply> Replies { get; set; } = new HashSet<Reply>();
+
+		public virtual ICollection<Report> Reports { get; set; } = new HashSet<Report>();
 	}
 }

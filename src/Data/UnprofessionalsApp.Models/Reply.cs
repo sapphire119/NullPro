@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnprofessionalsApp.Common;
 
 namespace UnprofessionalsApp.Models
@@ -18,5 +19,7 @@ namespace UnprofessionalsApp.Models
 		public int UserId { get; set; }
 
 		public virtual UnprofessionalsAppUser User { get; set; }
+
+		public virtual ICollection<Report> Reports { get; set; } = new HashSet<Report>();
 	}
 }

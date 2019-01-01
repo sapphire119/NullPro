@@ -42,5 +42,7 @@ namespace UnprofessionalsApp.Models
 		public virtual ICollection<TagPost> Tags { get; set; } = new HashSet<TagPost>();
 
 		public virtual ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
+
+		public virtual ICollection<Report> Reports { get; set; } = new HashSet<Report>();
 	}
 }
