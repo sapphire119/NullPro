@@ -43,7 +43,7 @@ namespace UnprofessionalsApp.Data
 			this.context.SaveChanges();
 		}
 
-		public Task<int> SaveChangesAync()
+		public Task<int> SaveChangesAsync()
 		{
 			return this.context.SaveChangesAsync();
 		}

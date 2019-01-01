@@ -17,6 +17,6 @@ namespace UnprofessionalsApp.Common
 
 		void SaveChanges();
 
-		Task<int> SaveChangesAync();
+		Task<int> SaveChangesAsync();
 	}
 }
