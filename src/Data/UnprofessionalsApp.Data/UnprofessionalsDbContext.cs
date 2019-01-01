@@ -28,6 +28,8 @@ namespace UnprofessionalsApp.Data
 
 		public DbSet<Reply> Replies { get; set; }
 
+		public DbSet<Report> Reports { get; set; }
+
 		public DbSet<Tag> Tags { get; set; }
 
 		public DbSet<TagPost> TagsPosts { get; set; }

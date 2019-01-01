@@ -18,6 +18,11 @@ namespace UnprofessionalsApp.Data
 			this.dbset = this.context.Set<TEntity>();
 		}
 
+		public void Add(TEntity entity)
+		{
+			this.dbset.Add(entity);
+		}
+
 		public Task AddAsync(TEntity entity)
 		{
 			return this.dbset.AddAsync(entity);
@@ -31,6 +36,11 @@ namespace UnprofessionalsApp.Data
 		public void Delete(TEntity entity)
 		{
 			this.dbset.Remove(entity);
+		}
+
+		public void SaveChanges()
+		{
+			this.context.SaveChanges();
 		}
 
 		public Task<int> SaveChangesAync()
