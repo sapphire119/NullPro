@@ -21,5 +21,9 @@
 		public virtual ICollection<Message> SentMessages { get; set; } = new HashSet<Message>();
 
 		public virtual ICollection<Message> RecievedMessages { get; set; } = new HashSet<Message>();
+
+		public virtual ICollection<Report> CreatedReports { get; set; } = new HashSet<Report>();
+
+		public virtual ICollection<Report> Reports { get; set; } = new HashSet<Report>();
 	}
 }

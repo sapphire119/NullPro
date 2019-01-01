@@ -23,11 +23,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnprofessionalsApp.DataServ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnprofessionalsApp.ViewInputModels", "..\Services\UnprofessionalsApp.ViewInputModels\UnprofessionalsApp.ViewInputModels.csproj", "{702EE992-BF12-4482-9A5F-3E709CF9554A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnprofessionalsApp.Mapping", "..\Services\UnprofessionalsApp.Mapping\UnprofessionalsApp.Mapping.csproj", "{73D5B23B-71DB-4563-B000-12C9EC62431E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnprofessionalsApp.Mapping", "..\Services\UnprofessionalsApp.Mapping\UnprofessionalsApp.Mapping.csproj", "{73D5B23B-71DB-4563-B000-12C9EC62431E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sandbox", "Sandbox", "{1CA99B33-BE5C-4AB6-A493-3761D0884327}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "..\Tests\Sandbox\Program\Sandbox.csproj", "{B529A791-6F80-4889-AFF0-6F68C355F15E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "..\Tests\Sandbox\Program\Sandbox.csproj", "{B529A791-6F80-4889-AFF0-6F68C355F15E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnprofessionalsApp.DataTransferObjects", "..\Services\UnprofessionalsApp.DataTransferObjects\UnprofessionalsApp.DataTransferObjects.csproj", "{01B9225E-B25E-4C1F-85EA-B4009854B1B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{B529A791-6F80-4889-AFF0-6F68C355F15E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B529A791-6F80-4889-AFF0-6F68C355F15E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B529A791-6F80-4889-AFF0-6F68C355F15E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01B9225E-B25E-4C1F-85EA-B4009854B1B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01B9225E-B25E-4C1F-85EA-B4009854B1B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01B9225E-B25E-4C1F-85EA-B4009854B1B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01B9225E-B25E-4C1F-85EA-B4009854B1B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{73D5B23B-71DB-4563-B000-12C9EC62431E} = {2EAFEB76-3B79-4E8B-A87A-8C9204C54BA3}
 		{1CA99B33-BE5C-4AB6-A493-3761D0884327} = {C8785D32-4679-460D-A2F5-89E1CCA85024}
 		{B529A791-6F80-4889-AFF0-6F68C355F15E} = {1CA99B33-BE5C-4AB6-A493-3761D0884327}
+		{01B9225E-B25E-4C1F-85EA-B4009854B1B5} = {2EAFEB76-3B79-4E8B-A87A-8C9204C54BA3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {66EF6492-C476-49A0-999A-3F97896E78DE}

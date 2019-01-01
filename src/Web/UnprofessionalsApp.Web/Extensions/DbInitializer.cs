@@ -1,8 +1,11 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Xml.Linq;
+using UnprofessionalsApp.Common;
 using UnprofessionalsApp.Data;
 using UnprofessionalsApp.Models;
 
@@ -17,15 +20,29 @@ namespace UnprofessionalsApp.Web.Extensions
 				return;
 			}
 
-			Console.WriteLine("Please Enter the Location of the file");
 			// get the location we want to get the sitemaps from 
-			string dirLoc = @"D:\Downloads\tr030312062018\2018\3";
+			string dirLoc = @"D:\TR\";
+
+			var isDbSeeded = false;
 			// get all teh sitemaps 
-			string[] sitemaps = Directory.GetFiles(dirLoc);
+			List<string> sitemaps = GetFileList("*", dirLoc).ToList();
+
+			if (!sitemaps.All(map => map.EndsWith(".xml")))
+			{
+				var unsupportedFiles = sitemaps.Where(map => !map.EndsWith(".xml")).ToArray();
+
+				throw new Exception($"Folder contains files in unsupported format: " +
+					$"{string.Join(Environment.NewLine, unsupportedFiles)}");
+			}
 
 			// loop through each file 
 			foreach (string sitemap in sitemaps)
 			{
+				if (isDbSeeded)
+				{
+					break;
+				}
+
 				var xmlString = File.ReadAllText(sitemap);
 
 
@@ -33,6 +50,8 @@ namespace UnprofessionalsApp.Web.Extensions
 				XDocument xDoc = XDocument.Parse(xmlString);
 
 				var root = xDoc.Root.Elements();
+
+				var currentFirms = new List<Firm>();
 
 				foreach (var xElement in root)
 				{
@@ -73,16 +92,56 @@ namespace UnprofessionalsApp.Web.Extensions
 								LegalForm = legalForm
 							};
 
-							if (context.Firms.Any(f => f.UniqueFirmId == currentFirm.UniqueFirmId))
+							if (currentFirms.Any(f => 
+									f.Id == currentFirm.Id || f.UniqueFirmId == currentFirm.UniqueFirmId) ||
+								context.Firms.Any(f => 
+									f.Id == currentFirm.Id || f.UniqueFirmId == currentFirm.UniqueFirmId))
 							{
 								continue;
 							}
 
-							context.Firms.Add(currentFirm);
+							currentFirms.Add(currentFirm);
 						}
 
+						context.Firms.AddRange(currentFirms);
 
+						context.SaveChanges();
+
+						if (context.Firms.Count() > 1200)
+						{
+							isDbSeeded = true;
+							break;
+						}
 					}
+
+				}
+			}
+		}
+
+		private static IEnumerable<string> GetFileList(string fileSearchPattern, string rootFolderPath)
+		{
+			Queue<string> pending = new Queue<string>();
+			pending.Enqueue(rootFolderPath);
+			string[] tmp;
+			while (pending.Count > 0)
+			{
+				rootFolderPath = pending.Dequeue();
+				try
+				{
+					tmp = Directory.GetFiles(rootFolderPath, fileSearchPattern);
+				}
+				catch (UnauthorizedAccessException)
+				{
+					continue;
+				}
+				for (int i = 0; i < tmp.Length; i++)
+				{
+					yield return tmp[i];
+				}
+				tmp = Directory.GetDirectories(rootFolderPath);
+				for (int i = 0; i < tmp.Length; i++)
+				{
+					pending.Enqueue(tmp[i]);
 				}
 			}
 		}

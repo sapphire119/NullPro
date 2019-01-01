@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using UnprofessionalsApp.Common;
 using UnprofessionalsApp.Data;
+using UnprofessionalsApp.Models;
 using UnprofessionalsApp.Web.Extensions;
 
 namespace UnprofessionalsApp.Web
