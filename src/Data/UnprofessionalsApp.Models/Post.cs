@@ -21,9 +21,9 @@ namespace UnprofessionalsApp.Models
 
 		public string ImageUrl { get; set; }
 
-		public int Popularity { get; set; } = 0;
+		public int Popularity { get; set; } 
 
-		public int Rating { get; set; } = 0;
+		public int Rating { get; set; }
 
 		public DateTime DateOfCreation { get; set; } = DateTime.UtcNow;
 

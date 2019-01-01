@@ -11,9 +11,9 @@ namespace UnprofessionalsApp.Models
 
 		public string Name { get; set; }
 		
-		public int Popularity { get; set; } = 0;
+		public int Popularity { get; set; }
 
-		public int Rating { get; set; } = 0;
+		public int Rating { get; set; }
 
 		public string LegalForm { get; set; }
 
