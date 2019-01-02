@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="InputModels\" />
+    <Folder Include="ViewModels\Firms\" />
   </ItemGroup>
 
   <ItemGroup>

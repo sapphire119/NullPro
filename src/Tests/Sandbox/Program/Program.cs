@@ -52,60 +52,83 @@ namespace Sandbox
 
 		private static void SandboxCode(IServiceProvider serviceProvider)
 		{
-			Console.WriteLine("Please Enter the Location of the file");
-			// get the location we want to get the sitemaps from 
-			string dirLoc = @"D:\Downloads\tr030312062018\2018\3";
-			// get all teh sitemaps 
-			string[] sitemaps = Directory.GetFiles(dirLoc);
-			StreamWriter sw = new StreamWriter(Directory.GetCurrentDirectory() + @"\locs.txt", true);
+			var test = 246;
+			var pageNumber = 17;
+			var pageNumber1 = 7;
 
-			// loop through each file 
-			foreach (string sitemap in sitemaps)
-			{
-				try
-				{
-					var xmlString = File.ReadAllText(sitemap);
+			var minValuePage = test - (test % 10);
 
+			var maxValuePage = minValuePage + 10;
 
-					// new xdoc instance 
-					XDocument xDoc = XDocument.Parse(xmlString);
+			var test2 = pageNumber - (pageNumber % 10);
+			var test3 = test2 + 10;
 
-					var root = xDoc.Root.Elements();
+			var minLast = pageNumber1 - (pageNumber1 % 10);
+			var maxLast = minLast + 10;
+			//var lower = pageNumber % 10;
 
-					foreach (var xElement in root)
-					{
-						var elements = xElement.Elements().ToArray();
-						if (xElement.Name.LocalName == "Body")
-						{
-							var deedsAll = elements.Elements().ToArray();
+			//var higher = pageNumber % 10;
+			//var higherPage = Math.Ceiling(higher);
 
-							foreach (var deed in deedsAll)
-							{
-								var firmId = deed.Attribute("GUID")?.Value ?? string.Empty;
+			//var lower1 = pageNumber1 % 10;
+			//var lowerPage1 = Math.Floor(lower1);
+			//var higher1 = pageNumber1 % 10;
+			//var higherPage1 = Math.Ceiling(higher1);
 
-								var bulstat = deed.Attribute("UIC")?.Value ?? string.Empty;
+			//Console.WriteLine("Please Enter the Location of the file");
+			//// get the location we want to get the sitemaps from 
+			//string dirLoc = @"D:\Downloads\tr030312062018\2018\3";
+			//// get all teh sitemaps 
+			//string[] sitemaps = Directory.GetFiles(dirLoc);
+			//StreamWriter sw = new StreamWriter(Directory.GetCurrentDirectory() + @"\locs.txt", true);
 
-								var companyName = deed.Attribute("CompanyName")?.Value ?? string.Empty;
-
-								var legalForm = deed.Attribute("LegalForm")?.Value ?? string.Empty;
-
-								if (string.IsNullOrWhiteSpace(firmId) ||
-									string.IsNullOrWhiteSpace(bulstat) ||
-									string.IsNullOrWhiteSpace(companyName) ||
-									string.IsNullOrWhiteSpace(legalForm) )
-								{
-									throw new Exception($"Coudn't save data for firm: \n {deed?.Value ?? string.Empty}");
-								}
+			//// loop through each file 
+			//foreach (string sitemap in sitemaps)
+			//{
+			//	try
+			//	{
+			//		var xmlString = File.ReadAllText(sitemap);
 
 
-							}
-						}
-					}
-				}
-				catch { }
-			}
-			Console.WriteLine("All Done :-)");
-			Console.ReadKey();
+			//		// new xdoc instance 
+			//		XDocument xDoc = XDocument.Parse(xmlString);
+
+			//		var root = xDoc.Root.Elements();
+
+			//		foreach (var xElement in root)
+			//		{
+			//			var elements = xElement.Elements().ToArray();
+			//			if (xElement.Name.LocalName == "Body")
+			//			{
+			//				var deedsAll = elements.Elements().ToArray();
+
+			//				foreach (var deed in deedsAll)
+			//				{
+			//					var firmId = deed.Attribute("GUID")?.Value ?? string.Empty;
+
+			//					var bulstat = deed.Attribute("UIC")?.Value ?? string.Empty;
+
+			//					var companyName = deed.Attribute("CompanyName")?.Value ?? string.Empty;
+
+			//					var legalForm = deed.Attribute("LegalForm")?.Value ?? string.Empty;
+
+			//					if (string.IsNullOrWhiteSpace(firmId) ||
+			//						string.IsNullOrWhiteSpace(bulstat) ||
+			//						string.IsNullOrWhiteSpace(companyName) ||
+			//						string.IsNullOrWhiteSpace(legalForm) )
+			//					{
+			//						throw new Exception($"Coudn't save data for firm: \n {deed?.Value ?? string.Empty}");
+			//					}
+
+
+			//				}
+			//			}
+			//		}
+			//	}
+			//	catch { }
+			//}
+			//Console.WriteLine("All Done :-)");
+			//Console.ReadKey();
 		}
 
 		private static void ConfigureServices(ServiceCollection services)

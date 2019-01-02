@@ -3,16 +3,35 @@
 @{
 	ViewData["Title"] = "All Firms Page";
 	var counter = 1;
+
+	var pageMinLength = Model.CurrentPage - (Model.CurrentPage % 10);
+	var pageMaxLength = Model.ResultPerPage + pageMinLength - 1;
+	if (pageMaxLength > Model.TotalPages)
+	{
+		pageMaxLength = Model.TotalPages;
+	}
 }
 
-<div class="dropdown">
-	<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		Select Page Size
-	</button>
-	<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-		<a class="dropdown-item" asp-page="/firms/index" asp-route-pageSize="10">10</a>
-		<a class="dropdown-item" asp-page="/firms/index" asp-route-pageSize="20">20</a>
-		<a class="dropdown-item" asp-page="/firms/index" asp-route-pageSize="50">50</a>
+<div class="d-flex justify-content-between">
+	<div class="dropdown col-md-3">
+		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Select Page Size
+		</button>
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			<a class="dropdown-item" asp-page="/firms/index" asp-route-pageSize="10">10</a>
+			<a class="dropdown-item" asp-page="/firms/index" asp-route-pageSize="20">20</a>
+			<a class="dropdown-item" asp-page="/firms/index" asp-route-pageSize="50">50</a>
+		</div>
+	</div>
+	<div class="dropdown">
+		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Order by
+		</button>
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			<a class="dropdown-item" asp-page="/firms/index" asp-route-pageSize="10">10</a>
+			<a class="dropdown-item" asp-page="/firms/index" asp-route-pageSize="20">20</a>
+			<a class="dropdown-item" asp-page="/firms/index" asp-route-pageSize="50">50</a>
+		</div>
 	</div>
 </div>
 <table class="table table-hover">
@@ -30,7 +49,7 @@
 		@foreach (var firm in Model.Data)
 		{
 			<tr>
-				<th scope="row">@(counter++)</th>
+				<th scope="row">@((counter++) + ((Model.CurrentPage - 1) * Model.PageSize))</th>
 				<td><a asp-page="/firms/details" asp-route-firmId="@firm.Id">@firm.UniqueFirmId</a></td>
 				<td>@firm.Name</td>
 				<td>@firm.Popularity</td>
@@ -45,8 +64,10 @@
 		<li class="page-item @(Model.CurrentPage - 1 <= 0 ? "disabled" : "")">
 			<a asp-page="/firms/index" asp-route-pageSize="@(Model.PageSize)" asp-route-currentpage="@(Model.CurrentPage - 1)" class="page-link">Previous</a>
 		</li>
-		@for (var pageId = 1; pageId <= Model.TotalPages; pageId++)
+		@for (var pageId = pageMinLength; pageId <= pageMaxLength; pageId++)
 		{
+			if (pageId == 0) { pageId++; }
+
 			<li class="page-item @(pageId == Model.CurrentPage ? "active" : "")">
 				<a asp-page="/firms/index" asp-route-pageSize="@(Model.PageSize)" asp-route-currentpage="@pageId" class="page-link">@pageId</a>
 			</li>
@@ -56,3 +77,4 @@
 		</li>
 	</ul>
 </nav>
+

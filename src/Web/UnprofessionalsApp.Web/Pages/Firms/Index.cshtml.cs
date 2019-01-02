@@ -26,6 +26,9 @@ namespace UnprofessionalsApp.Web.Pages.Firms
 		[BindProperty(SupportsGet = true)]
 		public int PageSize { get; set; } = 10;
 
+		[BindProperty(SupportsGet = true)]
+		public int ResultPerPage { get; set; } = 10;
+
 		public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
 
 		public List<FirmViewModel> Data { get; set; }

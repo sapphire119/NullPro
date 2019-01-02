@@ -22,7 +22,7 @@ namespace UnprofessionalsApp.Web
 		{
 			var host = CreateWebHostBuilder(args).Build();
 
-			//SeedData(host);
+			SeedData(host);
 
 			host.Run();
 		}
@@ -42,6 +42,8 @@ namespace UnprofessionalsApp.Web
 					var context = services.GetRequiredService<UnprofessionalsDbContext>();
 
 					DbInitializer.Initialize(context);
+					DbInitializer.CreateUserRoles(services).GetAwaiter().GetResult();
+					
 				}
 				catch (Exception ex)
 				{

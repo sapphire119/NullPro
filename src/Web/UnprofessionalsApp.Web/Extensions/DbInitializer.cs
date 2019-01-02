@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using UnprofessionalsApp.Common;
 using UnprofessionalsApp.Data;
@@ -115,6 +118,49 @@ namespace UnprofessionalsApp.Web.Extensions
 			context.AddRange(currentFirms);
 
 			context.SaveChanges();
+		}
+
+		public static async Task CreateUserRoles(IServiceProvider serviceProvider)
+		{
+			var userManager = serviceProvider.GetRequiredService<UserManager<UnprofessionalsAppUser>>();
+			var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
+
+			if (roleManager.Roles.Any())
+			{
+				return;
+			}
+
+			IdentityResult roleResult;
+
+			foreach (var roleName in ProjectConstants.ApprovedRoles)
+			{
+				var roleExist = await roleManager.RoleExistsAsync(roleName);
+				if (!roleExist)
+				{
+					//create the roles and seed them to the database: Question 1
+					roleResult = await roleManager.CreateAsync(new IdentityRole<int>(roleName));
+				}
+			}
+
+			//Here you could create a super user who will maintain the web app
+			var poweruser = new UnprofessionalsAppUser
+			{
+				UserName = /*Configuration["AppSettings:UserName"]*/"admin",
+				Email = /*Configuration["AppSettings:UserEmail"]*/"admin@admin.admin",
+			};
+			//Ensure you have these values in your appsettings.json file
+			string userPWD = /*Configuration["AppSettings:UserPassword"]*/ "asd123";
+			var _user = await userManager.FindByNameAsync("admin");
+
+			if (_user == null)
+			{
+				var createPowerUser = await userManager.CreateAsync(poweruser, userPWD);
+				if (createPowerUser.Succeeded)
+				{
+					//here we tie the new user to the role
+					await userManager.AddToRoleAsync(poweruser, ProjectConstants.AdminRole);
+				}
+			}
 		}
 
 		private static IEnumerable<string> GetFileList(string fileSearchPattern, string rootFolderPath)

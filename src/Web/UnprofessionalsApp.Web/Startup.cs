@@ -111,44 +111,5 @@
 			});
 
 		}
-
-		private async Task CreateUserRoles(IServiceProvider serviceProvider)
-		{
-			var userManager = serviceProvider.GetRequiredService<UserManager<UnprofessionalsAppUser>>();
-			var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
-
-			IdentityResult roleResult;
-
-			foreach (var roleName in ProjectConstants.ApprovedRoles)
-			{
-				var roleExist = await roleManager.RoleExistsAsync(roleName);
-				if (!roleExist)
-				{
-					//create the roles and seed them to the database: Question 1
-					roleResult = await roleManager.CreateAsync(new IdentityRole<int>(roleName));
-				}
-			}
-
-			//Here you could create a super user who will maintain the web app
-			var poweruser = new UnprofessionalsAppUser
-			{
-				UserName = /*Configuration["AppSettings:UserName"]*/"admin",
-				Email = /*Configuration["AppSettings:UserEmail"]*/"admin@admin.admin",
-			};
-			//Ensure you have these values in your appsettings.json file
-			string userPWD = /*Configuration["AppSettings:UserPassword"]*/ "asd123";
-			var _user = await userManager.FindByNameAsync("admin");
-
-			if (_user == null)
-			{
-				var createPowerUser = await userManager.CreateAsync(poweruser, userPWD);
-				if (createPowerUser.Succeeded)
-				{
-					//here we tie the new user to the role
-					await userManager.AddToRoleAsync(poweruser, ProjectConstants.AdminRole);
-
-				}
-			}
-		}
 	}
 }
