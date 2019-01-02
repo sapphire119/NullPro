@@ -7,6 +7,10 @@ namespace UnprofessionalsApp.DataServices.Contracts
 	{
 		TViewModel GetPostById<TViewModel>(int id);
 
-		IEnumerable<PostViewModel> GetAllPosts();
+		//IEnumerable<PostViewModel> GetAllPosts(int currentPage, int pageSize);
+
+		IEnumerable<PostViewModel> GetAllPostsForCurrentPage(int pageId, int pageSize, string orderByParam, string ordering);
+
+		int GetAllPostsCount();
 	}
 }
