@@ -19,19 +19,133 @@ namespace UnprofessionalsApp.Web.Extensions
 		public static void Initialize(UnprofessionalsDbContext context, IServiceProvider services)
 		{
 			SeedFirms(context);
-			//SeedPosts(context);
-			//SeedCategories(context);
-			//SeedUsers(context);
+			SeedCategories(context);
+			SeedRolesAndUsers(services, context).GetAwaiter().GetResult();
+			SeedPosts(context);
 			//SeedComments(context);
-			SeedRolesWithPowerUser(services).GetAwaiter().GetResult();
+		}
+
+		private static void SeedPosts(UnprofessionalsDbContext context)
+		{
+			if (context.Posts.Any()) return;
+
+			var post = new Post {
+				CategoryId = 1,
+				UserId = 1,
+				Description = "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop p",
+				Title = "Lorem ipsum",
+				ImageUrl = WebUtility.UrlEncode(@"https://antitrustlair.files.wordpress.com/2013/02/post_danmark.jpg"),  };
+
+			var post1 = new Post
+			{
+				CategoryId = 2,
+				UserId = 2,
+				Description = "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop p",
+				Title = "Ipsum Lorem",
+				ImageUrl = WebUtility.UrlEncode(@"https://wallpaperbrowse.com/media/images/soap-bubble-1958650_960_720.jpg"),
+			};
+			var post2 = new Post
+			{
+				CategoryId = 4,
+				UserId = 3,
+				Description = "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop p",
+				Title = "Ipsum Lorem",
+				ImageUrl = WebUtility.UrlEncode(@"https://wallpaperbrowse.com/media/images/3848765-wallpaper-images-download.jpg"),
+			};
+
+			var post3 = new Post
+			{
+				CategoryId = 7,
+				UserId = 4,
+				Description = "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop p",
+				Title = "Ipsum Lorem",
+				ImageUrl = WebUtility.UrlEncode(@"https://www.w3schools.com/w3css/img_lights.jpg"),
+			};
+
+			var post4 = new Post
+			{
+				CategoryId = 6,
+				UserId = 1,
+				DateOfCreation = DateTime.UtcNow.AddDays(-10),
+				Description = "Test Post for date time",
+				Title = "Test Date TIme",
+				ImageUrl = WebUtility.UrlEncode(@"http://farm4.static.flickr.com/3658/3349010639_f9e507d05e.jpg"),
+			};
+
+			var post5 = new Post
+			{
+				CategoryId = 3,
+				UserId = 1,
+				DateOfCreation = DateTime.UtcNow.AddDays(-15),
+				Description = "Test Post for no image",
+				Title = "Test for no image",
+				ImageUrl = string.Empty
+			};
+
+			var posts = new List<Post>()
+			{
+				post,
+				post1,
+				post2,
+				post3,
+				post4,
+				post5
+			};
+
+			context.Posts.AddRange(posts);
+
+			context.SaveChanges();
+		}
+
+		private static void SeedCategories(UnprofessionalsDbContext context)
+		{
+			if (context.Categories.Any()) return;
+
+
+			var category = new Category { Name = "Machinery" };
+			var category1 = new Category { Name = "Finance" };
+			var category2 = new Category { Name = "Education" };
+			var category3 = new Category { Name = "Services" };
+			var category4 = new Category { Name = "Foods" };
+			var category5 = new Category { Name = "Hotels" };
+			var category6 = new Category { Name = "Restaurants" };
+			var category7 = new Category { Name = "Industrial" };
+			var category8 = new Category { Name = "Economy" };
+			var category9 = new Category { Name = "Culture" };
+			var category10 = new Category { Name = "Art" };
+			var category11 = new Category { Name = "Entertainment" };
+			var category12 = new Category { Name = "Inforamtion" };
+			var category13 = new Category { Name = "IT" };
+			var category14 = new Category { Name = "Specialized services" };
+
+			var categories = new List<Category>
+			{
+				category,
+				category1,
+				category2,
+				category3,
+				category4,
+				category5,
+				category6,
+				category7,
+				category8,
+				category9,
+				category10,
+				category11,
+				category12,
+				category13,
+				category14,
+			};
+
+			context.Categories.AddRange(categories);
+
+			context.SaveChanges();
 		}
 
 		private static void SeedFirms(UnprofessionalsDbContext context)
 		{
-			if (context.Firms.Any())
-			{
-				return;
-			}
+			if (context.Firms.Any()) return;
+			
 
 			// get the location we want to get the sitemaps from 
 			string dirLoc = @"D:\TR\";
@@ -130,33 +244,18 @@ namespace UnprofessionalsApp.Web.Extensions
 			context.SaveChanges();
 		}
 
-		private static async Task SeedRolesWithPowerUser(IServiceProvider services)
+		private static async Task SeedRolesAndUsers(IServiceProvider services, UnprofessionalsDbContext context)
 		{
+			if (context.Roles.Any()) return;
 			await CreateUserRoles(services);
+
+			if (context.Users.Any()) return;
+			await CreatePowerUser(services);
 		}
 
-		private static async Task CreateUserRoles(IServiceProvider serviceProvider)
+		private static async Task CreatePowerUser(IServiceProvider serviceProvider)
 		{
 			var userManager = serviceProvider.GetRequiredService<UserManager<UnprofessionalsAppUser>>();
-			var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
-
-			if (roleManager.Roles.Any())
-			{
-				return;
-			}
-
-			IdentityResult roleResult;
-
-			foreach (var roleName in ProjectConstants.ApprovedRoles)
-			{
-				var roleExist = await roleManager.RoleExistsAsync(roleName);
-				if (!roleExist)
-				{
-					//create the roles and seed them to the database: Question 1
-					roleResult = await roleManager.CreateAsync(new IdentityRole<int>(roleName));
-				}
-			}
-
 			//Here you could create a super user who will maintain the web app
 			var poweruser = new UnprofessionalsAppUser
 			{
@@ -174,6 +273,91 @@ namespace UnprofessionalsApp.Web.Extensions
 				{
 					//here we tie the new user to the role
 					await userManager.AddToRoleAsync(poweruser, ProjectConstants.AdminRole);
+				}
+			}
+
+			var user = new UnprofessionalsAppUser
+			{
+				UserName = "Pesho",
+				Email = "asd@asd.asd"
+			};
+
+			var user1 = new UnprofessionalsAppUser
+			{
+				UserName = "Stamat",
+				Email = "asd@asd.dsa"
+			};
+			var user2 = new UnprofessionalsAppUser
+			{
+				UserName = "Gosho",
+				Email = "asd@dsa.asd"
+			};
+			var user3 = new UnprofessionalsAppUser
+			{
+				UserName = "Ivan",
+				Email = "asd@dsa.dsa"
+			};
+			var user4 = new UnprofessionalsAppUser
+			{
+				UserName = "Dimitar",
+				Email = "dsa@asd.asd"
+			};
+
+			var createUser = await userManager.CreateAsync(user, userPWD);
+			if (createUser.Succeeded)
+			{
+				//here we tie the new user to the role
+				await userManager.AddToRoleAsync(user, ProjectConstants.UserRole);
+			}
+
+			var createUser1 = await userManager.CreateAsync(user1, userPWD);
+			if (createUser.Succeeded)
+			{
+				//here we tie the new user to the role
+				await userManager.AddToRoleAsync(user1, ProjectConstants.UserRole);
+			}
+
+			var createUser2 = await userManager.CreateAsync(user2, userPWD);
+			if (createUser.Succeeded)
+			{
+				//here we tie the new user to the role
+				await userManager.AddToRoleAsync(user2, ProjectConstants.UserRole);
+			}
+
+			var createUser3 = await userManager.CreateAsync(user3, userPWD);
+			if (createUser.Succeeded)
+			{
+				//here we tie the new user to the role
+				await userManager.AddToRoleAsync(user3, ProjectConstants.UserRole);
+			}
+
+			var createUser4 = await userManager.CreateAsync(user4, userPWD);
+			if (createUser.Succeeded)
+			{
+				//here we tie the new user to the role
+				await userManager.AddToRoleAsync(user4, ProjectConstants.UserRole);
+			}
+
+		}
+
+		private static async Task CreateUserRoles(IServiceProvider serviceProvider)
+		{
+			var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
+
+			if (roleManager.Roles.Any())
+			{
+				return;
+			}
+
+			IdentityResult roleResult;
+
+			foreach (var roleName in ProjectConstants.ApprovedRoles)
+			{
+				var roleExist = await roleManager.RoleExistsAsync(roleName);
+				if (!roleExist)
+				{
+					//create the roles and seed them to the database: Question 1
+					roleResult = await roleManager.CreateAsync(new IdentityRole<int>(roleName));
 				}
 			}
 		}
