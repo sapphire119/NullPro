@@ -1,0 +1,68 @@
+﻿@page "{sortBy=Id}/{ordering=ascending}/{currentPage=1}"
+
+@using System.Globalization;
+@model UnprofessionalsApp.Web.Pages.Posts.IndexModel
+
+@{
+	ViewData["Title"] = "All posts";
+}
+
+<h1 class="mt-4 mb-3">
+	Blog Home Two
+	<small>Subheading</small>
+</h1>
+<ol class="breadcrumb">
+	<li class="breadcrumb-item">
+		<a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+	</li>
+	<li class="breadcrumb-item active">Posts</li>
+</ol>
+
+<div class="d-flex justify-content-between">
+	<div class="dropdown">
+		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Order by
+		</button>
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			<a class="dropdown-item sort-link" asp-page="/posts/index" asp-route-currentpage="@Model.CurrentPage" asp-route-sortby="DateOfCreation" asp-route-ordering="descending">Newest posts</a>
+			<a class="dropdown-item sort-link" asp-page="/posts/index" asp-route-currentpage="@Model.CurrentPage" asp-route-sortby="DateOfCreation" asp-route-ordering="ascending">Older posts</a>
+			<a class="dropdown-item sort-link" asp-page="/posts/index" asp-route-currentpage="@Model.CurrentPage" asp-route-sortby="Title" asp-route-ordering="ascending">Title &uarr;</a>
+			<a class="dropdown-item sort-link" asp-page="/posts/index" asp-route-currentpage="@Model.CurrentPage" asp-route-sortby="Title" asp-route-ordering="descending">Title &darr;</a>
+		</div>
+	</div>
+</div>
+
+@foreach (var postModel in Model.Data)
+{
+	<div class="card mb-4">
+		<div class="card-body">
+			<div class="row">
+				<div class="col-lg-6">
+					<a asp-controller="Posts" asp-action="Details">
+						<img class="rounded" alt="Image for Post" height="300" width="350" src="@postModel.ImageUrl">
+					</a>
+				</div>
+				<div class="col-lg-6">
+					<h2 class="card-title">@postModel.Title</h2>
+					<p class="card-text">@postModel.Description</p>
+					<a asp-controller="Posts" asp-action="Details" asp-route-id="@postModel.Id" class="btn btn-primary">Read More &rarr;</a>
+				</div>
+			</div>
+		</div>
+		<div class="card-footer text-muted">
+			Posted on @postModel.DateOfCreation.ToString(@"d MMMM, yyyy", CultureInfo.InvariantCulture) by
+			<a asp-area="Identity" asp-page="/Account/Details" asp-route-id="@(postModel.UserId)">@postModel.Username</a>
+		</div>
+	</div>
+}
+
+	<nav aria-label="Page navigation example">
+		<ul class="pagination pg-blue justify-content-center">
+			<li class="page-item @(Model.CurrentPage - 1 <= 0 ? "disabled" : "")">
+				<a asp-page="/posts/index" asp-route-currentpage="@(Model.CurrentPage - 1)" asp-route-sortby="@Model.SortBy" asp-route-ordering="@Model.Ordering" class="page-link">&laquo; Newer</a>
+			</li>
+			<li class="page-item @(Model.CurrentPage + 1 > Model.TotalPages ? "disabled" : "")">
+				<a asp-page="/posts/index" asp-route-currentpage="@(Model.CurrentPage + 1)" asp-route-sortby="@Model.SortBy" asp-route-ordering="@Model.Ordering" class="page-link">Older &raquo;</a>
+			</li>
+		</ul>
+	</nav>
