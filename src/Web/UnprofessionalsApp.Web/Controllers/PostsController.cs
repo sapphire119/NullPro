@@ -22,23 +22,23 @@
 		 * 
 		 */
 
-		public IActionResult Index() //This is all posts page
-		{
-			var model = this.postsService.GetAllPosts();
-			//TODO: Implement ordering for posts
+		//public IActionResult Index() //This is all posts page
+		//{
+		//	var model = this.postsService.GetAllPosts();
+		//	//TODO: Implement ordering for posts
 
-			/*
-			 * All logic should include:
-			 * -- view posts in a table (list)
-			 * -- be able to click on a post's name and href to post Details
-			 * -- view post popularity
-			 * -- view post rating
-			 * -- view post creator and href to his details page on click.
-			 * -- Implement ordering by: date, popularity
-			 */
+		//	/*
+		//	 * All logic should include:
+		//	 * -- view posts in a table (list)
+		//	 * -- be able to click on a post's name and href to post Details
+		//	 * -- view post popularity
+		//	 * -- view post rating
+		//	 * -- view post creator and href to his details page on click.
+		//	 * -- Implement ordering by: date, popularity
+		//	 */
 
-			return this.View(model);
-		}
+		//	return this.View(model);
+		//}
 
 		[Authorize]
 		public async Task<IActionResult> Create()
