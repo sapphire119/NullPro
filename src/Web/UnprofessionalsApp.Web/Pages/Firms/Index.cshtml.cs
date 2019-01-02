@@ -17,25 +17,40 @@ namespace UnprofessionalsApp.Web.Pages.Firms
 		{
 			this.firmsService = firmsService;
 		}
-
+		
+		//Data Validation: Validate me
 		[BindProperty(SupportsGet = true)]
 		public int CurrentPage { get; set; } = 1;
 
 		public int Count { get; set; }
 
+		//Data Validation: Validate me
 		[BindProperty(SupportsGet = true)]
 		public int PageSize { get; set; } = 10;
 
+		//Data Validation: Validate me !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		[BindProperty(SupportsGet =true)]
+		public string SortBy { get; set; }
+
+		//Data Validation: Validate me !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		[BindProperty(SupportsGet = true)]
+		public string Ordering { get; set; }
+
+		//[BindProperty(SupportsGet = true)]
 		public int ResultPerPage { get; set; } = 10;
 
 		public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
 
-		public List<FirmViewModel> Data { get; set; }
+		public IEnumerable<FirmViewModel> Data { get; set; }
 
-		public void OnGetAsync()
+		[BindProperty(SupportsGet = true)]
+		public bool DateOfRegistration { get; set; }
+
+		public void OnGet()
         {
-			this.Data = this.firmsService.GetAllFirmsForCurrentPage(CurrentPage, PageSize).ToList();
+			this.Data = this.firmsService.GetAllFirmsForCurrentPage(
+				this.CurrentPage, this.PageSize, this.SortBy, this.Ordering).ToList();
+
 			this.Count = this.firmsService.GetAllFirmsCount();
         }
     }
