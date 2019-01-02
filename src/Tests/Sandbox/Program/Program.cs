@@ -52,19 +52,6 @@ namespace Sandbox
 
 		private static void SandboxCode(IServiceProvider serviceProvider)
 		{
-			var test = 246;
-			var pageNumber = 17;
-			var pageNumber1 = 7;
-
-			var minValuePage = test - (test % 10);
-
-			var maxValuePage = minValuePage + 10;
-
-			var test2 = pageNumber - (pageNumber % 10);
-			var test3 = test2 + 10;
-
-			var minLast = pageNumber1 - (pageNumber1 % 10);
-			var maxLast = minLast + 10;
 			//var lower = pageNumber % 10;
 
 			//var higher = pageNumber % 10;

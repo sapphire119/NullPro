@@ -73,8 +73,7 @@ namespace UnprofessionalsApp.Data.Migrations
                     Name = table.Column<string>(nullable: false),
                     Popularity = table.Column<int>(nullable: false),
                     Rating = table.Column<int>(nullable: false),
-                    LegalForm = table.Column<string>(nullable: false),
-                    UrlToTradersRegistry = table.Column<string>(nullable: false)
+                    LegalForm = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -242,8 +241,7 @@ namespace UnprofessionalsApp.Data.Migrations
                     DateOfCreation = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false),
-                    FirmId = table.Column<int>(nullable: true),
-                    FirmId1 = table.Column<Guid>(nullable: true)
+                    FirmId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -255,8 +253,8 @@ namespace UnprofessionalsApp.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Posts_Firms_FirmId1",
-                        column: x => x.FirmId1,
+                        name: "FK_Posts_Firms_FirmId",
+                        column: x => x.FirmId,
                         principalTable: "Firms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -350,6 +348,62 @@ namespace UnprofessionalsApp.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Reports",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Description = table.Column<string>(nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: false),
+                    CommentId = table.Column<int>(nullable: true),
+                    PostId = table.Column<int>(nullable: true),
+                    ReplyId = table.Column<int>(nullable: true),
+                    FirmId = table.Column<Guid>(nullable: true),
+                    ReportedUserId = table.Column<int>(nullable: true),
+                    UserId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reports", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reports_Comments_CommentId",
+                        column: x => x.CommentId,
+                        principalTable: "Comments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reports_Firms_FirmId",
+                        column: x => x.FirmId,
+                        principalTable: "Firms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reports_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reports_Replies_ReplyId",
+                        column: x => x.ReplyId,
+                        principalTable: "Replies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reports_AspNetUsers_ReportedUserId",
+                        column: x => x.ReportedUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reports_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -415,9 +469,9 @@ namespace UnprofessionalsApp.Data.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_FirmId1",
+                name: "IX_Posts_FirmId",
                 table: "Posts",
-                column: "FirmId1");
+                column: "FirmId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_UserId",
@@ -432,6 +486,36 @@ namespace UnprofessionalsApp.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Replies_UserId",
                 table: "Replies",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reports_CommentId",
+                table: "Reports",
+                column: "CommentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reports_FirmId",
+                table: "Reports",
+                column: "FirmId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reports_PostId",
+                table: "Reports",
+                column: "PostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reports_ReplyId",
+                table: "Reports",
+                column: "ReplyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reports_ReportedUserId",
+                table: "Reports",
+                column: "ReportedUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reports_UserId",
+                table: "Reports",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -461,7 +545,7 @@ namespace UnprofessionalsApp.Data.Migrations
                 name: "Messages");
 
             migrationBuilder.DropTable(
-                name: "Replies");
+                name: "Reports");
 
             migrationBuilder.DropTable(
                 name: "TagsPosts");
@@ -470,10 +554,13 @@ namespace UnprofessionalsApp.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Comments");
+                name: "Replies");
 
             migrationBuilder.DropTable(
                 name: "Tags");
+
+            migrationBuilder.DropTable(
+                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "Posts");

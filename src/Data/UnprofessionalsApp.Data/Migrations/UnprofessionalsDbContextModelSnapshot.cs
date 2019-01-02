@@ -224,9 +224,7 @@ namespace UnprofessionalsApp.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int?>("FirmId");
-
-                    b.Property<Guid?>("FirmId1");
+                    b.Property<Guid?>("FirmId");
 
                     b.Property<string>("ImageUrl");
 
@@ -242,7 +240,7 @@ namespace UnprofessionalsApp.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("FirmId1");
+                    b.HasIndex("FirmId");
 
                     b.HasIndex("UserId");
 
@@ -476,7 +474,7 @@ namespace UnprofessionalsApp.Data.Migrations
 
                     b.HasOne("UnprofessionalsApp.Models.Firm", "Firm")
                         .WithMany("Posts")
-                        .HasForeignKey("FirmId1");
+                        .HasForeignKey("FirmId");
 
                     b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser", "User")
                         .WithMany("Posts")

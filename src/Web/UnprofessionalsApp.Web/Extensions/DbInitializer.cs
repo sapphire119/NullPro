@@ -16,7 +16,17 @@ namespace UnprofessionalsApp.Web.Extensions
 {
 	public static class DbInitializer
 	{
-		public static void Initialize(UnprofessionalsDbContext context)
+		public static void Initialize(UnprofessionalsDbContext context, IServiceProvider services)
+		{
+			SeedFirms(context);
+			//SeedPosts(context);
+			//SeedCategories(context);
+			//SeedUsers(context);
+			//SeedComments(context);
+			SeedRolesWithPowerUser(services).GetAwaiter().GetResult();
+		}
+
+		private static void SeedFirms(UnprofessionalsDbContext context)
 		{
 			if (context.Firms.Any())
 			{
@@ -96,7 +106,7 @@ namespace UnprofessionalsApp.Web.Extensions
 								LegalForm = legalForm
 							};
 
-							if (currentFirms.Any(f => 
+							if (currentFirms.Any(f =>
 									f.Id == currentFirm.Id || f.UniqueFirmId == currentFirm.UniqueFirmId))
 							{
 								continue;
@@ -120,7 +130,12 @@ namespace UnprofessionalsApp.Web.Extensions
 			context.SaveChanges();
 		}
 
-		public static async Task CreateUserRoles(IServiceProvider serviceProvider)
+		private static async Task SeedRolesWithPowerUser(IServiceProvider services)
+		{
+			await CreateUserRoles(services);
+		}
+
+		private static async Task CreateUserRoles(IServiceProvider serviceProvider)
 		{
 			var userManager = serviceProvider.GetRequiredService<UserManager<UnprofessionalsAppUser>>();
 			var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();

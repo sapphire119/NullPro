@@ -22,6 +22,10 @@
 
 			builder.Property(e => e.Popularity);
 
+			builder.HasOne(e => e.Firm)
+				.WithMany(f => f.Posts)
+				.HasForeignKey(e => e.FirmId);
+
 			builder.HasOne(e => e.Category)
 				.WithMany(c => c.Posts);
 

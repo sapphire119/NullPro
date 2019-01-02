@@ -35,7 +35,7 @@ namespace UnprofessionalsApp.Models
 
 		public virtual Category Category { get; set; }
 
-		public int? FirmId { get; set; }
+		public Guid? FirmId { get; set; }
 
 		public virtual Firm Firm { get; set; }
 

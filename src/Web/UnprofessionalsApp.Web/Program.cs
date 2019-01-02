@@ -41,8 +41,7 @@ namespace UnprofessionalsApp.Web
 				{
 					var context = services.GetRequiredService<UnprofessionalsDbContext>();
 
-					DbInitializer.Initialize(context);
-					DbInitializer.CreateUserRoles(services).GetAwaiter().GetResult();
+					DbInitializer.Initialize(context, services);
 					
 				}
 				catch (Exception ex)

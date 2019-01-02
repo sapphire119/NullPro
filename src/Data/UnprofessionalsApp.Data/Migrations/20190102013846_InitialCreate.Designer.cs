@@ -10,8 +10,8 @@ using UnprofessionalsApp.Data;
 namespace UnprofessionalsApp.Data.Migrations
 {
     [DbContext(typeof(UnprofessionalsDbContext))]
-    [Migration("20181230191908_RemovedUnnecessaryProperty")]
-    partial class RemovedUnnecessaryProperty
+    [Migration("20190102013846_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -226,9 +226,7 @@ namespace UnprofessionalsApp.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int?>("FirmId");
-
-                    b.Property<Guid?>("FirmId1");
+                    b.Property<Guid?>("FirmId");
 
                     b.Property<string>("ImageUrl");
 
@@ -244,7 +242,7 @@ namespace UnprofessionalsApp.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("FirmId1");
+                    b.HasIndex("FirmId");
 
                     b.HasIndex("UserId");
 
@@ -274,6 +272,46 @@ namespace UnprofessionalsApp.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Replies");
+                });
+
+            modelBuilder.Entity("UnprofessionalsApp.Models.Report", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CommentId");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<Guid?>("FirmId");
+
+                    b.Property<int?>("PostId");
+
+                    b.Property<int?>("ReplyId");
+
+                    b.Property<int?>("ReportedUserId");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("FirmId");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("ReplyId");
+
+                    b.HasIndex("ReportedUserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reports");
                 });
 
             modelBuilder.Entity("UnprofessionalsApp.Models.Tag", b =>
@@ -438,7 +476,7 @@ namespace UnprofessionalsApp.Data.Migrations
 
                     b.HasOne("UnprofessionalsApp.Models.Firm", "Firm")
                         .WithMany("Posts")
-                        .HasForeignKey("FirmId1");
+                        .HasForeignKey("FirmId");
 
                     b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser", "User")
                         .WithMany("Posts")
@@ -457,6 +495,35 @@ namespace UnprofessionalsApp.Data.Migrations
                         .WithMany("Replies")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("UnprofessionalsApp.Models.Report", b =>
+                {
+                    b.HasOne("UnprofessionalsApp.Models.Comment", "Comment")
+                        .WithMany("Reports")
+                        .HasForeignKey("CommentId");
+
+                    b.HasOne("UnprofessionalsApp.Models.Firm", "Firm")
+                        .WithMany("Reports")
+                        .HasForeignKey("FirmId");
+
+                    b.HasOne("UnprofessionalsApp.Models.Post", "Post")
+                        .WithMany("Reports")
+                        .HasForeignKey("PostId");
+
+                    b.HasOne("UnprofessionalsApp.Models.Reply", "Reply")
+                        .WithMany("Reports")
+                        .HasForeignKey("ReplyId");
+
+                    b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser", "ReportedUser")
+                        .WithMany("Reports")
+                        .HasForeignKey("ReportedUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser", "User")
+                        .WithMany("CreatedReports")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("UnprofessionalsApp.Models.TagPost", b =>
