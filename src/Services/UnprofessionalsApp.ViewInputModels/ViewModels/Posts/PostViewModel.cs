@@ -22,6 +22,8 @@
 
 		public int UserId { get; set; }
 
+		public string Username { get; set; }
+
 		public string ImageUrl
 		{
 			get
@@ -41,6 +43,9 @@
 				.ForMember(x => x.ImageUrl,
 					x => x.MapFrom(
 						p => string.IsNullOrWhiteSpace(p.ImageUrl) ? ProjectConsants.DefaultImageUrl : p.ImageUrl))
+				.ForMember(x => x.Username, 
+					x => x.MapFrom(
+						p => p.User.UserName))
 				//.ForMember(x => x.DateOfCreation,
 				//	x => x.MapFrom(
 				//			p => p.DateOfCreation.ToString(@"d MMMM, yyyy", CultureInfo.InvariantCulture)))
