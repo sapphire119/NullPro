@@ -1,0 +1,48 @@
+﻿@page
+@model UnprofessionalsApp.Web.Pages.Categories.IndexModel
+@{
+	ViewData["Title"] = "All Categories";
+	var counter = 0;
+}
+
+<h1>All Categories</h1>
+<div class="row">
+	@for (var i = 0; i < Model.LettersToPrint.Count(); i++)
+	{
+		var currentLetter = Model.LettersToPrint[i];
+
+		if (counter != 0 && counter % 5 == 0)
+		{
+			@(Html.Raw("</div>"));
+			counter = 0;
+			@(Html.Raw("<div class=row>"));
+		}
+		<div class="col-md">
+			<h4>
+				@(currentLetter)
+			</h4>
+			<hr class="my-0 bg-success" style="width:2px;" />
+			<div class="container">
+				@foreach (var category in Model.Categories)
+				{
+					if (category.Name.StartsWith(currentLetter))
+					{
+						<div class="row"><a href="#">@(category.Name)</a></div>
+					}
+				}
+			</div>
+		</div>
+
+		counter += 1;
+
+		if (i == Model.LettersToPrint.Count() - 1)
+		{
+			var timesToPrint = 5 - counter;
+
+			@for (int j = 0; j < timesToPrint; j++)
+			{
+				<div class="col-md"></div>
+			}
+		}
+	}
+</div>
