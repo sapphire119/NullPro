@@ -22,10 +22,12 @@ namespace UnprofessionalsApp.Web.Pages.Categories
 
 		public IEnumerable<CategoryViewModel> Categories { get; set; }
 
-		public async Task OnGetAsync()
+		public async Task<IActionResult> OnGetAsync()
         {
 			this.Categories = await this.categoriesService.GetAllCategories();
 			this.LettersToPrint = await this.categoriesService.GetExistingStartingLettersForAllCategories();
+
+			return this.Page();
         }
     }
 }

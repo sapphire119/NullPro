@@ -27,7 +27,7 @@
 				{
 					if (category.Name.StartsWith(currentLetter))
 					{
-						<div class="row"><a href="#">@(category.Name)</a></div>
+						<div class="row"><a asp-page="/categories/details" asp-route-categoryId="@(category.Id)" asp-route-categoryName="@(category.Name)">@(category.Name)</a></div>
 					}
 				}
 			</div>
