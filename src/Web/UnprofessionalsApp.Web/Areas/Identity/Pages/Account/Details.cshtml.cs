@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,13 +20,18 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
 			this.userManager = userManager;
 		}
 
-		public string Username { get; set; }
+		[BindProperty(SupportsGet = true)]
+		public int UserId { get; set; }
+
+		[BindProperty(SupportsGet = true)]
+		public string UserName { get; set; }
 
 		[TempData]
 		public string StatusMessage { get; set; }
 
 		public async Task<IActionResult> OnGetAsync(string id, string returnUrl = null)
         {
+			//Във userId и Username са стойностите.
 			var user = await this.userManager.FindByIdAsync(id);
 
 			if (user == null)
