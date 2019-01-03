@@ -46,12 +46,14 @@ namespace UnprofessionalsApp.Web.Pages.Firms
 		[BindProperty(SupportsGet = true)]
 		public bool DateOfRegistration { get; set; }
 
-		public void OnGet()
+		public async Task<IActionResult> OnGetAsync()
         {
-			this.Data = this.firmsService.GetAllFirmsForCurrentPage(
-				this.CurrentPage, this.PageSize, this.SortBy, this.Ordering).ToList();
+			this.Data = await this.firmsService.GetAllFirmsForCurrentPage(
+				this.CurrentPage, this.PageSize, this.SortBy, this.Ordering);
 
-			this.Count = this.firmsService.GetAllFirmsCount();
+			this.Count = await this.firmsService.GetAllFirmsCount();
+
+			return this.Page();
         }
     }
 }
