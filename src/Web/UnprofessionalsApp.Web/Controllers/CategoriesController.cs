@@ -4,9 +4,9 @@
 
 	public class CategoriesController : Controller
 	{
-		public IActionResult Index()
-		{
-			return this.View();
-		}
+		//public IActionResult Index()
+		//{
+		//	return this.View();
+		//}
 	}
 }
