@@ -205,6 +205,36 @@ namespace UnprofessionalsApp.Web.Extensions
 				ImageUrl = string.Empty
 			};
 
+			var post6 = new Post
+			{
+				CategoryId = 1,
+				UserId = 1,
+				DateOfCreation = DateTime.UtcNow.AddDays(-9),
+				Description = "Test Postsss",
+				Title = "No image",
+				ImageUrl = string.Empty
+			};
+
+			var post7 = new Post
+			{
+				CategoryId = 1,
+				UserId = 2,
+				DateOfCreation = DateTime.UtcNow.AddDays(-9),
+				Description = "Test",
+				Title = "Yes image",
+				ImageUrl = string.Empty
+			};
+
+			var post8 = new Post
+			{
+				CategoryId = 1,
+				UserId = 4,
+				DateOfCreation = DateTime.UtcNow.AddDays(-7),
+				Description = "Test Postsss",
+				Title = "All Hail",
+				ImageUrl = string.Empty
+			};
+
 			var posts = new List<Post>()
 			{
 				post,
@@ -212,7 +242,10 @@ namespace UnprofessionalsApp.Web.Extensions
 				post2,
 				post3,
 				post4,
-				post5
+				post5,
+				post6,
+				post7,
+				post8,
 			};
 
 			context.Posts.AddRange(posts);

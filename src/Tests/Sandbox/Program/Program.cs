@@ -19,6 +19,7 @@ using System.Data;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.EntityFrameworkCore;
+using UnprofessionalsApp.Models;
 
 //using AngleSharp;
 //using AngleSharp.Parser.Html;
@@ -52,6 +53,9 @@ namespace Sandbox
 
 		private static void SandboxCode(IServiceProvider serviceProvider)
 		{
+			var post = new Post();
+			IEnumerable<Tag> tags = post.Tags.Select(t => t.Tag);
+
 			//var lower = pageNumber % 10;
 
 			//var higher = pageNumber % 10;

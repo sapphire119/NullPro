@@ -8,10 +8,10 @@
 
 <div class="container mx-auto col-md-6 text-center my-auto">
 	<h2>Custom search field</h2>
-	<form asp-page="/home/search" method="get" class="d-flex">
-		<input type="text" class="form-control input-lg" name="searchResult" placeholder="Search..." />
-		<span class="input-group-btn">
-			<input type="submit" value="Search" class="btn border-dark bg-white text-dark">
-		</span>
-	</form>
+	<div class="search-container">
+		<form asp-page="/home/search" method="get" class="d-flex">
+			<input type="text" placeholder="Search.." name="searchResult">
+			<button type="submit" class="btn border-dark bg-white text-dark">Search</button>
+		</form>
+	</div>
 </div>

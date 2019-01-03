@@ -42,7 +42,6 @@ namespace UnprofessionalsApp.Web
 					var context = services.GetRequiredService<UnprofessionalsDbContext>();
 
 					DbInitializer.Initialize(context, services);
-					
 				}
 				catch (Exception ex)
 				{
