@@ -45,13 +45,13 @@
 				<div class="col-lg-6">
 					<h2 class="card-title">@postModel.Title</h2>
 					<p class="card-text">@postModel.Description</p>
-					<a asp-controller="Posts" asp-action="Details" asp-route-id="@postModel.Id" class="btn btn-primary">Read More &rarr;</a>
+					<a asp-page="/posts/details" asp-route-postId="@(postModel.Id)" class="btn btn-primary">Read More &rarr;</a>
 				</div>
 			</div>
 		</div>
 		<div class="card-footer text-muted">
 			Posted on @postModel.DateOfCreation.ToString(@"d MMMM, yyyy", CultureInfo.InvariantCulture) by
-			<a asp-area="Identity" asp-page="/Account/Details" asp-route-id="@(postModel.UserId)">@postModel.Username</a>
+			<a asp-area="Identity" asp-page="/Account/Details" asp-route-userId="@(postModel.UserId)" asp-route-userName="@(postModel.Username)">@postModel.Username</a>
 		</div>
 	</div>
 }
