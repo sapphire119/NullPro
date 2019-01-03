@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnprofessionalsApp.ViewInputModels.ViewModels.Posts;
 
 namespace UnprofessionalsApp.DataServices.Contracts
 {
 	public interface IPostsService
 	{
-		TViewModel GetPostById<TViewModel>(int id);
+		Task<TViewModel> GetPostById<TViewModel>(int id);
 
-		//IEnumerable<PostViewModel> GetAllPosts(int currentPage, int pageSize);
+		Task<IEnumerable<PostViewModel>> GetAllPostsForCurrentPage(int pageId, int pageSize, string orderByParam, string ordering);
 
-		IEnumerable<PostViewModel> GetAllPostsForCurrentPage(int pageId, int pageSize, string orderByParam, string ordering);
-
-		int GetAllPostsCount();
+		Task<int> GetAllPostsCount();
 	}
 }

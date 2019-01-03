@@ -10,6 +10,7 @@
 	using System.Linq.Dynamic.Core;
 	using UnprofessionalsApp.Mapping;
 	using System;
+	using System.Threading.Tasks;
 
 	public class PostsService : IPostsService
 	{
@@ -33,28 +34,28 @@
 		//	return allPosts;
 		//}
 
-		public int GetAllPostsCount()
+		public Task<int> GetAllPostsCount()
 		{
 			//TODO: Test Me
-			return this.postsRepository.All().Count();
+			var result = Task.Run(() => this.postsRepository.All().Count());
+			return result;
 		}
 
-		public IEnumerable<PostViewModel> GetAllPostsForCurrentPage(
+		public Task<IEnumerable<PostViewModel>> GetAllPostsForCurrentPage(
 			int currentPage, int pageSize, string orderByParam, string ordering)
 		{
-			//Test Me
-			var postsViewModel = this.postsRepository.All()
-				.AsQueryable() // Вече е IQueryable, но за всеки случай
+			//TODO: Test me
+			var postsViewModel = Task.Run(() => this.postsRepository.All()
+				/*.AsQueryable()*/ // Вече е IQueryable, но за всеки случай
 				.OrderBy(string.Concat(orderByParam, $" {ordering}"))
 				.Skip((currentPage - 1) * pageSize)
 				.Take(pageSize)
-				.To<PostViewModel>()
-				.ToList();
+				.To<PostViewModel>() as IEnumerable<PostViewModel>);
 
 			return postsViewModel;
 		}
 
-		public TViewModel GetPostById<TViewModel>(int id)
+		public Task<TViewModel> GetPostById<TViewModel>(int id)
 		{
 			throw new System.NotImplementedException();
 		}

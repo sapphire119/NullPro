@@ -34,6 +34,7 @@ namespace UnprofessionalsApp.DataServices
 		public Task<IEnumerable<CategoryViewModel>> GetCategoriesWithMatchingResultAsync(
 			string searchResult)
 		{
+			//TODO: Test me
 			var taskResult = Task.Run(() => this.categoriesRepository.All()
 				.Where(c => c.Name.Contains(searchResult))
 				.Take(10)
@@ -45,6 +46,7 @@ namespace UnprofessionalsApp.DataServices
 
 		public Task<IEnumerable<PostSearchViewModel>> GetPostsWithMatchingResultAsync(string searchResult)
 		{
+			//TODO: Test me
 			var taskResult = Task.Run(() => this.postsRepository.All()
 				.Where(c => c.Title.Contains(searchResult))
 				.Take(10)
@@ -56,6 +58,7 @@ namespace UnprofessionalsApp.DataServices
 
 		public Task<IEnumerable<TagViewModel>> GetTagsWithMatchingResultAsync(string searchResult)
 		{
+			//TODO: Test me
 			var taskResult = Task.Run(() => this.tagsRepository.All()
 				.Where(c => c.Name.Contains(searchResult))
 				.Take(10)
@@ -67,6 +70,7 @@ namespace UnprofessionalsApp.DataServices
 
 		public Task<IEnumerable<UserSearchViewModel>> GetUsersWithMatchingResultAsync(string searchResult)
 		{
+			//TODO: Test me
 			var taskResult = Task.Run(() => this.usersRepository.All()
 				.Where(c => c.UserName.Contains(searchResult))
 				.Take(10)

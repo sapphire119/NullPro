@@ -22,10 +22,11 @@ namespace UnprofessionalsApp.DataServices
 			this.firmsRepository = firmsRepository;
 		}
 
-		public int GetAllFirmsCount()
+		public Task<int> GetAllFirmsCount()
 		{
 			//TODO: Test Me
-			return this.firmsRepository.All().Count();
+			var result = Task.Run(() => this.firmsRepository.All().Count());
+			return result;
 		}
 
 		//public IEnumerable<FirmViewModel> GetAllFirmsForCurrentPage(int currentPage, int pageSize)
@@ -41,25 +42,24 @@ namespace UnprofessionalsApp.DataServices
 		//	return firmsForCurrentPage;
 		//}
 
-		public IEnumerable<FirmViewModel> GetAllFirmsForCurrentPage(
+		public Task<IEnumerable<FirmViewModel>> GetAllFirmsForCurrentPage(
 			int currentPage, 
 			int pageSize, 
 			string orderByParam, 
 			string ordering)
 		{
 			//Test And Validate Me.
-			var firmsForCurrentPage = this.firmsRepository.All()
+			var firmsForCurrentPage = Task.Run(() => this.firmsRepository.All()
 				.AsQueryable() // Вече е IQueryable, но за всеки случай
 				.OrderBy(string.Concat(orderByParam, $" {ordering}"))
 				.Skip((currentPage - 1) * pageSize)
 				.Take(pageSize)
-				.To<FirmViewModel>()
-				.ToList();
+				.To<FirmViewModel>() as IEnumerable<FirmViewModel>);
 
 			return firmsForCurrentPage;
 		}
 
-		public TViewModel GetFirmById<TViewModel>(int id)
+		public Task<TViewModel> GetFirmById<TViewModel>(int id)
 		{
 			throw new System.NotImplementedException();
 		}

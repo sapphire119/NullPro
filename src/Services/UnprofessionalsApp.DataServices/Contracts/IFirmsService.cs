@@ -9,10 +9,10 @@ namespace UnprofessionalsApp.DataServices.Contracts
 	{
 		//IEnumerable<FirmViewModel> GetAllFirmsForCurrentPage(int pageId, int pageSize);
 
-		IEnumerable<FirmViewModel> GetAllFirmsForCurrentPage(int pageId, int pageSize, string orderByParam, string ordering);
+		Task<IEnumerable<FirmViewModel>> GetAllFirmsForCurrentPage(int pageId, int pageSize, string orderByParam, string ordering);
 		
-		TViewModel GetFirmById<TViewModel>(int id);
+		Task<TViewModel> GetFirmById<TViewModel>(int id);
 
-		int GetAllFirmsCount();
+		Task<int> GetAllFirmsCount();
 	}
 }
