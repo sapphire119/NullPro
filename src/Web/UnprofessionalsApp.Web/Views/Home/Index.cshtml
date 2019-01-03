@@ -1,7 +1,17 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h4>Welcome to Unprofessionals! The place where you can search online data for firms and people!</h4>
+	<h4>Welcome to Unprofessionals! The place where you can search online data for firms and people!</h4>
+</div>
+
+<div class="container mx-auto col-md-6 text-center my-auto">
+	<h2>Custom search field</h2>
+	<form asp-page="/home/search" method="get" class="d-flex">
+		<input type="text" class="form-control input-lg" name="searchResult" placeholder="Search..." />
+		<span class="input-group-btn">
+			<input type="submit" value="Search" class="btn border-dark bg-white text-dark">
+		</span>
+	</form>
 </div>
