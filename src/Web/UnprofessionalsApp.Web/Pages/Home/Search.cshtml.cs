@@ -35,12 +35,14 @@ namespace UnprofessionalsApp.Web.Pages.Home
 
 		public IEnumerable<TagViewModel> Tags { get; set; }
 
-		public async Task OnGetAsync()
+		public async Task<IActionResult> OnGetAsync()
         {
 			this.Categories = await this.homeService.GetCategoriesWithMatchingResultAsync(this.SearchResult);
 			this.Posts = await this.homeService.GetPostsWithMatchingResultAsync(this.SearchResult);
 			this.Users = await this.homeService.GetUsersWithMatchingResultAsync(this.SearchResult);
 			this.Tags = await this.homeService.GetTagsWithMatchingResultAsync(this.SearchResult);
+
+			return this.Page();
 		}
     }
 }
