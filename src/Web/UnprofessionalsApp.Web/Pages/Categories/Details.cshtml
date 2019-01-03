@@ -1,0 +1,38 @@
+﻿@page "{categoryId?}/{categoryName?}"
+@model UnprofessionalsApp.Web.Pages.Categories.DetailsModel
+@{
+	ViewData["Title"] = "Category Details";
+	var counter = 1;
+}
+
+@if (this.Model.AreThereAnyPostsForCategory)
+{
+	<div class="row">
+		<div class="container col-md-6 text-center">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Title</th>
+						<th scope="col">Rating</th>
+						<th scope="col">Popularity</th>
+						<th scope="col">Created by</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var post in Model.RelatedPosts)
+					{
+						<tr>
+							<th scope="row">@(counter++)</th>
+							<td><a asp-page="/posts/details" asp-route-postId="@(post.Id)">@(post.Title)</a></td>
+							<td>@(post.Rating)</td>
+							<td>@(post.Popularity)</td>
+							<td><a asp-area="Identity" asp-page="/account/details" asp-route-userId="@(post.UserId)" asp-route-userName="@(post.Username)">@(post.Username)</a></td>
+						</tr>
+					}
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+}
