@@ -22,7 +22,130 @@ namespace UnprofessionalsApp.Web.Extensions
 			SeedCategories(context);
 			SeedRolesAndUsers(services, context).GetAwaiter().GetResult();
 			SeedPosts(context);
+			SeedTags(context);
+			SeedTagsToPosts(context);
 			//SeedComments(context);
+		}
+
+		private static void SeedTagsToPosts(UnprofessionalsDbContext context)
+		{
+			if (context.TagsPosts.Any()) return;
+
+			var tagPost = new TagPost { PostId = 1, TagId = 1 };
+			var tagPost1 = new TagPost { PostId = 1, TagId = 2 };
+			var tagPost2 = new TagPost { PostId = 1, TagId = 3 };
+			var tagPost3 = new TagPost { PostId = 1, TagId = 4 };
+			var tagPost4 = new TagPost { PostId = 1, TagId = 5 };
+			var tagPost5 = new TagPost { PostId = 1, TagId = 6 };
+			var tagPost6 = new TagPost { PostId = 1, TagId = 7 };
+			var tagPost7 = new TagPost { PostId = 2, TagId = 1 };
+			var tagPost8 = new TagPost { PostId = 2, TagId = 2 };
+			var tagPost9 = new TagPost { PostId = 2, TagId = 3 };
+			var tagPost10 = new TagPost { PostId = 2, TagId = 4 };
+			var tagPost11 = new TagPost { PostId = 2, TagId = 5 };
+			var tagPost12 = new TagPost { PostId = 2, TagId = 6 };
+			var tagPost13 = new TagPost { PostId = 2, TagId = 7 };
+
+
+			var tagPost14 = new TagPost { PostId = 4, TagId = 3 };
+			var tagPost15 = new TagPost { PostId = 5, TagId = 4 };
+			var tagPost16 = new TagPost { PostId = 3, TagId = 5 };
+			var tagPost17 = new TagPost { PostId = 3, TagId = 6 };
+			var tagPost18 = new TagPost { PostId = 5, TagId = 7 };
+
+
+			var tagsPosts = new List<TagPost>
+			{
+				tagPost,
+				tagPost1,
+				tagPost2,
+				tagPost3,
+				tagPost4,
+				tagPost5,
+				tagPost6,
+				tagPost7,
+				tagPost8,
+				tagPost9,
+				tagPost10,
+				tagPost11,
+				tagPost12,
+				tagPost13,
+				tagPost14,
+				tagPost15,
+				tagPost16,
+				tagPost17,
+				tagPost18
+			};
+
+			context.TagsPosts.AddRange(tagsPosts);
+
+			context.SaveChanges();
+		}
+
+		private static void SeedTags(UnprofessionalsDbContext context)
+		{
+			if (context.Tags.Any()) return;
+
+			var tag = new Tag { Name = "Softuni" };
+			var tag1 = new Tag { Name = "Exam" };
+			var tag2 = new Tag { Name = "Culture" };
+			var tag3 = new Tag { Name = "Fun" };
+			var tag4 = new Tag { Name = "Finance" };
+			var tag5 = new Tag { Name = "Money" };
+			var tag6 = new Tag { Name = "Entertainment" };
+			var tag7 = new Tag { Name = "Gaming" };
+			var tag8 = new Tag { Name = "Dancing" };
+			var tag9 = new Tag { Name = "Shooting" };
+			var tag10 = new Tag { Name = "Industry" };
+			var tag11 = new Tag { Name = "IT" };
+			var tag12 = new Tag { Name = "Services" };
+			var tag13 = new Tag { Name = "Manufacturing" };
+			var tag14 = new Tag { Name = "Fishing" };
+			var tag15 = new Tag { Name = "Sports" };
+			var tag16 = new Tag { Name = "Trading" };
+			var tag17 = new Tag { Name = "Software" };
+			var tag18 = new Tag { Name = "Development" };
+			var tag19 = new Tag { Name = "Specialized" };
+			var tag20 = new Tag { Name = "Boats" };
+			var tag21 = new Tag { Name = "Airplanes" };
+			var tag22 = new Tag { Name = "Food" };
+			var tag23 = new Tag { Name = "Restaurants" };
+			var tag24 = new Tag { Name = "Relax" };
+			var tag25 = new Tag { Name = "Flying" };
+
+			var tagsToAdd = new List<Tag>
+			{
+				tag,
+				tag1,
+				tag2,
+				tag3,
+				tag4,
+				tag5,
+				tag6,
+				tag7,
+				tag8,
+				tag9,
+				tag10,
+				tag11,
+				tag12,
+				tag13,
+				tag14,
+				tag15,
+				tag16,
+				tag17,
+				tag18,
+				tag19,
+				tag20,
+				tag21,
+				tag22,
+				tag23,
+				tag24,
+				tag25,
+			};
+
+			context.Tags.AddRange(tagsToAdd);
+
+			context.SaveChanges();
 		}
 
 		private static void SeedPosts(UnprofessionalsDbContext context)
