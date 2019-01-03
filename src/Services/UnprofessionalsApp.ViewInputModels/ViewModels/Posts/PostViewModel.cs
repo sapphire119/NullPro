@@ -11,12 +11,29 @@
 	public class PostViewModel : IMapFrom<Post>, IHaveCustomMappings
 	{
 		private string imageUrl;
+		private string description;
 
 		public int Id { get; set; }
 
 		public string Title { get; set; }
 
-		public string Description { get; set; }
+		public string Description
+		{
+			get
+			{
+				//TODO: Test me
+				var result = this.description.Length > ProjectConsants.AllowedCharactersToRender ?
+								string.Concat(
+									this.description.Substring(0, ProjectConsants.AllowedCharactersToRender),
+									ProjectConsants.DescriptionExtensionStrings)
+										: this.description;
+				return result;
+			}
+			set
+			{
+				this.description = value;
+			}
+		}
 
 		public DateTime DateOfCreation { get; set; }
 
@@ -28,34 +45,24 @@
 		{
 			get
 			{
-				return this.imageUrl;
+				//TODO: Test me
+				var result = string.IsNullOrWhiteSpace(this.imageUrl) ?
+					ProjectConsants.DefaultImageUrl : this.imageUrl;
+
+				result = WebUtility.UrlDecode(result);
+
+				return result;
 			}
 			set
 			{
-				this.imageUrl = WebUtility.UrlDecode(value);
+				this.imageUrl = value;
 			}
 		}
 
 		public void CreateMappings(IMapperConfigurationExpression configuration)
 		{
-			//TODO: Test me somehow
 			configuration.CreateMap<Post, PostViewModel>()
-				.ForMember(x => x.ImageUrl,
-					x => x.MapFrom(
-						p => string.IsNullOrWhiteSpace(p.ImageUrl) ? ProjectConsants.DefaultImageUrl : p.ImageUrl))
-				.ForMember(x => x.Username, 
-					x => x.MapFrom(
-						p => p.User.UserName))
-				//.ForMember(x => x.DateOfCreation,
-				//	x => x.MapFrom(
-				//			p => p.DateOfCreation.ToString(@"d MMMM, yyyy", CultureInfo.InvariantCulture)))
-				.ForMember(x => x.Description,
-					x => x.MapFrom(
-							p => p.Description.Length > ProjectConsants.AllowedCharactersToRender ?
-								string.Concat(
-									p.Description.Substring(0, ProjectConsants.AllowedCharactersToRender),
-									ProjectConsants.DescriptionExtensionStrings)
-										: p.Description));
+				.ForMember(x => x.Username, opts => opts.MapFrom(p => p.User.UserName));
 		}
 	}
 }
