@@ -1,0 +1,166 @@
+﻿@*
+	For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model UnprofessionalsApp.ViewInputModels.ViewModels.Posts.PostDetailsViewModel
+<!-- Comments Form -->
+@if (this.User.Identity.IsAuthenticated)
+{
+	<div class="card my-4">
+		<h5 class="card-header">Leave a Comment:</h5>
+		<div class="card-body">
+			<form asp-page="/comments/create" method="post">
+				<div class="form-group">
+					<input type="hidden" name="userId" value="@(Model.UserId)" />
+					<input type="hidden" name="postId" value="@(Model.Id)" />
+					<textarea class="form-control" rows="3" name="commentDescription" style="resize:vertical;"></textarea>
+				</div>
+				<button type="submit" class="btn btn-secondary"><small>Add a comment</small></button>
+			</form>
+		</div>
+	</div>
+}
+else
+{
+	<div class="card my-4">
+		<h5 class="card-body"><strong>Log in to leave a comment!</strong></h5>
+	</div>
+}
+<!-- Comment with nested comments -->
+<div class="row mb-4">
+	<button class="h6 btn-secondary rounded" onclick="showAll()">Show/Hide all comments</button>
+</div>
+<div id="divHidden" hidden>
+	@if (Model.Comments.Any())
+	{
+		@foreach (var comment in Model.Comments)
+		{
+			<div class="media mb-4">
+				<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+				<div class="media-body">
+					<h5 class="mt-0"><a asp-area="Identity" asp-page="/account/details" asp-route-userId="@(comment.UserId)">@(comment.Username)</a></h5>
+					@(comment.Description)
+					<div class="d-flex justify-content-between mb-3">
+						<div>Rating: @(comment.Rating)</div>
+						<button class="btn btn-secondary" onclick="myFunction@(comment.Id)()"><small>Reply</small> &laquo;</button>
+					</div>
+					<form asp-page="/replies/create" method="post" id="comment@(comment.Id)@(comment.PostId)" hidden>
+						<div class="form-group card">
+							<h6 class="card-header">Leave a Reply</h6>
+							<div class="card-body">
+								<input type="hidden" name="commentId" value="@(comment.Id)" />
+								<input type="hidden" name="userId" value="@(comment.UserId)" />
+								<textarea class="form-control mb-3" rows="3" name="replyDescription" style="resize:vertical;"></textarea>
+								<div class="d-flex justify-content-end">
+									<button type="submit" class="btn btn-secondary"><small>Add Reply</small></button>
+								</div>
+							</div>
+						</div>
+					</form>
+					<div class="d-flex justify-content-end">
+						<button class="badge text-dark bg-white border-0" onclick="showComments@(comment.Id)@(comment.PostId)()">Show/Hide all replies</button>
+					</div>
+					<div id="commentHidden@(comment.Id)@(comment.PostId)" hidden>
+						@if (comment.Replies.Any())
+						{
+							foreach (var reply in comment.Replies)
+							{
+								<div class="media mt-4">
+									<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+									<div class="media-body">
+										<h5 class="mt-0">
+											<a asp-area="Identity" asp-page="/account/details" asp-route-userId="@(reply.UserId)">@(reply.Username)</a>
+										</h5>
+										@(reply.Description)
+										<div class="d-flex justify-content-between mb-3">
+											<div>Rating: @(comment.Rating)</div>
+											<button class="btn btn-secondary" onclick="myReply@(reply.Id)@(comment.Id)()"><small>Reply</small> &laquo;</button>
+										</div>
+										<form asp-page="/replies/create" method="post" id="reply@(reply.Id)@(comment.Id)" hidden>
+											<div class="form-group card">
+												<h6 class="card-header">Leave a Reply</h6>
+												<div class="card-body">
+													<input type="hidden" name="commentId" value="@(comment.Id)" />
+													<input type="hidden" name="userId" value="@(comment.UserId)" />
+													<textarea class="form-control mb-3" rows="3" name="replyDescription" style="resize:vertical;"></textarea>
+													<div class="d-flex justify-content-end">
+														<button type="submit" class="btn btn-secondary"><small>Add a Reply</small></button>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							}
+						}
+					</div>
+				</div>
+			</div>
+		}
+		<script>
+
+		</script>
+		@foreach (var comment in Model.Comments)
+		{
+			<script>
+				function myFunction@(comment.Id)() {
+					var x = document.getElementById("comment@(comment.Id)@(comment.PostId)");
+					x.removeAttribute("hidden");
+					if (x.style.display === "none") {
+
+						x.style.display = "block";
+					} else {
+						x.style.display = "none";
+					}
+				}
+			</script>
+			<script>
+				function showComments@(comment.Id)@(comment.PostId)() {
+					var x = document.getElementById("commentHidden@(comment.Id)@(comment.PostId)");
+					x.removeAttribute("hidden");
+					if (x.style.display === "none") {
+
+						x.style.display = "block";
+					} else {
+						x.style.display = "none";
+					}
+				}
+			</script>
+
+			if (comment.Replies.Any())
+			{
+				foreach (var reply in comment.Replies)
+				{
+					<script>
+					function myReply@(reply.Id)@(comment.Id)() {
+					var x = document.getElementById("reply@(reply.Id)@(comment.Id)");
+					x.removeAttribute("hidden");
+					if (x.style.display === "none") {
+
+						x.style.display = "block";
+					} else {
+						x.style.display = "none";
+					}
+				}
+					</script>
+				}
+			}
+		}
+	}
+	else
+	{
+		<div>There are no comments for this post!</div>
+	}
+</div>
+
+<script>
+	function showAll() {
+		var x = document.getElementById("divHidden");
+		x.removeAttribute("hidden");
+		if (x.style.display === "none") {
+
+			x.style.display = "block";
+		} else {
+			x.style.display = "none";
+		}
+	}
+</script>
