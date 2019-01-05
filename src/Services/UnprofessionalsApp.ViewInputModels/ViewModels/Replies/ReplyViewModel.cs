@@ -11,8 +11,6 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Replies
 
 		public string Description { get; set; }
 
-		public int Rating { get; set; }
-
 		public DateTime DateOfCreation { get; set; }
 
 		public int CommentId { get; set; }

@@ -52,6 +52,7 @@ namespace UnprofessionalsApp.DataServices
 			var firmsForCurrentPage = Task.Run(() => this.firmsRepository.All()
 				.AsQueryable() // Вече е IQueryable, но за всеки случай
 				.OrderBy(string.Concat(orderByParam, $" {ordering}"))
+				.ThenBy(f => f.Posts.Count())
 				.Skip((currentPage - 1) * pageSize)
 				.Take(pageSize)
 				.To<FirmViewModel>() as IEnumerable<FirmViewModel>);

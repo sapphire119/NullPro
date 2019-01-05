@@ -12,8 +12,6 @@
 
 			builder.Property(e => e.Description);
 
-			builder.Property(e => e.Rating);
-
 			builder.Property(e => e.DateOfCreation);
 
 			builder.HasOne(e => e.User)

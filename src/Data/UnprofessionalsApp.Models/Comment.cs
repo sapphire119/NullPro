@@ -8,8 +8,6 @@ namespace UnprofessionalsApp.Models
 	{
 		public string Description { get; set; }
 
-		public int Rating { get; set; }
-
 		public DateTime DateOfCreation { get; set; } = DateTime.UtcNow;
 
 		public int UserId { get; set; }

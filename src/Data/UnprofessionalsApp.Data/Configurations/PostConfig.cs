@@ -18,10 +18,6 @@
 
 			builder.Property(e => e.ImageUrl);
 
-			builder.Property(e => e.Rating);
-
-			builder.Property(e => e.Popularity);
-
 			builder.HasOne(e => e.Firm)
 				.WithMany(f => f.Posts)
 				.HasForeignKey(e => e.FirmId);

@@ -39,8 +39,7 @@ else
 				<div class="media-body">
 					<h5 class="mt-0"><a asp-area="Identity" asp-page="/account/details" asp-route-userId="@(comment.UserId)">@(comment.Username)</a></h5>
 					@(comment.Description)
-					<div class="d-flex justify-content-between mb-3">
-						<div>Rating: @(comment.Rating)</div>
+					<div class="d-flex justify-content-end mb-3">
 						<button class="btn btn-secondary" onclick="myFunction@(comment.Id)()"><small>Reply</small> &laquo;</button>
 					</div>
 					<form asp-page="/replies/create" method="post" id="comment@(comment.Id)@(comment.PostId)" hidden>
@@ -71,8 +70,7 @@ else
 											<a asp-area="Identity" asp-page="/account/details" asp-route-userId="@(reply.UserId)">@(reply.Username)</a>
 										</h5>
 										@(reply.Description)
-										<div class="d-flex justify-content-between mb-3">
-											<div>Rating: @(comment.Rating)</div>
+										<div class="d-flex justify-content-end mb-3">
 											<button class="btn btn-secondary" onclick="myReply@(reply.Id)@(comment.Id)()"><small>Reply</small> &laquo;</button>
 										</div>
 										<form asp-page="/replies/create" method="post" id="reply@(reply.Id)@(comment.Id)" hidden>

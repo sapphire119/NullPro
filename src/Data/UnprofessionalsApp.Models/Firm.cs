@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnprofessionalsApp.Common;
 
@@ -10,10 +11,10 @@ namespace UnprofessionalsApp.Models
 		public string UniqueFirmId { get; set; }
 
 		public string Name { get; set; }
-		
-		public int Popularity { get; set; }
 
-		public int Rating { get; set; }
+		public bool IsBlackListed { get; set; } = false;
+
+		public DateTime DateOfRegistration { get; set; } = DateTime.UtcNow;
 
 		public string LegalForm { get; set; }
 

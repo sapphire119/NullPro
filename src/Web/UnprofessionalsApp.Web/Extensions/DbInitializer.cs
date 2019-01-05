@@ -39,7 +39,6 @@ namespace UnprofessionalsApp.Web.Extensions
 			{
 				CommentId = 1,
 				Description = "This is the first reply",
-				Rating = 10,
 				UserId = 1
 			};
 
@@ -47,7 +46,6 @@ namespace UnprofessionalsApp.Web.Extensions
 			{
 				CommentId = 2,
 				Description = "This is the second reply",
-				Rating = 10,
 				UserId = 1
 			};
 
@@ -55,7 +53,6 @@ namespace UnprofessionalsApp.Web.Extensions
 			{
 				CommentId = 1,
 				Description = "This is the third reply",
-				Rating = 10,
 				UserId = 1
 			};
 
@@ -63,7 +60,6 @@ namespace UnprofessionalsApp.Web.Extensions
 			{
 				CommentId = 1,
 				Description = "This is the forth reply",
-				Rating = 10,
 				UserId = 1
 			};
 
@@ -71,7 +67,6 @@ namespace UnprofessionalsApp.Web.Extensions
 			{
 				CommentId = 1,
 				Description = "Tsetsedsday",
-				Rating = 10,
 				UserId = 1
 			};
 
@@ -79,7 +74,6 @@ namespace UnprofessionalsApp.Web.Extensions
 			{
 				CommentId = 1,
 				Description = "testy",
-				Rating = 10,
 				UserId = 1
 			};
 
@@ -87,7 +81,6 @@ namespace UnprofessionalsApp.Web.Extensions
 			{
 				CommentId = 1,
 				Description = "Tasdasdgasjdply",
-				Rating = 10,
 				UserId = 1
 			};
 
@@ -118,7 +111,6 @@ namespace UnprofessionalsApp.Web.Extensions
 			{
 				Description = "test my new awesome comment",
 				PostId = 1,
-				Rating = 5,
 				UserId = 1
 			};
 
@@ -126,7 +118,6 @@ namespace UnprofessionalsApp.Web.Extensions
 			{
 				Description = "awesome comment is awesome",
 				PostId = 1,
-				Rating = 9,
 				UserId = 1
 			};
 
@@ -134,7 +125,6 @@ namespace UnprofessionalsApp.Web.Extensions
 			{
 				Description = "test test test test test",
 				PostId = 1,
-				Rating = 7,
 				UserId = 1
 			};
 
@@ -142,7 +132,6 @@ namespace UnprofessionalsApp.Web.Extensions
 			{
 				Description = "test my new awesome comment",
 				PostId = 1,
-				Rating = 11,
 				UserId = 1
 			};
 
@@ -150,7 +139,6 @@ namespace UnprofessionalsApp.Web.Extensions
 			{
 				Description = "test my new awesome comment",
 				PostId = 1,
-				Rating = 15,
 				UserId = 1
 			};
 
@@ -158,7 +146,6 @@ namespace UnprofessionalsApp.Web.Extensions
 			{
 				Description = "test my new awesome comment",
 				PostId = 1,
-				Rating = 14,
 				UserId = 1
 			};
 
@@ -166,7 +153,6 @@ namespace UnprofessionalsApp.Web.Extensions
 			{
 				Description = "test my new awesome comment",
 				PostId = 1,
-				Rating = 3,
 				UserId = 1
 			};
 
@@ -394,6 +380,28 @@ namespace UnprofessionalsApp.Web.Extensions
 				ImageUrl = string.Empty
 			};
 
+			var post9 = new Post
+			{
+				CategoryId = 1,
+				UserId = 4,
+				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+				DateOfCreation = DateTime.UtcNow.AddDays(-16),
+				Description = "Firm post",
+				Title = "Firm post",
+				ImageUrl = string.Empty
+			};
+
+			var post10 = new Post
+			{
+				CategoryId = 1,
+				UserId = 4,
+				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+				DateOfCreation = DateTime.UtcNow.AddDays(-5),
+				Description = "Firm postttt",
+				Title = "Firm posttt",
+				ImageUrl = string.Empty
+			};
+
 			var posts = new List<Post>()
 			{
 				post,
@@ -405,6 +413,8 @@ namespace UnprofessionalsApp.Web.Extensions
 				post6,
 				post7,
 				post8,
+				post9,
+				post10,
 			};
 
 			context.Posts.AddRange(posts);
@@ -532,7 +542,8 @@ namespace UnprofessionalsApp.Web.Extensions
 								Id = firmGuidId,
 								Name = companyName,
 								UniqueFirmId = bulstat,
-								LegalForm = legalForm
+								LegalForm = legalForm,
+								DateOfRegistration = RandomDate()
 							};
 
 							if (currentFirms.Any(f =>
@@ -703,6 +714,15 @@ namespace UnprofessionalsApp.Web.Extensions
 					pending.Enqueue(tmp[i]);
 				}
 			}
+		}
+
+		private static DateTime RandomDate()
+		{
+			DateTime start = new DateTime(1995, 1, 1);
+			Random gen = new Random();
+			int range = ((TimeSpan)(DateTime.Today - start)).Days;
+			var result = start.AddDays(gen.Next(range));
+			return result;
 		}
 	}
 }

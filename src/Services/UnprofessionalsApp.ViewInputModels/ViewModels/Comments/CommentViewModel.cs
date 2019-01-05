@@ -14,8 +14,6 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Comments
 
 		public string Description { get; set; }
 
-		public int Rating { get; set; }
-
 		public DateTime DateOfCreation { get; set; }
 
 		public int UserId { get; set; }

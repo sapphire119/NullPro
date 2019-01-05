@@ -82,8 +82,6 @@
 				<tr>
 					<th scope="col">#</th>
 					<th scope="col">Title</th>
-					<th scope="col">Popularity</th>
-					<th scope="col">Rating</th>
 					<th scope="col">Creation Date</th>
 					<th scope="col">Created By</th>
 				</tr>
@@ -94,8 +92,6 @@
 				<tr>
 					<td scope="row">@(Model.Counter++)</td>
 					<td><a asp-page="/Posts/Details" asp-route-id="@(post.Id)">@(post.Title)</a></td>
-					<td>@(post.Popularity)</td>
-					<td>@(post.Rating)</td>
 					<td>@(post.DateOfCreation.ToString(@"dd/MM/yyyy", CultureInfo.InvariantCulture))</td>
 					<td><a asp-area="Identity" asp-page="/Account/Details" asp-route-id="@(post.UserId)">@(post.Username)</a></td>
 				</tr>

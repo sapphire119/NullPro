@@ -1,4 +1,6 @@
 ﻿@page "{categoryId?}/{categoryName?}"
+@using System.Globalization;
+
 @model UnprofessionalsApp.Web.Pages.Categories.DetailsModel
 @{
 	ViewData["Title"] = "Category Details";
@@ -14,8 +16,7 @@
 					<tr>
 						<th scope="col">#</th>
 						<th scope="col">Title</th>
-						<th scope="col">Rating</th>
-						<th scope="col">Popularity</th>
+						<th scope="col">Date of creation</th>
 						<th scope="col">Created by</th>
 					</tr>
 				</thead>
@@ -25,8 +26,7 @@
 						<tr>
 							<th scope="row">@(counter++)</th>
 							<td><a asp-page="/posts/details" asp-route-postId="@(post.Id)">@(post.Title)</a></td>
-							<td>@(post.Rating)</td>
-							<td>@(post.Popularity)</td>
+							<td>@(post.DateOfCreation.ToString(@"dd/MM/yyyy", CultureInfo.InvariantCulture))</td>
 							<td><a asp-area="Identity" asp-page="/account/details" asp-route-userId="@(post.UserId)" asp-route-userName="@(post.Username)">@(post.Username)</a></td>
 						</tr>
 					}

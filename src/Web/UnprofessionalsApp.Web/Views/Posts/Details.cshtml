@@ -35,12 +35,6 @@
 			<hr>
 			<!-- Date/Time -->
 			<p>Posted on @(Model.DateOfCreation.ToString(@"d MMMM yyyy", CultureInfo.InvariantCulture)) at @(Model.DateOfCreation.ToString(@"hh:mm tt", CultureInfo.InvariantCulture))</p>
-			<div class="d-flex">
-				<div class="justify-content-between">
-					<div>Rating: @(Model.Rating)</div>
-					<div>Popularity: @(Model.Popularity)</div>
-				</div>
-			</div>
 			<hr>
 			<!-- Post Content -->
 			<p class="lead">

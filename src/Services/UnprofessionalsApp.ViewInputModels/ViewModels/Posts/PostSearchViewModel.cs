@@ -11,10 +11,6 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Home
 
 		public string Title { get; set; }
 
-		public int Rating { get; set; }
-
-		public int Popularity { get; set; }
-
 		public DateTime DateOfCreation { get; set; }
 
 		public int UserId { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AutoMapper;
 using UnprofessionalsApp.Mapping.Contracts;
 using UnprofessionalsApp.Models;
@@ -13,15 +14,17 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Firms
 
 		public string Name { get; set; }
 
-		public int Popularity { get; set; }
+		public DateTime DateOfRegistration { get; set; }
 
-		public int Rating { get; set; }
+		public int PostsAboutFirm { get; set; }
 
 		public string LegalForm { get; set; }
 
 		public void CreateMappings(IMapperConfigurationExpression configuration)
 		{
-			configuration.CreateMap<Firm, FirmViewModel>();
+			//Check
+			configuration.CreateMap<Firm, FirmViewModel>()
+				.ForMember(f => f.PostsAboutFirm, opts => opts.MapFrom(f => f.Posts.Count()));
 
 			configuration.CreateMap<FirmViewModel, Firm>()
 				.ForMember(x => x.Reports, opts => opts.Ignore())

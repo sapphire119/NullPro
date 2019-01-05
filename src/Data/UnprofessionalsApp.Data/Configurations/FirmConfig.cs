@@ -17,10 +17,7 @@
 			builder.Property(e => e.Name)
 				.IsRequired();
 
-			builder.Property(e => e.Popularity)
-				.IsRequired();
-
-			builder.Property(e => e.Rating)
+			builder.Property(e => e.IsBlackListed)
 				.IsRequired();
 			
 			builder.Property(e => e.LegalForm)
