@@ -4,6 +4,7 @@
 	using Microsoft.AspNetCore.Mvc;
 	using System.Threading.Tasks;
 	using UnprofessionalsApp.DataServices.Contracts;
+	using UnprofessionalsApp.ViewInputModels.ViewModels.Posts;
 
 	public class PostsController : Controller
 	{
@@ -49,11 +50,14 @@
 			 * 
 			 */
 			int id = -1;
-			return this.RedirectToAction("Details", new { id = id});
+			return this.RedirectToAction("Details", new { id = id });
 		}
 
-		public IActionResult Details(int id)
+		[Route("Posts/Details/{postId?}")]
+		public async Task<IActionResult> Details(int postId)
 		{
+
+			var model = await this.postsService.GetPostById<PostDetailsViewModel>(postId);
 			//This is where the user can comment or reply to a comment on a post.
 			//Post details should include:
 
@@ -72,7 +76,7 @@
 			 * --be able to create a comment on a post (CommentsController)
 			 * -- ....
 			 */
-			return this.View();
+			return this.View(model);
 		}
 	}
 }

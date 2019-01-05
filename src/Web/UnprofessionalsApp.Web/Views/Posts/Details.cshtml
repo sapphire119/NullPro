@@ -1,0 +1,91 @@
+﻿@model UnprofessionalsApp.ViewInputModels.ViewModels.Posts.PostDetailsViewModel
+@using System.Globalization
+@{
+	ViewData["Title"] = "Post details page";
+}
+
+<!-- Page Heading/Breadcrumbs -->
+<div class="container">
+	<!-- Page Heading/Breadcrumbs -->
+	<h1 class="mt-4 mb-3">
+		@(Model.Title)
+		<small>
+			by
+			<a asp-area="Identity" asp-page="/account/details" asp-route-userId="@(Model.UserId)">@(Model.Username)</a>
+		</small>
+		@if (Model.FirmId != null)
+		{
+			<small>
+				for
+				<a asp-page="/firms/details" asp-route-userId="@(Model.FirmId.Value)">@(Model.FirmName)</a>
+			</small>
+		}
+	</h1>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a asp-page="/posts/index">Posts</a>
+		</li>
+		<li class="breadcrumb-item active">@(Model.Title)</li>
+	</ol>
+	<div class="row">
+		<!-- Post Content Column -->
+		<div class="col-lg-8">
+			<!-- Preview Image -->
+			<img class="img rounded" src="@(Model.ImageUrl)" alt="" width="725" height="300">
+			<hr>
+			<!-- Date/Time -->
+			<p>Posted on @(Model.DateOfCreation.ToString(@"d MMMM yyyy", CultureInfo.InvariantCulture)) at @(Model.DateOfCreation.ToString(@"hh:mm tt", CultureInfo.InvariantCulture))</p>
+			<div class="d-flex">
+				<div class="justify-content-between">
+					<div>Rating: @(Model.Rating)</div>
+					<div>Popularity: @(Model.Popularity)</div>
+				</div>
+			</div>
+			<hr>
+			<!-- Post Content -->
+			<p class="lead">
+				@(Model.Description)
+				<hr>
+			</p>
+			<!-- Comments Form -->
+			@await Html.PartialAsync("_CommentPartial", Model)
+		</div>
+		<!-- Sidebar Widgets Column -->
+		<div class="col-md-4">
+			<!-- Search Widget -->
+			<div class="card mb-4">
+				<h5 class="card-header">Search</h5>
+				<div class="card-body">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search for...">
+						<span class="input-group-btn">
+							<button class="btn btn-secondary" type="button">Go!</button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<!-- Categories Widget -->
+			<div class="card my-4">
+				<h5 class="card-header">Tags for current Post</h5>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-lg">
+							@foreach (var tag in Model.Tags)
+							{
+								<a class="badge badge-secondary text-white" asp-page="/tags/details" asp-route-tagId="@(tag.Id)">@(tag.Name)</a>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Side Widget -->
+			<div class="card my-4">
+				<h5 class="card-header">Side Widget</h5>
+				<div class="card-body">
+					You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /.row -->
+</div>
