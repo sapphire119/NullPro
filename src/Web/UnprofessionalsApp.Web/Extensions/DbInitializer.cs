@@ -24,7 +24,166 @@ namespace UnprofessionalsApp.Web.Extensions
 			SeedPosts(context);
 			SeedTags(context);
 			SeedTagsToPosts(context);
-			//SeedComments(context);
+			SeedComments(context);
+			SeedReplies(context);
+		}
+
+		private static void SeedReplies(UnprofessionalsDbContext context)
+		{
+			if (context.Replies.Any())
+			{
+				return;
+			}
+
+			var reply = new Reply
+			{
+				CommentId = 1,
+				Description = "This is the first reply",
+				Rating = 10,
+				UserId = 1
+			};
+
+			var reply1 = new Reply
+			{
+				CommentId = 2,
+				Description = "This is the second reply",
+				Rating = 10,
+				UserId = 1
+			};
+
+			var reply2 = new Reply
+			{
+				CommentId = 1,
+				Description = "This is the third reply",
+				Rating = 10,
+				UserId = 1
+			};
+
+			var reply3 = new Reply
+			{
+				CommentId = 1,
+				Description = "This is the forth reply",
+				Rating = 10,
+				UserId = 1
+			};
+
+			var reply4 = new Reply
+			{
+				CommentId = 1,
+				Description = "Tsetsedsday",
+				Rating = 10,
+				UserId = 1
+			};
+
+			var reply5 = new Reply
+			{
+				CommentId = 1,
+				Description = "testy",
+				Rating = 10,
+				UserId = 1
+			};
+
+			var reply6 = new Reply
+			{
+				CommentId = 1,
+				Description = "Tasdasdgasjdply",
+				Rating = 10,
+				UserId = 1
+			};
+
+			var replies = new List<Reply>
+			{
+				reply,
+				reply1,
+				reply2,
+				reply3,
+				reply4,
+				reply5,
+				reply6,
+			};
+
+			context.Replies.AddRange(replies);
+
+			context.SaveChanges();
+		}
+
+		private static void SeedComments(UnprofessionalsDbContext context)
+		{
+			if (context.Comments.Any())
+			{
+				return;
+			}
+
+			var comment = new Comment
+			{
+				Description = "test my new awesome comment",
+				PostId = 1,
+				Rating = 5,
+				UserId = 1
+			};
+
+			var comment1 = new Comment
+			{
+				Description = "awesome comment is awesome",
+				PostId = 1,
+				Rating = 9,
+				UserId = 1
+			};
+
+			var comment2 = new Comment
+			{
+				Description = "test test test test test",
+				PostId = 1,
+				Rating = 7,
+				UserId = 1
+			};
+
+			var comment3 = new Comment
+			{
+				Description = "test my new awesome comment",
+				PostId = 1,
+				Rating = 11,
+				UserId = 1
+			};
+
+			var comment4 = new Comment
+			{
+				Description = "test my new awesome comment",
+				PostId = 1,
+				Rating = 15,
+				UserId = 1
+			};
+
+			var comment5 = new Comment
+			{
+				Description = "test my new awesome comment",
+				PostId = 1,
+				Rating = 14,
+				UserId = 1
+			};
+
+			var comment6 = new Comment
+			{
+				Description = "test my new awesome comment",
+				PostId = 1,
+				Rating = 3,
+				UserId = 1
+			};
+
+			var comments = new List<Comment>
+			{
+				comment,
+				comment1,
+				comment2,
+				comment3,
+				comment4,
+				comment5,
+				comment6,
+			};
+
+			context.Comments.AddRange(comments);
+
+			context.SaveChanges();
 		}
 
 		private static void SeedTagsToPosts(UnprofessionalsDbContext context)
