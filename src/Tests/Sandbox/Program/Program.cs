@@ -54,7 +54,7 @@ namespace Sandbox
 		private static void SandboxCode(IServiceProvider serviceProvider)
 		{
 			var post = new Post();
-			IEnumerable<Tag> tags = post.Tags.Select(t => t.Tag);
+			//IEnumerable<Tag> tags = post.Tags.Select(t => t.Tag.Name);
 
 			//var lower = pageNumber % 10;
 

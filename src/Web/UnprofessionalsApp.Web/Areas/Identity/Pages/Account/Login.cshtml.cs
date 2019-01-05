@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using UnprofessionalsApp.Models;
+using UnprofessionalsApp.ViewInputModels.InputModels.Test;
 
 namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
 {
@@ -26,7 +27,7 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public LogInInputModel LogInInputModel { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
@@ -34,19 +35,6 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
 
         [TempData]
         public string ErrorMessage { get; set; }
-
-        public class InputModel
-        {
-            [Required]
-            public string Username { get; set; }
-
-            [Required]
-            [DataType(DataType.Password)]
-            public string Password { get; set; }
-
-            [Display(Name = "Remember me?")]
-            public bool RememberMe { get; set; }
-        }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -81,7 +69,7 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
 
 				//TODO: Make a user able to log in either with email or username.
-                var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                var result = await _signInManager.PasswordSignInAsync(LogInInputModel.Username, LogInInputModel.Password, LogInInputModel.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
@@ -89,7 +77,7 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
                 }
                 if (result.RequiresTwoFactor)
                 {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = LogInInputModel.RememberMe });
                 }
                 if (result.IsLockedOut)
                 {
