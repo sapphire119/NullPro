@@ -55,9 +55,14 @@
 			return postsViewModel;
 		}
 
-		public Task<TViewModel> GetPostById<TViewModel>(int id)
+		public Task<TViewModel> GetPostById<TViewModel>(int postId)
 		{
-			throw new System.NotImplementedException();
+			var result = Task.Run(() => this.postsRepository.All()
+				.Where(p => p.Id == postId)
+				.To<TViewModel>()
+				.FirstOrDefault());
+
+			return result;
 		}
 	}
 }
