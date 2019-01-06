@@ -40,12 +40,14 @@ namespace UnprofessionalsApp.Web.Pages.Posts
 
 		public IEnumerable<PostViewModel> Data { get; set; }
 
-		public async Task<IActionResult> OnGet()
+		public async Task<IActionResult> OnGetAsync()  
         {
+			//TODO: Put all of the above properties get their value from OnGet() Method
+			//TODO: All of the above properties should be in services
+			this.Count = await this.postsService.GetAllPostsCount();
+
 			this.Data = await this.postsService.GetAllPostsForCurrentPage(
 				this.CurrentPage, this.PageSize, this.SortBy, this.Ordering);
-
-			this.Count = await this.postsService.GetAllPostsCount();
 
 			return this.Page();
         }
