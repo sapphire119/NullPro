@@ -1,5 +1,4 @@
 ﻿@model UnprofessionalsApp.ViewInputModels.ViewModels.Posts.PostDetailsViewModel
-@using System.Globalization
 @{
 	ViewData["Title"] = "Post details page";
 }
@@ -11,7 +10,7 @@
 		@(Model.Title)
 		<small>
 			by
-			<a asp-area="Identity" asp-page="/account/details" asp-route-userId="@(Model.UserId)">@(Model.Username)</a>
+			<a asp-controller="Account" asp-action="Details" asp-route-userId="@(Model.UserId)">@(Model.Username)</a>
 		</small>
 		@if (Model.FirmId != null)
 		{
@@ -34,7 +33,7 @@
 			<img class="img rounded" src="@(Model.ImageUrl)" alt="" width="725" height="300">
 			<hr>
 			<!-- Date/Time -->
-			<p>Posted on @(Model.DateOfCreation.ToString(@"d MMMM yyyy", CultureInfo.InvariantCulture)) at @(Model.DateOfCreation.ToString(@"hh:mm tt", CultureInfo.InvariantCulture))</p>
+			<p>Posted on @(Model.DateOfCreation)</p>
 			<hr>
 			<!-- Post Content -->
 			<p class="lead">
@@ -51,10 +50,12 @@
 				<h5 class="card-header">Search</h5>
 				<div class="card-body">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search for...">
-						<span class="input-group-btn">
-							<button class="btn btn-secondary" type="button">Go!</button>
-						</span>
+						<form asp-page="/home/search" method="get" class="d-flex">
+							<input type="text" class="form-control" placeholder="Search for..." name="searchResult">
+							<span class="input-group-btn">
+								<button type="submit" class="btn border-dark bg-white text-dark">Search</button>
+							</span>
+						</form>
 					</div>
 				</div>
 			</div>

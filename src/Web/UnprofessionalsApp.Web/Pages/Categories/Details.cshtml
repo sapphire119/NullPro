@@ -26,8 +26,8 @@
 						<tr>
 							<th scope="row">@(counter++)</th>
 							<td><a asp-page="/posts/details" asp-route-postId="@(post.Id)">@(post.Title)</a></td>
-							<td>@(post.DateOfCreation.ToString(@"dd/MM/yyyy", CultureInfo.InvariantCulture))</td>
-							<td><a asp-area="Identity" asp-page="/account/details" asp-route-userId="@(post.UserId)" asp-route-userName="@(post.Username)">@(post.Username)</a></td>
+							<td>@(post.DateOfCreation)</td>
+							<td><a asp-controller="Account" asp-action="Details" asp-route-userId="@(post.UserId)">@(post.Username)</a></td>
 						</tr>
 					}
 				</tbody>

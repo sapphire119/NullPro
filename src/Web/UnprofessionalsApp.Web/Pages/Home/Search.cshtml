@@ -92,8 +92,8 @@
 				<tr>
 					<td scope="row">@(Model.Counter++)</td>
 					<td><a asp-page="/Posts/Details" asp-route-id="@(post.Id)">@(post.Title)</a></td>
-					<td>@(post.DateOfCreation.ToString(@"dd/MM/yyyy", CultureInfo.InvariantCulture))</td>
-					<td><a asp-area="Identity" asp-page="/Account/Details" asp-route-id="@(post.UserId)">@(post.Username)</a></td>
+					<td>@(post.DateOfCreation)</td>
+					<td><a asp-controller="Account" asp-action="Details" asp-route-id="@(post.UserId)">@(post.Username)</a></td>
 				</tr>
 				}
 			</tbody>
@@ -115,9 +115,9 @@
 				{
 					<tr>
 						<td scope="row">@(Model.Counter++)</td>
-						<td><a asp-area="Identity" asp-page="/Account/Details" asp-route-id="@(user.Id)" >@(user.Username)</a></td>
+						<td><a asp-controller="Account" asp-action="Details" asp-route-id="@(user.Id)" >@(user.Username)</a></td>
 						<td>@(user.Email)</td>
-						<td>@(user.DateOfRegistration.ToString(@"dd/MM/yyyy", CultureInfo.InvariantCulture))</td>
+						<td>@(user.DateOfRegistration)</td>
 					</tr>
 				}
 			</tbody>
@@ -149,7 +149,7 @@
 			<thead>
 				<tr>
 					<th scope="col">#</th>
-					<th scope="col">Category Name</th>
+					<th scope="col">Tag Name</th>
 				</tr>
 			</thead>
 			<tbody @(Model.Counter = 1)>
@@ -163,23 +163,22 @@
 			</tbody>
 		</table>
 	</div>
-
-	<script>
-		function openCity(evt, cityName) {
-			var i, tabcontent, tablinks;
-			tabcontent = document.getElementsByClassName("tabcontent");
-			for (i = 0; i < tabcontent.length; i++) {
-				tabcontent[i].style.display = "none";
-			}
-			tablinks = document.getElementsByClassName("tablinks");
-			for (i = 0; i < tablinks.length; i++) {
-				tablinks[i].className = tablinks[i].className.replace(" active", "");
-			}
-			document.getElementById(cityName).style.display = "block";
-			evt.currentTarget.className += " active";
-		}
-	</script>
-
 </body>
 </html>
+
+<script>
+	function openCity(evt, cityName) {
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+		document.getElementById(cityName).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
+</script>
 

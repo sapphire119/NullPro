@@ -1,8 +1,4 @@
-﻿@*
-	For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@model UnprofessionalsApp.ViewInputModels.ViewModels.Posts.PostDetailsViewModel
-<!-- Comments Form -->
+﻿@model UnprofessionalsApp.ViewInputModels.ViewModels.Posts.PostDetailsViewModel
 @if (this.User.Identity.IsAuthenticated)
 {
 	<div class="card my-4">
@@ -37,7 +33,7 @@ else
 			<div class="media mb-4">
 				<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
 				<div class="media-body">
-					<h5 class="mt-0"><a asp-area="Identity" asp-page="/account/details" asp-route-userId="@(comment.UserId)">@(comment.Username)</a></h5>
+					<h5 class="mt-0"><a asp-controller="Account" asp-action="Details" asp-route-userId="@(comment.UserId)">@(comment.Username)</a></h5>
 					@(comment.Description)
 					<div class="d-flex justify-content-end mb-3">
 						<button class="btn btn-secondary" onclick="myFunction@(comment.Id)()"><small>Reply</small> &laquo;</button>
@@ -67,7 +63,7 @@ else
 									<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
 									<div class="media-body">
 										<h5 class="mt-0">
-											<a asp-area="Identity" asp-page="/account/details" asp-route-userId="@(reply.UserId)">@(reply.Username)</a>
+											<a asp-controller="Account" asp-action="Details" asp-route-userId="@(reply.UserId)">@(reply.Username)</a>
 										</h5>
 										@(reply.Description)
 										<div class="d-flex justify-content-end mb-3">

@@ -1,5 +1,5 @@
 ﻿@page "{currentPage=1}/{sortBy=Id}/{ordering=ascending}/{pageSize=10}"
-@using System.Globalization
+
 @model UnprofessionalsApp.Web.Pages.Firms.IndexModel
 @{
 	ViewData["Title"] = "All Firms Page";
@@ -56,7 +56,7 @@
 				<th scope="row">@((counter++) + ((Model.CurrentPage - 1) * Model.PageSize))</th>
 				<td><a asp-page="/firms/details" asp-route-firmId="@firm.Id">@firm.UniqueFirmId</a></td>
 				<td>@firm.Name</td>
-				<td>@firm.DateOfRegistration.ToString(@"d, MMMM yyyy", CultureInfo.InvariantCulture)</td>
+				<td>@firm.DateOfRegistration</td>
 				<td>@firm.PostsAboutFirm</td>
 				<td>@firm.LegalForm</td>
 			</tr>
