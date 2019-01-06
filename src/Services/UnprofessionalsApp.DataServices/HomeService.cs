@@ -56,13 +56,13 @@ namespace UnprofessionalsApp.DataServices
 			return taskResult;
 		}
 
-		public Task<IEnumerable<TagViewModel>> GetTagsWithMatchingResultAsync(string searchResult)
+		public Task<IEnumerable<TagPostDetailsViewModel>> GetTagsWithMatchingResultAsync(string searchResult)
 		{
 			//TODO: Test me
 			var taskResult = Task.Run(() => this.tagsRepository.All()
 				.Where(c => c.Name.Contains(searchResult))
 				.Take(10)
-				.To<TagViewModel>()
+				.To<TagPostDetailsViewModel>()
 				.AsEnumerable());
 
 			return taskResult;

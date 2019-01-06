@@ -11,6 +11,8 @@
 	using UnprofessionalsApp.Mapping;
 	using System;
 	using System.Threading.Tasks;
+	using UnprofessionalsApp.ViewInputModels.ViewModels.Comments;
+	using UnprofessionalsApp.ViewInputModels.ViewModels.Tags;
 
 	public class PostsService : IPostsService
 	{
@@ -20,19 +22,6 @@
 		{
 			this.postsRepository = postsRepository;
 		}
-
-		//public IEnumerable<PostViewModel> GetAllPosts(int currentPage, int pageSize)
-		//{
-		//	//TODO: Test me
-		//	var allPosts = this.postsRepository.All()
-		//		.OrderBy(p => p.Id)
-		//		.Skip((currentPage - 1) * pageSize)
-		//		.Take(pageSize)
-		//		.To<PostViewModel>()
-		//		.ToList();
-			
-		//	return allPosts;
-		//}
 
 		public Task<int> GetAllPostsCount()
 		{
@@ -55,8 +44,18 @@
 			return postsViewModel;
 		}
 
-		public Task<TViewModel> GetPostById<TViewModel>(int postId)
+		
+		//public Task<IEnumerable<CommentPostDetailsViewModel>> GetCommentsAsync(Post post)
+		//{
+		//	var commentTask = Task.Run(() => this.postsRepository.All()
+		//						.Where(p => p.Id == post.Id)
+		//						.SelectMany(c => c.Comments.Select(x => x)));
+		//}
+
+		public Task<TViewModel> GetPostByIdAsync<TViewModel>(int postId)
 		{
+			//TODO: Test me
+			//TODO: Validate postId
 			var result = Task.Run(() => this.postsRepository.All()
 				.Where(p => p.Id == postId)
 				.To<TViewModel>()

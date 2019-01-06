@@ -29,29 +29,18 @@ namespace UnprofessionalsApp.DataServices
 			return result;
 		}
 
-		//public IEnumerable<FirmViewModel> GetAllFirmsForCurrentPage(int currentPage, int pageSize)
-		//{
-		//	//TODO: Test Me
-		//	var firmsForCurrentPage = this.firmsRepository.All()
-		//		.OrderBy(d => d.Id)
-		//		.Skip((currentPage - 1) * pageSize)
-		//		.Take(pageSize)
-		//		.To<FirmViewModel>()
-		//		.ToList();
-
-		//	return firmsForCurrentPage;
-		//}
-
 		public Task<IEnumerable<FirmViewModel>> GetAllFirmsForCurrentPage(
 			int currentPage, 
 			int pageSize, 
 			string orderByParam, 
 			string ordering)
 		{
+			var sortBy = orderByParam == "PostsAboutFirm" ? "Posts.Count()" : orderByParam;
+
 			//Test And Validate Me.
 			var firmsForCurrentPage = Task.Run(() => this.firmsRepository.All()
 				.AsQueryable() // Вече е IQueryable, но за всеки случай
-				.OrderBy(string.Concat(orderByParam, $" {ordering}"))
+				.OrderBy(string.Concat(sortBy, $" {ordering}"))
 				.ThenBy(f => f.Posts.Count())
 				.Skip((currentPage - 1) * pageSize)
 				.Take(pageSize)

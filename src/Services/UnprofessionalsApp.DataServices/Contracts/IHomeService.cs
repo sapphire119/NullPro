@@ -15,7 +15,7 @@ namespace UnprofessionalsApp.DataServices.Contracts
 
 		Task<IEnumerable<CategoryViewModel>> GetCategoriesWithMatchingResultAsync(string searchResult);
 
-		Task<IEnumerable<TagViewModel>> GetTagsWithMatchingResultAsync(string searchResult);
+		Task<IEnumerable<TagPostDetailsViewModel>> GetTagsWithMatchingResultAsync(string searchResult);
 
 	}
 }
