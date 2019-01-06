@@ -48,8 +48,6 @@ namespace UnprofessionalsApp.Web.Pages.Firms
 
 		public async Task<IActionResult> OnGetAsync()
         {
-			this.SortBy = this.SortBy == "PostsAboutFirm" ? "Posts.Count()" : this.SortBy;
-
 			this.Data = await this.firmsService.GetAllFirmsForCurrentPage(
 				this.CurrentPage, this.PageSize, this.SortBy, this.Ordering);
 
