@@ -8,7 +8,7 @@ using UnprofessionalsApp.ViewInputModels.ViewModels.Replies;
 
 namespace UnprofessionalsApp.ViewInputModels.ViewModels.Comments
 {
-	public class CommentViewModel : IMapFrom<Comment>, IHaveCustomMappings
+	public class CommentPostDetailsViewModel : IMapFrom<Comment>, IHaveCustomMappings
 	{
 		public int Id { get; set; }
 
@@ -22,11 +22,11 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Comments
 
 		public int PostId { get; set; }
 
-		public IEnumerable<ReplyViewModel> Replies { get; set; }
+		public IEnumerable<ReplyPostDetailsViewModel> Replies { get; set; }
 
 		public void CreateMappings(IMapperConfigurationExpression configuration)
 		{
-			configuration.CreateMap<Comment, CommentViewModel>()
+			configuration.CreateMap<Comment, CommentPostDetailsViewModel>()
 				.ForMember(c => c.Username, opts => opts.MapFrom(c => c.User.UserName));
 		}
 	}
