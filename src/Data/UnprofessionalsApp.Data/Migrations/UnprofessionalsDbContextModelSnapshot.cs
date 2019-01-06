@@ -343,6 +343,8 @@ namespace UnprofessionalsApp.Data.Migrations
 
                     b.Property<DateTime>("DateOfRegistration");
 
+                    b.Property<string>("Description");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
