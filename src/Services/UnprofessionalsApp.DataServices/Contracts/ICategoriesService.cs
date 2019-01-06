@@ -6,7 +6,7 @@
 
 	public interface ICategoriesService
 	{
-		Task<IEnumerable<CategoryViewModel>> GetAllCategories();
+		Task<IEnumerable<CategorySearchViewModel>> GetAllCategories();
 
 		Task<string> GetExistingStartingLettersForAllCategories();
 

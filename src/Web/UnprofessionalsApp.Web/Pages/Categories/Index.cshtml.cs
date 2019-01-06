@@ -20,7 +20,7 @@ namespace UnprofessionalsApp.Web.Pages.Categories
 
 		public string LettersToPrint { get; set; }
 
-		public IEnumerable<CategoryViewModel> Categories { get; set; }
+		public IEnumerable<CategorySearchViewModel> Categories { get; set; }
 
 		public async Task<IActionResult> OnGetAsync()
         {

@@ -9,7 +9,7 @@ using UnprofessionalsApp.ViewInputModels.ViewModels.Tags;
 
 namespace UnprofessionalsApp.ViewInputModels.ViewModels.Posts
 {
-	public class PostUserDetailsViewModel : IMapFrom<Post>, IHaveCustomMappings
+	public class PostEntityDetailsViewModel : IMapFrom<Post>, IHaveCustomMappings
 	{
 		private string description;
 
@@ -44,7 +44,7 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Posts
 
 		public void CreateMappings(IMapperConfigurationExpression configuration)
 		{
-			configuration.CreateMap<Post, PostUserDetailsViewModel>()
+			configuration.CreateMap<Post, PostEntityDetailsViewModel>()
 				.ForMember(x => x.DateOfCreation, opts => opts.MapFrom(p => p.DateOfCreation.ToString(@"dd/MM/yyyy", CultureInfo.InvariantCulture)));
 		}
 	}

@@ -3,7 +3,7 @@ using UnprofessionalsApp.Models;
 
 namespace UnprofessionalsApp.ViewInputModels.ViewModels.Categories
 {
-	public class CategoryViewModel : IMapFrom<Category>
+	public class CategorySearchViewModel : IMapFrom<Category>
 	{
 		public int Id { get; set; }
 

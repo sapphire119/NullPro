@@ -20,12 +20,12 @@ namespace UnprofessionalsApp.DataServices
 			this.categoriesRepository = categoriesRepository;
 		}
 
-		public Task<IEnumerable<CategoryViewModel>> GetAllCategories()
+		public Task<IEnumerable<CategorySearchViewModel>> GetAllCategories()
 		{
 			//TODO: Test me
 			var categories = Task.Run(() => this.categoriesRepository.All()
 					.OrderBy(c => c.Name)
-					.To<CategoryViewModel>()
+					.To<CategorySearchViewModel>()
 					.AsEnumerable());
 
 			return categories;

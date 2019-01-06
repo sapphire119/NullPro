@@ -74,8 +74,32 @@
 		<button class="tablinks" onclick="openCity(event, 'Users')">Users</button>
 		<button class="tablinks" onclick="openCity(event, 'Categories')">Categories</button>
 		<button class="tablinks" onclick="openCity(event, 'Tags')">Tags</button>
+		<button class="tablinks" onclick="openCity(event, 'Firms')">Firms</button>
 	</div>
-
+	<div id="Firms" class="tabcontent">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Firm Name</th>
+					<th scope="col">Date of Addition to site</th>
+					<th scope="col">Legal Form</th>
+				</tr>
+			</thead>
+			<tbody @(Model.Counter = 1)>
+				@foreach (var firm in Model.Firms)
+				{
+					<tr>
+						<td scope="row">@(Model.Counter++)</td>
+						<td><a asp-controller="Firms" asp-action="Details" asp-route-firmId="@(firm.Id)">@(firm.Name)</a></td>
+						<td>@(firm.DateOfRegistration)</td>
+						<td><a href="https://public.brra.bg/CheckUps/Verifications/ActiveCondition.ra?guid=@(firm.Id)" target="_blank">@(firm.UniqueFirmId)</a></td>
+						<td>@(firm.LegalForm)</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 	<div id="Posts" class="tabcontent">
 		<table class="table table-hover">
 			<thead>

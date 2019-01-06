@@ -16,8 +16,8 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Users
 		private string description;
 		private string email;
 		private string phoneNumber;
-		private IEnumerable<PostUserDetailsViewModel> posts;
-		private IEnumerable<PostUserDetailsViewModel> firmPosts;
+		private IEnumerable<PostEntityDetailsViewModel> posts;
+		private IEnumerable<PostEntityDetailsViewModel> firmPosts;
 		IEnumerable<CommentUserDetailsViewModel> comments;
 
 		public int Id { get; set; }
@@ -80,7 +80,7 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Users
 
 		public string DateOfRegistration { get; set; }
 
-		public IEnumerable<PostUserDetailsViewModel> FirmPosts
+		public IEnumerable<PostEntityDetailsViewModel> FirmPosts
 		{
 			get
 			{
@@ -92,7 +92,7 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Users
 			}
 		}
 
-		public IEnumerable<PostUserDetailsViewModel> Posts
+		public IEnumerable<PostEntityDetailsViewModel> Posts
 		{
 			get
 			{
