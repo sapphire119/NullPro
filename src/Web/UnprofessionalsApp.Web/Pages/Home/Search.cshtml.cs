@@ -33,7 +33,7 @@ namespace UnprofessionalsApp.Web.Pages.Home
 
 		public IEnumerable<CategoryViewModel> Categories { get; set; }
 
-		public IEnumerable<TagViewModel> Tags { get; set; }
+		public IEnumerable<TagPostDetailsViewModel> Tags { get; set; }
 
 		public async Task<IActionResult> OnGetAsync()
         {
