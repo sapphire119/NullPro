@@ -33,8 +33,6 @@
     <Folder Include="Areas\Manager\Models\" />
     <Folder Include="Areas\Manager\Views\" />
     <Folder Include="Pages\Shared\" />
-    <Folder Include="Views\Categories\" />
-    <Folder Include="Views\Firms\" />
   </ItemGroup>
 
 </Project>

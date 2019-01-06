@@ -46,7 +46,7 @@ namespace UnprofessionalsApp.Web
 				catch (Exception ex)
 				{
 					var logger = services.GetRequiredService<ILogger<Program>>();
-					logger.LogError(ex, ProjectConstants.CannotCreateDbMessage);
+					logger.LogError(ex, GlobalConstants.CannotCreateDbMessage);
 				}
 			}
 		}
