@@ -598,7 +598,7 @@ namespace UnprofessionalsApp.Web.Extensions
 				if (createPowerUser.Succeeded)
 				{
 					//here we tie the new user to the role
-					await userManager.AddToRoleAsync(poweruser, ProjectConstants.AdminRole);
+					await userManager.AddToRoleAsync(poweruser, GlobalConstants.AdminRole);
 				}
 			}
 
@@ -633,35 +633,35 @@ namespace UnprofessionalsApp.Web.Extensions
 			if (createUser.Succeeded)
 			{
 				//here we tie the new user to the role
-				await userManager.AddToRoleAsync(user, ProjectConstants.UserRole);
+				await userManager.AddToRoleAsync(user, GlobalConstants.UserRole);
 			}
 
 			var createUser1 = await userManager.CreateAsync(user1, userPWD);
 			if (createUser.Succeeded)
 			{
 				//here we tie the new user to the role
-				await userManager.AddToRoleAsync(user1, ProjectConstants.UserRole);
+				await userManager.AddToRoleAsync(user1, GlobalConstants.UserRole);
 			}
 
 			var createUser2 = await userManager.CreateAsync(user2, userPWD);
 			if (createUser.Succeeded)
 			{
 				//here we tie the new user to the role
-				await userManager.AddToRoleAsync(user2, ProjectConstants.UserRole);
+				await userManager.AddToRoleAsync(user2, GlobalConstants.UserRole);
 			}
 
 			var createUser3 = await userManager.CreateAsync(user3, userPWD);
 			if (createUser.Succeeded)
 			{
 				//here we tie the new user to the role
-				await userManager.AddToRoleAsync(user3, ProjectConstants.UserRole);
+				await userManager.AddToRoleAsync(user3, GlobalConstants.UserRole);
 			}
 
 			var createUser4 = await userManager.CreateAsync(user4, userPWD);
 			if (createUser.Succeeded)
 			{
 				//here we tie the new user to the role
-				await userManager.AddToRoleAsync(user4, ProjectConstants.UserRole);
+				await userManager.AddToRoleAsync(user4, GlobalConstants.UserRole);
 			}
 
 		}
@@ -677,7 +677,7 @@ namespace UnprofessionalsApp.Web.Extensions
 
 			IdentityResult roleResult;
 
-			foreach (var roleName in ProjectConstants.ApprovedRoles)
+			foreach (var roleName in GlobalConstants.ApprovedRoles)
 			{
 				var roleExist = await roleManager.RoleExistsAsync(roleName);
 				if (!roleExist)
