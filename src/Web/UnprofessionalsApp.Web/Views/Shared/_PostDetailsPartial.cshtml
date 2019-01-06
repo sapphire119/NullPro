@@ -1,0 +1,47 @@
+﻿@using System.Globalization
+@using System.Linq
+@model IEnumerable<UnprofessionalsApp.ViewInputModels.ViewModels.Posts.PostUserDetailsViewModel>
+
+@{
+	var counter = 1;
+}
+
+@if (Model.Any())
+{
+	<div class="row">
+		<div class="container-fluid">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Post Title</th>
+						<th scope="col">Description</th>
+						<th scope="col">Date of registration</th>
+						<th scope="col">Tags</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var post in Model)
+					{
+						<tr>
+							<th scope="row">@(counter++)</th>
+							<td><a asp-controller="Posts" asp-action="Details" asp-route-postId="@(post.Id)">@(post.Title)</a></td>
+							<td>@(post.Description)</td>
+							<td>@(post.DateOfCreation)</td>
+							<td>
+								@foreach (var tag in post.Tags)
+								{
+									<a class="badge badge-secondary" asp-page="/tags/details" asp-route-tagId="@(tag.Id)">@(tag.Name)</a>
+								}
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+}
+else
+{
+	<p>There is currently no data for this section.</p>
+}

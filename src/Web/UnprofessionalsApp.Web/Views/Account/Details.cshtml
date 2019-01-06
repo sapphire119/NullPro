@@ -1,0 +1,135 @@
+﻿@model UnprofessionalsApp.ViewInputModels.ViewModels.Users.UserDetailsViewModel
+@{
+	ViewData["Title"] = "Details Page";
+}
+
+<style>
+	body {
+		font-family: Arial;
+	}
+
+	/* Style the tab */
+	.tab {
+		overflow: hidden;
+		border: 1px solid #ccc;
+		background-color: #f1f1f1;
+	}
+
+		/* Style the buttons inside the tab */
+		.tab button {
+			background-color: inherit;
+			float: left;
+			border: none;
+			outline: none;
+			cursor: pointer;
+			padding: 14px 16px;
+			transition: 0.3s;
+			font-size: 17px;
+		}
+
+			/* Change background color of buttons on hover */
+			.tab button:hover {
+				background-color: #ddd;
+			}
+
+			/* Create an active/current tablink class */
+			.tab button.active {
+				background-color: #ccc;
+			}
+
+	/* Style the tab content */
+	.tabcontent {
+		display: none;
+		padding: 6px 12px;
+		border: 1px solid #ccc;
+		border-top: none;
+	}
+</style>
+<div class="container bootstrap snippet">
+	<div class="row">
+		<div class="col-sm-3">
+			<!--left col-->
+
+			<div class="text-center">
+				<h1>@(Model.Username)</h1>
+				<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="rounded-circle img-fluid img-thumbnail" alt="avatar">
+			</div><br>
+
+
+			<ul class="list-group">
+				<li class="list-group-item bg-light"><h5 class="text-dark mb-0">Activity</h5></li>
+				<li class="list-group-item"><a class="d-flex justify-content-between" href="/"><strong>Posts</strong> 37</a></li>
+				<li class="list-group-item"><a class="d-flex justify-content-between" href="/"><strong>Comments</strong> 13</a></li>
+			</ul>
+		</div><!--/col-3-->
+
+		<div class="col-sm-9">
+			<div class="tab">
+				<button class="tablinks" onclick="openCity(event, 'UserInformation')">User Details</button>
+				<button class="tablinks" onclick="openCity(event, 'FirmPosts')">Firm Posts</button>
+				<button class="tablinks" onclick="openCity(event, 'RegularPosts')">Posts</button>
+				<button class="tablinks" onclick="openCity(event, 'Comments')">Most Recent Comments</button>
+			</div>
+
+			<div id="UserInformation" class="tabcontent">
+				<div class="row">
+					<div class="container-fluid">
+						<h4>Profile information</h4>
+						<table class="table table-hover pl-0">
+							<tbody>
+								<tr>
+									<td class="font-weight-bold">Email:</td>
+									<td>@(Model.Email)</td>
+								</tr>
+								<tr>
+									<td class="font-weight-bold">Phone Number:</td>
+									<td>@(Model.PhoneNumber)</td>
+								</tr>
+								<tr>
+									<td class="font-weight-bold">Date of Registration:</td>
+									<td>@(Model.DateOfRegistration)</td>
+								</tr>
+								<tr>
+								<tr>
+									<td class="font-weight-bold">Description</td>
+									<td>@(Model.Description)</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div id="FirmPosts" class="tabcontent">
+				<h4>Most Recent firm posts</h4>
+				@await Html.PartialAsync("_PostDetailsPartial", Model.FirmPosts)
+			</div>
+
+			<div id="RegularPosts" class="tabcontent">
+				<h4>Most Recent posts</h4>
+				@await Html.PartialAsync("_PostDetailsPartial", Model.Posts)
+			</div>
+
+			<div id="Comments" class="tabcontent">
+				<h4>Most Recent comments</h4>
+				@await Html.PartialAsync("_PostDetailsCommentPartial", Model.Comments)
+			</div>
+		</div><!--/tab-content-->
+	</div><!--/col-9-->
+</div><!--/row-->
+
+<script>
+	function openCity(evt, cityName) {
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+		document.getElementById(cityName).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
+</script>

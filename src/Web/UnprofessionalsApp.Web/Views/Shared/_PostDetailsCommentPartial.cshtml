@@ -1,0 +1,41 @@
+﻿@using System.Globalization
+@using System.Linq
+@model IEnumerable<UnprofessionalsApp.ViewInputModels.ViewModels.Comments.CommentUserDetailsViewModel>
+
+@{
+	var counter = 1;
+}
+
+@if (Model.Any())
+{
+	<div class="row">
+		<div class="container-fluid">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Date of registration</th>
+						<th scope="col">Description</th>
+						<th scope="col">Made on post</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var comment in Model)
+					{
+						<tr>
+							<th scope="row">@(counter++)</th>
+							<td>@(comment.DateOfCreation)</td>
+							<td>@(comment.Description)</td>
+							<td><a asp-controller="Posts" asp-action="Details" asp-route-postId="@(comment.PostId)">@(comment.PostTitle)</a></td>
+						</tr>
+					}
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+}
+else
+{
+	<p>There is currently no data for this section.</p>
+}
