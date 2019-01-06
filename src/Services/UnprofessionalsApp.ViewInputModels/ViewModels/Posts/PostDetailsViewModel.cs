@@ -1,17 +1,18 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
-using UnprofessionalsApp.Mapping.Contracts;
-using UnprofessionalsApp.Models;
-using UnprofessionalsApp.ViewInputModels.Extension;
-using System.Net;
-using UnprofessionalsApp.ViewInputModels.ViewModels.Tags;
-using UnprofessionalsApp.ViewInputModels.ViewModels.Comments;
-
-namespace UnprofessionalsApp.ViewInputModels.ViewModels.Posts
+﻿namespace UnprofessionalsApp.ViewInputModels.ViewModels.Posts
 {
+	using System;
+	using System.Collections.Generic;
+	using System.Net;
+	using System.Globalization;
+	using System.Linq;
+	using AutoMapper;
+
+	using UnprofessionalsApp.Mapping.Contracts;
+	using UnprofessionalsApp.Models;
+	using UnprofessionalsApp.ViewInputModels.ViewModels.Tags;
+	using UnprofessionalsApp.ViewInputModels.ViewModels.Comments;
+	using UnprofessionalsApp.Common;
+
 	public class PostDetailsViewModel : IMapFrom<Post>, IHaveCustomMappings
 	{
 		private string imageUrl;
@@ -27,7 +28,7 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Posts
 			get
 			{
 				var result = string.IsNullOrWhiteSpace(this.imageUrl) ?
-					ProjectConsants.DefaultImageUrl : this.imageUrl;
+					GlobalConstants.DefaultImageUrl : this.imageUrl;
 
 				result = WebUtility.UrlDecode(result);
 
@@ -39,7 +40,7 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Posts
 			}
 		}
 
-		public DateTime DateOfCreation { get; set; }
+		public string DateOfCreation { get; set; }
 
 		public int UserId { get; set; }
 
@@ -51,16 +52,21 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Posts
 
 		public string FirmName { get; set; }
 
-		public IEnumerable<CommentViewModel> Comments { get; set; }
+		public IEnumerable<CommentPostDetailsViewModel> Comments { get; set; }
 
-		public IEnumerable<TagViewModel> Tags { get; set; }
+		public IEnumerable<TagPostDetailsViewModel> Tags{ get; set; }
 
 		public void CreateMappings(IMapperConfigurationExpression configuration)
 		{
 			configuration.CreateMap<Post, PostDetailsViewModel>()
 				.ForMember(x => x.Username, opts => opts.MapFrom(p => p.User.UserName))
 				.ForMember(x => x.FirmName, opts => opts.MapFrom(p => p.Firm.Name))
-				.ForMember(x => x.Comments, opts => opts.MapFrom(p => p.Comments));
+				.ForMember(x => x.Comments, opts => opts.MapFrom(p => p.Comments))
+				.ForMember(x => x.DateOfCreation, opts => opts.MapFrom(p => 
+				string.Format(
+					GlobalConstants.PostDetailsDateOfCreationFormat,
+					p.DateOfCreation.ToString(@"d MMMM yyyy", CultureInfo.InvariantCulture),
+					p.DateOfCreation.ToString(@"hh:mm tt", CultureInfo.InvariantCulture))));
 		}
 	}
 }

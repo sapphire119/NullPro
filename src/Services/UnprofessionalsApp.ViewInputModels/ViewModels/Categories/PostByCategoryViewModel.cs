@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Net;
-using System.Text;
 using AutoMapper;
+using UnprofessionalsApp.Common;
 using UnprofessionalsApp.Mapping.Contracts;
 using UnprofessionalsApp.Models;
-using UnprofessionalsApp.ViewInputModels.Extension;
 
 namespace UnprofessionalsApp.ViewInputModels.ViewModels.Categories
 {
@@ -23,10 +22,10 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Categories
 			get
 			{
 				//TODO: Test me
-				var result = this.description.Length > ProjectConsants.AllowedCharactersToRender ?
+				var result = this.description.Length > GlobalConstants.AllowedCharactersToRenderForPostDescription ?
 								string.Concat(
-									this.description.Substring(0, ProjectConsants.AllowedCharactersToRender),
-									ProjectConsants.DescriptionExtensionStrings)
+									this.description.Substring(0, GlobalConstants.AllowedCharactersToRenderForPostDescription),
+									GlobalConstants.DescriptionExtensionStrings)
 										: this.description;
 				return result;
 			}
@@ -42,7 +41,7 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Categories
 			{
 				//TODO: Test me
 				var result = string.IsNullOrWhiteSpace(this.imageUrl) ?
-					ProjectConsants.DefaultImageUrl : this.imageUrl;
+					GlobalConstants.DefaultImageUrl : this.imageUrl;
 
 				result = WebUtility.UrlDecode(result);
 
@@ -54,7 +53,7 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Categories
 			}
 		}
 
-		public DateTime DateOfCreation { get; set; }
+		public string DateOfCreation { get; set; }
 
 		public int UserId { get; set; }
 
@@ -63,7 +62,8 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Categories
 		public void CreateMappings(IMapperConfigurationExpression configuration)
 		{
 			configuration.CreateMap<Post, PostByCategoryViewModel>()
-					.ForMember(x => x.Username, opts => opts.MapFrom(p => p.User.UserName));
+					.ForMember(x => x.Username, opts => opts.MapFrom(p => p.User.UserName))
+					.ForMember(x => x.DateOfCreation, opts => opts.MapFrom(p => p.DateOfCreation.ToString(@"dd/MM/yyyy", CultureInfo.InvariantCulture)));
 		}
 	}
 }
