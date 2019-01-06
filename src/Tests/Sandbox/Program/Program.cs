@@ -20,6 +20,11 @@ using System.Xml;
 using System.Xml.Linq;
 using Microsoft.EntityFrameworkCore;
 using UnprofessionalsApp.Models;
+using UnprofessionalsApp.DataServices.Contracts;
+using UnprofessionalsApp.DataServices;
+using UnprofessionalsApp.Mapping;
+using Microsoft.AspNetCore.Identity;
+using UnprofessionalsApp.ViewInputModels.ViewModels.Posts;
 
 //using AngleSharp;
 //using AngleSharp.Parser.Html;
@@ -53,7 +58,24 @@ namespace Sandbox
 
 		private static void SandboxCode(IServiceProvider serviceProvider)
 		{
-			var post = new Post();
+			var user = new UnprofessionalsAppUser();
+
+			var test = user.Comments
+			.OrderByDescending(p => p.DateOfCreation)
+			.AsEnumerable();
+			//using (var context = new UnprofessionalsDbContext(null))
+			//{
+			//	var userRepo = new DbRepository<UnprofessionalsAppUser>(context);
+
+			//	var regularPosts = userRepo.All().Where(u => u.Id == 1)
+			//			.SelectMany(u => u.Comments);
+
+			//}
+
+
+			//var post = new Post();
+			//var user = new UnprofessionalsAppUser();
+			//IEnumerable<Post> posts = user.Posts.Where(p => p.FirmId != null);
 			//IEnumerable<Tag> tags = post.Tags.Select(t => t.Tag.Name);
 
 			//var lower = pageNumber % 10;
@@ -136,6 +158,7 @@ namespace Sandbox
 			});
 
 			services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+			services.AddTransient<IUsersService, UserService>();
 		}
 	}
 }
