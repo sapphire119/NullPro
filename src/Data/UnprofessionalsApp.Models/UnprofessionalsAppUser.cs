@@ -10,6 +10,8 @@
 	{
 		public bool IsBlackListed { get; set; } = false;
 
+		public string Description { get; set; }
+
 		public DateTime DateOfRegistration { get; set; } = DateTime.UtcNow;
 
 		public virtual ICollection<Post> Posts { get; set; } = new HashSet<Post>();
