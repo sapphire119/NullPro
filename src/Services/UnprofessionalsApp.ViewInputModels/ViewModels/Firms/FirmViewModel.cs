@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using AutoMapper;
 using UnprofessionalsApp.Mapping.Contracts;
@@ -14,7 +15,7 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Firms
 
 		public string Name { get; set; }
 
-		public DateTime DateOfRegistration { get; set; }
+		public string DateOfRegistration { get; set; }
 
 		public int PostsAboutFirm { get; set; }
 
@@ -24,7 +25,8 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Firms
 		{
 			//Check
 			configuration.CreateMap<Firm, FirmViewModel>()
-				.ForMember(f => f.PostsAboutFirm, opts => opts.MapFrom(f => f.Posts.Count()));
+				.ForMember(f => f.PostsAboutFirm, opts => opts.MapFrom(f => f.Posts.Count()))
+				.ForMember(f => f.DateOfRegistration, opts => opts.MapFrom(f => f.DateOfRegistration.ToString(@"d, MMMM yyyy", CultureInfo.InvariantCulture)));
 
 			configuration.CreateMap<FirmViewModel, Firm>()
 				.ForMember(x => x.Reports, opts => opts.Ignore())
