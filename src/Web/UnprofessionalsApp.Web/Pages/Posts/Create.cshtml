@@ -1,0 +1,47 @@
+﻿@page "/Posts/Create"
+@model UnprofessionalsApp.Web.Pages.Posts.CreateModel
+
+@{
+	ViewData["Title"] = "Create post";
+}
+
+<div class="container-fluid col-md-6 offset-md-3">
+	<h5>Post Create</h5>
+	<hr />
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	<form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" asp-page="/posts/create">
+		<label asp-for="InputModel.Title"></label>
+		<div class="col-md-10">
+			<input asp-for="InputModel.Title" class="form-control" placeholder="Title..." />
+			<span asp-validation-for="InputModel.Title" class="text-danger"></span>
+		</div>
+		<label asp-for="InputModel.Description"></label>
+		<div class="col-md-10">
+			<textarea class="form-control" rows="3" asp-for="InputModel.Description" placeholder="Description..." style="resize:vertical;"></textarea>
+			<span asp-validation-for="InputModel.Description" class="text-danger"></span>
+		</div>
+		<label asp-for="InputModel.Image"></label>
+		<div class="col-md-10">
+			<input type="file" asp-for="InputModel.Image" />
+			<span asp-validation-for="InputModel.Image" class="text-danger"></span>
+		</div>
+		<select asp-for="InputModel.CategoryId">
+			@foreach (var category in Model.Categories)
+			{
+				<option value="@(category.Id)">@(category.Name)</option>
+			}
+		</select>
+		@*<select asp-for="InputModel.CategoryId">
+				<option value="1">test</option>
+			</select>*@
+		@*@await Html.PartialAsync("_PostCategoriesPartial", Model.Categories);*@
+		<input type="hidden" asp-for="InputModel.Username" value="@(this.User.Identity.Name)" />
+
+		<input type="submit" value="Submit" />
+	</form>
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+
