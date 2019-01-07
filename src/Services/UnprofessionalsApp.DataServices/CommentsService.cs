@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UnprofessionalsApp.Common;
 using UnprofessionalsApp.DataServices.Contracts;
 using UnprofessionalsApp.Models;
+using UnprofessionalsApp.ViewInputModels.InputModels.Comments;
 
 namespace UnprofessionalsApp.DataServices
 {
@@ -20,13 +21,25 @@ namespace UnprofessionalsApp.DataServices
 			this.mapper = mapper;
 		}
 
-		public async Task CreateComment<T>(T inputModel)
+		public async Task<int> CreateComment(CreateInputModel inputModel)
 		{
+			//TODO: Test with in memeory DB.
 			var comment = this.mapper.Map<Comment>(inputModel);
 
 			await this.commentsRepository.AddAsync(comment);
 
-			throw new NotImplementedException();
+			var statusResult = await this.commentsRepository.SaveChangesAsync();
+
+			return statusResult;
 		}
+
+		//public async Task CreateComment<T>(T inputModel)
+		//{
+		//	var comment = this.mapper.Map<Comment>(inputModel);
+
+		//	await this.commentsRepository.AddAsync(comment);
+
+		//	throw new NotImplementedException();
+		//}
 	}
 }
