@@ -5,6 +5,7 @@
 	using Microsoft.AspNetCore.Mvc;
 	using UnprofessionalsApp.ViewInputModels.InputModels.Comments;
 	using UnprofessionalsApp.DataServices.Contracts;
+	using Microsoft.AspNetCore.Authorization;
 
 	public class CommentsController : Controller
 	{
@@ -15,6 +16,7 @@
 			this.commentsService = commentsService;
 		}
 
+		[Authorize]
 		[HttpPost]
 		[Route("Comments/Create")]
 		//TODO: Filter Input Model

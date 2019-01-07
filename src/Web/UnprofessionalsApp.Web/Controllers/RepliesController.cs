@@ -1,5 +1,6 @@
 ﻿namespace UnprofessionalsApp.Web.Controllers
 {
+	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
 	using System.Threading.Tasks;
 	using UnprofessionalsApp.DataServices.Contracts;
@@ -15,6 +16,9 @@
 		}
 
 		//TODO: Filter InputModel.
+		[Authorize]
+		[HttpPost]
+		[Route("Replies/Create")]
 		public async Task<IActionResult> CreateAsync(CreateInputModel inputModel)
 		{
 			if (!ModelState.IsValid)
