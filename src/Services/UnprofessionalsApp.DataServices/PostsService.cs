@@ -14,20 +14,30 @@
 	using UnprofessionalsApp.ViewInputModels.ViewModels.Comments;
 	using UnprofessionalsApp.ViewInputModels.ViewModels.Tags;
 	using AutoMapper;
+	using Microsoft.Extensions.Configuration;
+	using UnprofessionalsApp.ViewInputModels.InputModels.Posts;
 
 	public class PostsService : IPostsService
 	{
 		private readonly IRepository<Post> postsRepository;
 		private readonly IMapper mapper;
+		private readonly IConfiguration configuration;
 
-		public PostsService(IRepository<Post> postsRepository, IMapper mapper)
+		public PostsService(IRepository<Post> postsRepository, IMapper mapper, IConfiguration configuration)
 		{
 			this.postsRepository = postsRepository;
 			this.mapper = mapper;
+			this.configuration = configuration;
+		}
+
+		public Task<int> CreatePost(PostCreateInputModel inputModel)
+		{
+			throw new NotImplementedException();
 		}
 
 		public Task<int> GetAllPostsCount()
 		{
+			//this.configuration["Cloudinary"]
 			//TODO: Test Me
 			var result = Task.Run(() => this.postsRepository.All().Count());
 			return result;
@@ -36,6 +46,7 @@
 		public Task<IEnumerable<PostViewModel>> GetAllPostsForCurrentPage(
 			int currentPage, int pageSize, string orderByParam, string ordering)
 		{
+			//var test = this.configuration.GetSection("Cloudinary").GetChildren().ToDictionary(x => x.Key, k => k.Value);
 			//TODO: Test me
 			var postsViewModel = Task.Run(() =>
 			{
