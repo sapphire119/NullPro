@@ -10,9 +10,20 @@
 
 	public class FirmsController : Controller
 	{
-		public IActionResult Create()
+		private readonly IFirmsService firmsService;
+
+		public FirmsController(IFirmsService firmsService)
 		{
-			return this.View();
+			this.firmsService = firmsService;
+		}
+
+		public async Task<IActionResult> Details(string firmId)
+		{
+			var firmIdParsed = this.firmsService.GetParsedFirmId(firmId);
+
+			var model = await this.firmsService.GetFirmById<FirmDetailsViewModel>(firmIdParsed);
+
+			return this.View(model);
 		}
 	}
 }

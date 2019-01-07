@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using AutoMapper;
+//using AutoMapper;
 using UnprofessionalsApp.Common;
-using UnprofessionalsApp.Mapping.Contracts;
-using UnprofessionalsApp.Models;
+//using UnprofessionalsApp.Mapping.Contracts;
+//using UnprofessionalsApp.Models;
 using UnprofessionalsApp.ViewInputModels.ViewModels.Comments;
 using UnprofessionalsApp.ViewInputModels.ViewModels.Posts;
 
 namespace UnprofessionalsApp.ViewInputModels.ViewModels.Users
 {
-	public class UserDetailsViewModel : IMapFrom<UnprofessionalsAppUser>, IHaveCustomMappings
+	public class UserDetailsViewModel /*: IMapFrom<UnprofessionalsAppUser>, IHaveCustomMappings*/
 	{
 		private string description;
 		private string email;
@@ -116,33 +116,33 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Users
 			}
 		}
 
-		public void CreateMappings(IMapperConfigurationExpression configuration)
-		{
-			configuration.CreateMap<UnprofessionalsAppUser, UserDetailsViewModel>()
-				.ForMember(x => x.Username, opts => opts.MapFrom(x => x.UserName))
-				.ForMember(x => x.Email, opts => opts.MapFrom(x => x.Email))
-				.ForMember(x => x.PhoneNumber, opts => opts.MapFrom(x => x.PhoneNumber))
-				.ForMember(x => x.FirmPosts, 
-						opts => opts.MapFrom(
-									x => x.Posts
-										  .Where(p => p.FirmId != null)
-										  .OrderByDescending(p => p.DateOfCreation)
-										  .Select(c => c)))
-				.ForMember(x => x.Posts, 
-						opts => opts.MapFrom(
-									x => x.Posts
-										  .Where(p => p.FirmId == null)
-										  .OrderByDescending(p => p.DateOfCreation)
-										  .Select(c => c)))
-				.ForMember(x => x.Comments,
-						opts => opts.MapFrom(
-									x => x.Comments
-										  .OrderByDescending(p => p.DateOfCreation)
-										  .Select(c => c)))
-				.ForMember(x => x.DateOfRegistration, 
-						opts => opts.MapFrom(
-									u => u.DateOfRegistration
-										  .ToString(@"dd/MM/yyyy", CultureInfo.InvariantCulture)));
-		}
+		//public void CreateMappings(IMapperConfigurationExpression configuration)
+		//{
+		//	configuration.CreateMap<UnprofessionalsAppUser, UserDetailsViewModel>()
+		//		.ForMember(x => x.Username, opts => opts.MapFrom(x => x.UserName))
+		//		.ForMember(x => x.Email, opts => opts.MapFrom(x => x.Email))
+		//		.ForMember(x => x.PhoneNumber, opts => opts.MapFrom(x => x.PhoneNumber))
+		//		.ForMember(x => x.FirmPosts, 
+		//				opts => opts.MapFrom(
+		//							x => x.Posts
+		//								  .Where(p => p.FirmId != null)
+		//								  .OrderByDescending(p => p.DateOfCreation)
+		//								  .Select(c => c)))
+		//		.ForMember(x => x.Posts, 
+		//				opts => opts.MapFrom(
+		//							x => x.Posts
+		//								  .Where(p => p.FirmId == null)
+		//								  .OrderByDescending(p => p.DateOfCreation)
+		//								  .Select(c => c)))
+		//		.ForMember(x => x.Comments,
+		//				opts => opts.MapFrom(
+		//							x => x.Comments
+		//								  .OrderByDescending(p => p.DateOfCreation)
+		//								  .Select(c => c)))
+		//		.ForMember(x => x.DateOfRegistration, 
+		//				opts => opts.MapFrom(
+		//							u => u.DateOfRegistration
+		//								  .ToString(@"dd/MM/yyyy", CultureInfo.InvariantCulture)));
+		//}
 	}
 }

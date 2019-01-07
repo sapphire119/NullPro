@@ -1,9 +1,9 @@
-﻿namespace UnprofessionalsApp.Mapping.Contracts
-{
-	using AutoMapper;
+﻿//namespace UnprofessionalsApp.Mapping.Contracts
+//{
+//	using AutoMapper;
 
-	public interface IHaveCustomMappings
-	{
-		void CreateMappings(IMapperConfigurationExpression configuration);
-	}
-}
+//	public interface IHaveCustomMappings
+//	{
+//		void CreateMappings(IMapperConfigurationExpression configuration);
+//	}
+//}

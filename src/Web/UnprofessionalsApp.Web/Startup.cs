@@ -17,7 +17,7 @@
 
 	using AutoMapper;
 	using UnprofessionalsApp.ViewInputModels.ViewModels.Posts;
-	using UnprofessionalsApp.Mapping;
+	//using UnprofessionalsApp.Mapping;
 	using UnprofessionalsApp.DataServices.Contracts;
 	using UnprofessionalsApp.DataServices;
 
@@ -25,6 +25,7 @@
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Threading.Tasks;
+	using UnprofessionalsApp.Mapping.Profiles.Categories;
 
 	public class Startup
 	{
@@ -38,7 +39,7 @@
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			AutoMapperConfig.RegisterMappings(typeof(PostViewModel));
+			//AutoMapperConfig.RegisterMappings(typeof(PostViewModel));
 
 			services.Configure<CookiePolicyOptions>(options =>
 			{
@@ -64,6 +65,8 @@
 			})
 			.AddRoles<IdentityRole<int>>()
 			.AddEntityFrameworkStores<UnprofessionalsDbContext>();
+
+			services.AddAutoMapper(a => a.AddProfiles(typeof(PostByCategoryProfile).Assembly));
 
 			services.ConfigureApplicationCookie(options =>
 			{

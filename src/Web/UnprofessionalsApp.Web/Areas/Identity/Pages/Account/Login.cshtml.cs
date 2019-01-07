@@ -70,6 +70,7 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
 
 				//TODO: Make a user able to log in either with email or username.
                 var result = await _signInManager.PasswordSignInAsync(LogInInputModel.Username, LogInInputModel.Password, LogInInputModel.RememberMe, lockoutOnFailure: true);
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

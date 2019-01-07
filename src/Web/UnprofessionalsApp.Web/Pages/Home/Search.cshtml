@@ -115,9 +115,9 @@
 				{
 				<tr>
 					<td scope="row">@(Model.Counter++)</td>
-					<td><a asp-page="/Posts/Details" asp-route-id="@(post.Id)">@(post.Title)</a></td>
+					<td><a asp-controller="Posts" asp-action="Details" asp-route-postId="@(post.Id)">@(post.Title)</a></td>
 					<td>@(post.DateOfCreation)</td>
-					<td><a asp-controller="Account" asp-action="Details" asp-route-id="@(post.UserId)">@(post.Username)</a></td>
+					<td><a asp-controller="Account" asp-action="Details" asp-route-userId="@(post.UserId)">@(post.Username)</a></td>
 				</tr>
 				}
 			</tbody>
@@ -139,7 +139,7 @@
 				{
 					<tr>
 						<td scope="row">@(Model.Counter++)</td>
-						<td><a asp-controller="Account" asp-action="Details" asp-route-id="@(user.Id)" >@(user.Username)</a></td>
+						<td><a asp-controller="Account" asp-action="Details" asp-route-userId="@(user.Id)" >@(user.Username)</a></td>
 						<td>@(user.Email)</td>
 						<td>@(user.DateOfRegistration)</td>
 					</tr>
@@ -161,7 +161,7 @@
 				{
 					<tr>
 						<td scope="row">@(Model.Counter++)</td>
-						<td><a href="#">@(category.Name)</a></td>
+						<td><a asp-page="/categories/details" asp-route-categoryId="@(category.Id)">@(category.Name)</a></td>
 					</tr>
 				}
 			</tbody>

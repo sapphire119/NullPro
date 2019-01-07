@@ -16,7 +16,7 @@
 		{
 			<small>
 				for
-				<a asp-page="/firms/details" asp-route-userId="@(Model.FirmId.Value)">@(Model.FirmName)</a>
+				<a asp-controller="Firms" asp-action="Details" asp-route-firmId="@(Model.FirmId.Value)">@(Model.FirmName)</a>
 			</small>
 		}
 	</h1>

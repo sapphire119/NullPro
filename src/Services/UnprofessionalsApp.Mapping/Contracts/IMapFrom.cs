@@ -1,6 +1,6 @@
-﻿namespace UnprofessionalsApp.Mapping.Contracts
-{
-	public interface IMapFrom<T>
-	{
-	}
-}
+﻿//namespace UnprofessionalsApp.Mapping.Contracts
+//{
+//	public interface IMapFrom<T>
+//	{
+//	}
+//}

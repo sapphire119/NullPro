@@ -1,15 +1,15 @@
-﻿using AutoMapper;
+﻿//using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using UnprofessionalsApp.Common;
-using UnprofessionalsApp.Mapping.Contracts;
-using UnprofessionalsApp.Models;
+//using UnprofessionalsApp.Mapping.Contracts;
+//using UnprofessionalsApp.Models;
 using UnprofessionalsApp.ViewInputModels.ViewModels.Tags;
 
 namespace UnprofessionalsApp.ViewInputModels.ViewModels.Posts
 {
-	public class PostEntityDetailsViewModel : IMapFrom<Post>, IHaveCustomMappings
+	public class PostEntityDetailsViewModel /*: IMapFrom<Post>, IHaveCustomMappings*/
 	{
 		private string description;
 
@@ -42,10 +42,10 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Posts
 
 		public IEnumerable<TagPostDetailsViewModel> Tags { get; set; }
 
-		public void CreateMappings(IMapperConfigurationExpression configuration)
-		{
-			configuration.CreateMap<Post, PostEntityDetailsViewModel>()
-				.ForMember(x => x.DateOfCreation, opts => opts.MapFrom(p => p.DateOfCreation.ToString(@"dd/MM/yyyy", CultureInfo.InvariantCulture)));
-		}
+		//public void CreateMappings(IMapperConfigurationExpression configuration)
+		//{
+		//	configuration.CreateMap<Post, PostEntityDetailsViewModel>()
+		//		.ForMember(x => x.DateOfCreation, opts => opts.MapFrom(p => p.DateOfCreation.ToString(@"dd/MM/yyyy", CultureInfo.InvariantCulture)));
+		//}
 	}
 }

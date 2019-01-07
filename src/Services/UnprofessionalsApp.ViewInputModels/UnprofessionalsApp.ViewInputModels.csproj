@@ -9,9 +9,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\UnprofessionalsApp.Models\UnprofessionalsApp.Models.csproj" />
-    <ProjectReference Include="..\UnprofessionalsApp.DataTransferObjects\UnprofessionalsApp.DataTransferObjects.csproj" />
-    <ProjectReference Include="..\UnprofessionalsApp.Mapping\UnprofessionalsApp.Mapping.csproj" />
+    <ProjectReference Include="..\..\Data\UnprofessionalsApp.Common\UnprofessionalsApp.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.Annotations">
+      <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.2.0\ref\netcoreapp2.2\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

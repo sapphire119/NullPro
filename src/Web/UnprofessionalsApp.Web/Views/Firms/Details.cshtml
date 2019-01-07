@@ -1,0 +1,34 @@
+﻿@model UnprofessionalsApp.ViewInputModels.ViewModels.Firms.FirmDetailsViewModel
+@{
+}
+
+<div class="row">
+	<div class="container-fluid col-md-4">
+		<h4>Firm information</h4>
+		<table class="table table-hover pl-0">
+			<tbody>
+				<tr>
+					<td class="font-weight-bold">EIP/PIK/Bulstat: </td>
+					<td><a href="https://public.brra.bg/CheckUps/Verifications/ActiveCondition.ra?guid=@(Model.Id)" target="_blank">@(Model.UniqueFirmId)</a></td>
+				</tr>
+				<tr>
+					<td class="font-weight-bold">Name:</td>
+					<td>@(Model.Name)</td>
+				</tr>
+				<tr>
+					<td class="font-weight-bold">Date of Registration:</td>
+					<td>@(Model.DateOfRegistration)</td>
+				</tr>
+				<tr>
+				<tr>
+					<td class="font-weight-bold">Legal Form</td>
+					<td>@(Model.LegalForm)</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-md-8">
+		<h4>Posts about Firm</h4>
+		@await Html.PartialAsync("_PostDetailsPartial", Model.Posts)
+	</div>
+</div>

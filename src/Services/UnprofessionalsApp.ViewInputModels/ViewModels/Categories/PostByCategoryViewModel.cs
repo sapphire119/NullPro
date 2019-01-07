@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Globalization;
 using System.Net;
-using AutoMapper;
+//using AutoMapper;
 using UnprofessionalsApp.Common;
-using UnprofessionalsApp.Mapping.Contracts;
-using UnprofessionalsApp.Models;
+//using UnprofessionalsApp.Mapping.Contracts;
+//using UnprofessionalsApp.Models;
 
 namespace UnprofessionalsApp.ViewInputModels.ViewModels.Categories
 {
-	public class PostByCategoryViewModel : IMapFrom<Post>, IHaveCustomMappings
+	public class PostByCategoryViewModel /*: IMapFrom<Post>, IHaveCustomMappings*/
 	{
 		private string imageUrl;
 		private string description;
@@ -59,11 +59,11 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Categories
 
 		public string Username { get; set; }
 
-		public void CreateMappings(IMapperConfigurationExpression configuration)
-		{
-			configuration.CreateMap<Post, PostByCategoryViewModel>()
-					.ForMember(x => x.Username, opts => opts.MapFrom(p => p.User.UserName))
-					.ForMember(x => x.DateOfCreation, opts => opts.MapFrom(p => p.DateOfCreation.ToString(@"dd/MM/yyyy", CultureInfo.InvariantCulture)));
-		}
+		//public void CreateMappings(IMapperConfigurationExpression configuration)
+		//{
+		//	configuration.CreateMap<Post, PostByCategoryViewModel>()
+		//			.ForMember(x => x.Username, opts => opts.MapFrom(p => p.User.UserName))
+		//			.ForMember(x => x.DateOfCreation, opts => opts.MapFrom(p => p.DateOfCreation.ToString(@"dd/MM/yyyy", CultureInfo.InvariantCulture)));
+		//}
 	}
 }

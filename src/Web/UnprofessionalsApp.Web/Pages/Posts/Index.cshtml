@@ -51,7 +51,7 @@
 			</div>
 		</div>
 		<div class="card-footer text-muted">
-			Posted on @postModel.DateOfCreation.ToString(@"d MMMM, yyyy", CultureInfo.InvariantCulture) by
+			Posted on @postModel.DateOfCreation by
 			<a asp-controller="Account" asp-action="Details" asp-route-userId="@(postModel.UserId)">@postModel.Username</a>
 		</div>
 	</div>

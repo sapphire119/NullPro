@@ -402,6 +402,94 @@ namespace UnprofessionalsApp.Web.Extensions
 				ImageUrl = string.Empty
 			};
 
+			var post11 = new Post
+			{
+				CategoryId = 2,
+				UserId = 1,
+				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+				DateOfCreation = DateTime.UtcNow.AddDays(-50),
+				Description = "Firm posttttahjskd",
+				Title = "Firm posttthaskjdsad",
+				ImageUrl = string.Empty
+			};
+
+			var post12 = new Post
+			{
+				CategoryId = 3,
+				UserId = 1,
+				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+				DateOfCreation = DateTime.UtcNow.AddDays(-3),
+				Description = "asdhaskjdkd",
+				Title = "Fiasdasdkjdsad",
+				ImageUrl = string.Empty
+			};
+
+			var post13 = new Post
+			{
+				CategoryId = 5,
+				UserId = 1,
+				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+				DateOfCreation = DateTime.UtcNow.AddDays(-13),
+				Description = "Firm post is firm post",
+				Title = "Coke",
+				ImageUrl = string.Empty
+			};
+
+			var post14 = new Post
+			{
+				CategoryId = 2,
+				UserId = 1,
+				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+				DateOfCreation = DateTime.UtcNow.AddDays(-14),
+				Description = "Mr.Random",
+				Title = "Random is Random",
+				ImageUrl = string.Empty
+			};
+
+			var post15 = new Post
+			{
+				CategoryId = 1,
+				UserId = 1,
+				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+				DateOfCreation = DateTime.UtcNow.AddDays(-17),
+				Description = "Firm Firm Firm Firm Firm Firm",
+				Title = "Firm's Firm",
+				ImageUrl = string.Empty
+			};
+
+			var post16 = new Post
+			{
+				CategoryId = 6,
+				UserId = 1,
+				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+				DateOfCreation = DateTime.UtcNow.AddDays(-14),
+				Description = "IBM",
+				Title = "CIA FBI BAI IVAN",
+				ImageUrl = string.Empty
+			};
+
+			var post17 = new Post
+			{
+				CategoryId = 4,
+				UserId = 1,
+				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+				DateOfCreation = DateTime.UtcNow.AddDays(-12),
+				Description = "Dim4o",
+				Title = "Vizitka",
+				ImageUrl = string.Empty
+			};
+
+			var post18 = new Post
+			{
+				CategoryId = 9,
+				UserId = 1,
+				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+				DateOfCreation = DateTime.UtcNow.AddDays(-18),
+				Description = "Million Million Million",
+				Title = "VZEMI TOZI SHHHHHHH",
+				ImageUrl = string.Empty
+			};
+
 			var posts = new List<Post>()
 			{
 				post,
@@ -415,6 +503,14 @@ namespace UnprofessionalsApp.Web.Extensions
 				post8,
 				post9,
 				post10,
+				post11,
+				post12,
+				post13,
+				post14,
+				post15,
+				post16,
+				post17,
+				post18,
 			};
 
 			context.Posts.AddRange(posts);

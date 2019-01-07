@@ -1,11 +1,11 @@
 ﻿using System;
-using AutoMapper;
-using UnprofessionalsApp.Mapping.Contracts;
-using UnprofessionalsApp.Models;
+//using AutoMapper;
+//using UnprofessionalsApp.Mapping.Contracts;
+//using UnprofessionalsApp.Models;
 
 namespace UnprofessionalsApp.ViewInputModels.ViewModels.Replies
 {
-	public class ReplyPostDetailsViewModel : IMapFrom<Reply>, IHaveCustomMappings
+	public class ReplyPostDetailsViewModel /*: IMapFrom<Reply>, IHaveCustomMappings*/
 	{
 		public int Id { get; set; }
 
@@ -19,10 +19,10 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Replies
 
 		public string Username { get; set; }
 
-		public void CreateMappings(IMapperConfigurationExpression configuration)
-		{
-			configuration.CreateMap<Reply, ReplyPostDetailsViewModel>()
-				.ForMember(r => r.Username, opts => opts.MapFrom(r => r.User.UserName));
-		}
+		//public void CreateMappings(IMapperConfigurationExpression configuration)
+		//{
+		//	configuration.CreateMap<Reply, ReplyPostDetailsViewModel>()
+		//		.ForMember(r => r.Username, opts => opts.MapFrom(r => r.User.UserName));
+		//}
 	}
 }

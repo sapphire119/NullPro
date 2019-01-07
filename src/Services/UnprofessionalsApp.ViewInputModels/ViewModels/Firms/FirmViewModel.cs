@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
-using AutoMapper;
-using UnprofessionalsApp.Mapping.Contracts;
-using UnprofessionalsApp.Models;
+//using AutoMapper;
+//using UnprofessionalsApp.Mapping.Contracts;
+//using UnprofessionalsApp.Models;
 
 namespace UnprofessionalsApp.ViewInputModels.ViewModels.Firms
 {
-	public class FirmViewModel : IMapFrom<Firm>, IHaveCustomMappings
+	public class FirmViewModel /*: IMapFrom<Firm>, IHaveCustomMappings*/
 	{
 		public Guid Id { get; set; }
 
@@ -21,16 +21,16 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Firms
 
 		public string LegalForm { get; set; }
 
-		public void CreateMappings(IMapperConfigurationExpression configuration)
-		{
-			//Check
-			configuration.CreateMap<Firm, FirmViewModel>()
-				.ForMember(f => f.PostsAboutFirm, opts => opts.MapFrom(f => f.Posts.Count()))
-				.ForMember(f => f.DateOfRegistration, opts => opts.MapFrom(f => f.DateOfRegistration.ToString(@"d, MMMM yyyy", CultureInfo.InvariantCulture)));
+		//public void CreateMappings(IMapperConfigurationExpression configuration)
+		//{
+		//	//Check
+		//	configuration.CreateMap<Firm, FirmViewModel>()
+		//		.ForMember(f => f.PostsAboutFirm, opts => opts.MapFrom(f => f.Posts.Count()))
+		//		.ForMember(f => f.DateOfRegistration, opts => opts.MapFrom(f => f.DateOfRegistration.ToString(@"d, MMMM yyyy", CultureInfo.InvariantCulture)));
 
-			configuration.CreateMap<FirmViewModel, Firm>()
-				.ForMember(x => x.Reports, opts => opts.Ignore())
-				.ForMember(x => x.Posts, opts => opts.Ignore());
-		}
+		//	configuration.CreateMap<FirmViewModel, Firm>()
+		//		.ForMember(x => x.Reports, opts => opts.Ignore())
+		//		.ForMember(x => x.Posts, opts => opts.Ignore());
+		//}
 	}
 }

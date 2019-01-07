@@ -4,11 +4,11 @@
 	<div class="card my-4">
 		<h5 class="card-header">Leave a Comment:</h5>
 		<div class="card-body">
-			<form asp-page="/comments/create" method="post">
+			<form asp-controller="Comments" asp-action="CreateAsync" method="post">
 				<div class="form-group">
 					<input type="hidden" name="userId" value="@(Model.UserId)" />
 					<input type="hidden" name="postId" value="@(Model.Id)" />
-					<textarea class="form-control" rows="3" name="commentDescription" style="resize:vertical;"></textarea>
+					<textarea class="form-control" rows="3" name="description" style="resize:vertical;"></textarea>
 				</div>
 				<button type="submit" class="btn btn-secondary"><small>Add a comment</small></button>
 			</form>

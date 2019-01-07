@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
-using UnprofessionalsApp.Mapping.Contracts;
-using UnprofessionalsApp.Models;
+//using System.Text;
+//using AutoMapper;
+////using UnprofessionalsApp.Mapping.Contracts;
+//using UnprofessionalsApp.Models;
 using UnprofessionalsApp.ViewInputModels.ViewModels.Replies;
 
 namespace UnprofessionalsApp.ViewInputModels.ViewModels.Comments
 {
-	public class CommentPostDetailsViewModel : IMapFrom<Comment>, IHaveCustomMappings
+	public class CommentPostDetailsViewModel /*: IMapFrom<Comment>, IHaveCustomMappings*/
 	{
 		public int Id { get; set; }
 
@@ -24,10 +24,10 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Comments
 
 		public IEnumerable<ReplyPostDetailsViewModel> Replies { get; set; }
 
-		public void CreateMappings(IMapperConfigurationExpression configuration)
-		{
-			configuration.CreateMap<Comment, CommentPostDetailsViewModel>()
-				.ForMember(c => c.Username, opts => opts.MapFrom(c => c.User.UserName));
-		}
+		//public void CreateMappings(IMapperConfigurationExpression configuration)
+		//{
+		//	configuration.CreateMap<Comment, CommentPostDetailsViewModel>()
+		//		.ForMember(c => c.Username, opts => opts.MapFrom(c => c.User.UserName));
+		//}
 	}
 }

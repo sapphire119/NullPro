@@ -1,4 +1,4 @@
-﻿@page "{categoryId?}/{categoryName?}"
+﻿@page "{categoryId?}"
 @using System.Globalization;
 
 @model UnprofessionalsApp.Web.Pages.Categories.DetailsModel
@@ -25,7 +25,7 @@
 					{
 						<tr>
 							<th scope="row">@(counter++)</th>
-							<td><a asp-page="/posts/details" asp-route-postId="@(post.Id)">@(post.Title)</a></td>
+							<td><a asp-controller="Posts" asp-action="Details" asp-route-postId="@(post.Id)">@(post.Title)</a></td>
 							<td>@(post.DateOfCreation)</td>
 							<td><a asp-controller="Account" asp-action="Details" asp-route-userId="@(post.UserId)">@(post.Username)</a></td>
 						</tr>

@@ -1,13 +1,14 @@
 ﻿namespace UnprofessionalsApp.ViewInputModels.ViewModels.Posts
 {
 	using System;
+	using System.Globalization;
 	using System.Net;
-	using AutoMapper;
+	//using AutoMapper;
 	using UnprofessionalsApp.Common;
-	using UnprofessionalsApp.Mapping.Contracts;
-	using UnprofessionalsApp.Models;
+	//using UnprofessionalsApp.Mapping.Contracts;
+	//using UnprofessionalsApp.Models;
 
-	public class PostViewModel : IMapFrom<Post>, IHaveCustomMappings
+	public class PostViewModel /*: IMapFrom<Post>, IHaveCustomMappings*/
 	{
 		private string imageUrl;
 		private string description;
@@ -34,7 +35,7 @@
 			}
 		}
 
-		public DateTime DateOfCreation { get; set; }
+		public string DateOfCreation { get; set; }
 
 		public int UserId { get; set; }
 
@@ -58,10 +59,11 @@
 			}
 		}
 
-		public void CreateMappings(IMapperConfigurationExpression configuration)
-		{
-			configuration.CreateMap<Post, PostViewModel>()
-				.ForMember(x => x.Username, opts => opts.MapFrom(p => p.User.UserName));
-		}
+		//public void CreateMappings(IMapperConfigurationExpression configuration)
+		//{
+		//	configuration.CreateMap<Post, PostViewModel>()
+		//		.ForMember(x => x.DateOfCreation, opts => opts.MapFrom(p => p.DateOfCreation.ToString(@"d MMMM, yyyy", CultureInfo.InvariantCulture)))
+		//		.ForMember(x => x.Username, opts => opts.MapFrom(p => p.User.UserName));
+		//}
 	}
 }
