@@ -38,13 +38,14 @@ else
 					<div class="d-flex justify-content-end mb-3">
 						<button class="btn btn-secondary" onclick="myFunction@(comment.Id)()"><small>Reply</small> &laquo;</button>
 					</div>
-					<form asp-page="/replies/create" method="post" id="comment@(comment.Id)@(comment.PostId)" hidden>
+					<form asp-controller="Replies" asp-action="CreateAsync" method="post" id="comment@(comment.Id)@(comment.PostId)" hidden>
 						<div class="form-group card">
 							<h6 class="card-header">Leave a Reply</h6>
 							<div class="card-body">
 								<input type="hidden" name="commentId" value="@(comment.Id)" />
 								<input type="hidden" name="userId" value="@(comment.UserId)" />
-								<textarea class="form-control mb-3" rows="3" name="replyDescription" style="resize:vertical;"></textarea>
+								<input type="hidden" name="postId" value="@(comment.PostId)" />
+								<textarea class="form-control mb-3" rows="3" name="description" style="resize:vertical;"></textarea>
 								<div class="d-flex justify-content-end">
 									<button type="submit" class="btn btn-secondary"><small>Add Reply</small></button>
 								</div>
@@ -69,13 +70,14 @@ else
 										<div class="d-flex justify-content-end mb-3">
 											<button class="btn btn-secondary" onclick="myReply@(reply.Id)@(comment.Id)()"><small>Reply</small> &laquo;</button>
 										</div>
-										<form asp-page="/replies/create" method="post" id="reply@(reply.Id)@(comment.Id)" hidden>
+										<form asp-controller="Replies" asp-action="CreateAsync" method="post" id="reply@(reply.Id)@(comment.Id)" hidden>
 											<div class="form-group card">
 												<h6 class="card-header">Leave a Reply</h6>
 												<div class="card-body">
 													<input type="hidden" name="commentId" value="@(comment.Id)" />
 													<input type="hidden" name="userId" value="@(comment.UserId)" />
-													<textarea class="form-control mb-3" rows="3" name="replyDescription" style="resize:vertical;"></textarea>
+													<input type="hidden" name="postId" value="@(comment.PostId)" />
+													<textarea class="form-control mb-3" rows="3" name="description" style="resize:vertical;"></textarea>
 													<div class="d-flex justify-content-end">
 														<button type="submit" class="btn btn-secondary"><small>Add a Reply</small></button>
 													</div>
