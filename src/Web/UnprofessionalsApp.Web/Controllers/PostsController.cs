@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnprofessionalsApp.DataServices.Contracts;
+using UnprofessionalsApp.ViewInputModels.InputModels.Posts;
 using UnprofessionalsApp.ViewInputModels.ViewModels.Posts;
 
 namespace UnprofessionalsApp.Web.Controllers
