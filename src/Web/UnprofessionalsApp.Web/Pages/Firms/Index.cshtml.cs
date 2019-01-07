@@ -45,7 +45,9 @@ namespace UnprofessionalsApp.Web.Pages.Firms
 
 		[BindProperty(SupportsGet = true)]
 		public bool DateOfRegistration { get; set; }
+		
 
+		//TODO: Filter Request.
 		public async Task<IActionResult> OnGetAsync()
         {
 			this.Data = await this.firmsService.GetAllFirmsForCurrentPage(

@@ -17,6 +17,7 @@
 
 		[HttpPost]
 		[Route("Comments/Create")]
+		//TODO: Filter Input Model
 		public async Task<IActionResult> CreateAsync(CreateInputModel inputModel)
 		{
 			if (!ModelState.IsValid)
@@ -24,7 +25,7 @@
 				return this.Redirect($"/Posts/Details/{inputModel.PostId}");
 			}
 
-			//await this.commentsService.CreateComment(inputModel);
+			var result = await this.commentsService.CreateComment(inputModel);
 
 			return this.Redirect($"/Posts/Details/{inputModel.PostId}");
 		}
