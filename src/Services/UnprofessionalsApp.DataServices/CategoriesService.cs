@@ -8,7 +8,7 @@ using UnprofessionalsApp.ViewInputModels.ViewModels.Categories;
 //using UnprofessionalsApp.Mapping;
 using UnprofessionalsApp.ViewInputModels.ViewModels.Posts;
 using UnprofessionalsApp.ViewInputModels.ViewModels.Home;
-//using AutoMapper;
+using AutoMapper;
 
 namespace UnprofessionalsApp.DataServices
 {
@@ -53,7 +53,7 @@ namespace UnprofessionalsApp.DataServices
 						.Where(c => c.Id == categoryId)
 						.SelectMany(c => c.Posts)
 						//.To<PostByCategoryViewModel>()
-						.OrderBy(p => p.DateOfCreation)
+						.OrderByDescending(p => p.DateOfCreation)
 						.AsQueryable();
 
 				var destination = this.mapper.ProjectTo<PostByCategoryViewModel>(source);

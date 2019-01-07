@@ -10,7 +10,6 @@
 
 	using UnprofessionalsApp.Common;
 	using UnprofessionalsApp.DataServices.Contracts;
-	//using UnprofessionalsApp.Mapping;
 	using UnprofessionalsApp.Models;
 	using UnprofessionalsApp.ViewInputModels.ViewModels.Comments;
 	using UnprofessionalsApp.ViewInputModels.ViewModels.Posts;
