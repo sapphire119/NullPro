@@ -18,7 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\UnprofessionalsApp.Data\UnprofessionalsApp.Data.csproj" />
     <ProjectReference Include="..\..\Services\UnprofessionalsApp.DataServices\UnprofessionalsApp.DataServices.csproj" />
-    <ProjectReference Include="..\..\Services\UnprofessionalsApp.DataTransferObjects\UnprofessionalsApp.DataTransferObjects.csproj" />
+    <ProjectReference Include="..\..\Services\UnprofessionalsApp.Mapping\UnprofessionalsApp.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\UnprofessionalsApp.ViewInputModels\UnprofessionalsApp.ViewInputModels.csproj" />
   </ItemGroup>
 
@@ -32,7 +32,6 @@
     <Folder Include="Areas\Manager\Data\" />
     <Folder Include="Areas\Manager\Models\" />
     <Folder Include="Areas\Manager\Views\" />
-    <Folder Include="Pages\Shared\" />
   </ItemGroup>
 
 </Project>
