@@ -18,7 +18,7 @@ namespace UnprofessionalsApp.ViewInputModels.InputModels.Posts
 		public string Description { get; set; }
 		
 		[CustomFileExtension(".jpg, .png, .jpeg, .gif", ErrorMessage = "Accepted file formats are: {0}")]
-		public IFormFile Image { get; set; }
+		public IFormFile ImageFile { get; set; }
 		
 		[Display(Name = "Category")]
 		public int CategoryId { get; set; }
