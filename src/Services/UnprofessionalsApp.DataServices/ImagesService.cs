@@ -43,9 +43,15 @@ namespace UnprofessionalsApp.DataServices
 			return destination;
 		}
 
-		public async Task<string> GetUrlPath(string filePath)
+		public string GetUrlPath(ImageUploadResult uploadResult)
 		{
-			//TODO: try and test this
+			var urlPath = uploadResult.SecureUri.ToString();
+
+			return urlPath;
+		}
+
+		public async Task<ImageUploadResult> UploadImageFromFilePath(string filePath)
+		{
 			var uploadParams = new ImageUploadParams
 			{
 				File = new FileDescription(string.Format(@"{0}", filePath))
@@ -53,30 +59,7 @@ namespace UnprofessionalsApp.DataServices
 
 			var uploadResult = await this.cloudinary.UploadAsync(uploadParams);
 
-			var urlPath = uploadResult.SecureUri.ToString();
-
-			return urlPath;
-		}
-
-		public async Task<string> ReadFile(IFormFile formFile)
-		{
-			//TODO: try and test this
-			long size = formFile.Length;
-
-			// full path to file in temp location
-			var filePath = Path.GetTempFileName();
-
-			if (formFile.Length > 0)
-			{
-				using (var stream = new FileStream(filePath, FileMode.Create))
-				{
-					await formFile.CopyToAsync(stream);
-				}
-			}
-
-			var result = filePath;
-
-			return result;
+			return uploadResult;
 		}
 	}
 }

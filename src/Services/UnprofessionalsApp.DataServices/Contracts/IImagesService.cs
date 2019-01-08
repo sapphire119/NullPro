@@ -12,8 +12,8 @@ namespace UnprofessionalsApp.DataServices.Contracts
 	{
 		Task<Image> CreateImage(string imageUrl);
 
-		Task<string> GetUrlPath(string filePath);
+		Task<ImageUploadResult> UploadImageFromFilePath(string filePath);
 
-		Task<string> ReadFile(IFormFile file);
+		string GetUrlPath(ImageUploadResult uploadResult);
 	}
 }
