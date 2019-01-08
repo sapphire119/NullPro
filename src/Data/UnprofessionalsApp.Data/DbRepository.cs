@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,15 @@ namespace UnprofessionalsApp.Data
 		public Task AddAsync(TEntity entity)
 		{
 			return this.dbset.AddAsync(entity);
+		}
+
+		public Task AddRangeAsync(params TEntity[] entity)
+		{
+			return this.dbset.AddRangeAsync(entity);
+		}
+		public Task AddRangeAsync(IEnumerable<TEntity> entity)
+		{
+			return this.dbset.AddRangeAsync(entity);
 		}
 
 		public IQueryable<TEntity> All()
