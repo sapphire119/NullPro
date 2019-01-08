@@ -25,15 +25,23 @@
 			<input type="file" asp-for="InputModel.Image" />
 			<span asp-validation-for="InputModel.Image" class="text-danger"></span>
 		</div>
-		<select asp-for="InputModel.CategoryId">
-			@foreach (var category in Model.Categories)
-			{
-				<option value="@(category.Id)">@(category.Name)</option>
-			}
-		</select>
+		<label asp-for="InputModel.CategoryId"></label>
+		<div class="col-md-10">
+			<select asp-for="InputModel.CategoryId">
+				@foreach (var category in Model.Categories)
+				{
+					<option value="@(category.Id)">@(category.Name)</option>
+				}
+			</select>
+		</div>
+		<label asp-for="InputModel.Tags"></label>
+		<div class="col-md-10">
+			<input type="text" asp-for="InputModel.Tags" />
+			<span asp-validation-for="InputModel.Tags" class="text-danger"></span>
+		</div>
 		@*<select asp-for="InputModel.CategoryId">
-				<option value="1">test</option>
-			</select>*@
+			<option value="1">test</option>
+		</select>*@
 		@*@await Html.PartialAsync("_PostCategoriesPartial", Model.Categories);*@
 		<input type="hidden" asp-for="InputModel.Username" value="@(this.User.Identity.Name)" />
 

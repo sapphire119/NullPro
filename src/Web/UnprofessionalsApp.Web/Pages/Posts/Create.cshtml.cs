@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -18,11 +19,13 @@ namespace UnprofessionalsApp.Web.Pages.Posts
 		private readonly IEnumerable<CategorySearchViewModel> categories;
 		private readonly IPostsService postsService;
 		private readonly ICategoriesService categoriesService;
+		private readonly IMapper mapper;
 
-		public CreateModel(IPostsService postsService, ICategoriesService categoriesService)
+		public CreateModel(IPostsService postsService, ICategoriesService categoriesService, IMapper mapper)
 		{
 			this.postsService = postsService;
 			this.categoriesService = categoriesService;
+			this.mapper = mapper;
 			this.categories = this.categoriesService.GetAllCategories().GetAwaiter().GetResult();
 		}
 
@@ -57,7 +60,13 @@ namespace UnprofessionalsApp.Web.Pages.Posts
 				return this.Page();
 			}
 
-			var result = await this.postsService.CreatePost(this.InputModel);
+			var image = await this.imageService.CreateImage(this.InputModel.Image);
+
+			var tags = await this.tagsService.CreateTags(this.InputModel.Tags);
+
+			var postDto = this.mapper.Map<PostCreateDto>(InputModel);
+
+			var result = await this.postsService.CreatePost(postDto, image, tags);
 
 			return this.Page();
 			//return this.RedirectToAction(string.Format("/Posts/details/{0}", ));
