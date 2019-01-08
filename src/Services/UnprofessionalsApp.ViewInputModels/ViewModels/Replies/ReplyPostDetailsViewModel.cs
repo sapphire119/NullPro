@@ -19,6 +19,8 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Replies
 
 		public string Username { get; set; }
 
+		public string UserImageUrl { get; set; }
+
 		//public void CreateMappings(IMapperConfigurationExpression configuration)
 		//{
 		//	configuration.CreateMap<Reply, ReplyPostDetailsViewModel>()

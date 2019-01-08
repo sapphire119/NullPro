@@ -20,6 +20,8 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Comments
 
 		public string Username { get; set; }
 
+		public string UserImageUrl { get; set; }
+
 		public int PostId { get; set; }
 
 		public IEnumerable<ReplyPostDetailsViewModel> Replies { get; set; }

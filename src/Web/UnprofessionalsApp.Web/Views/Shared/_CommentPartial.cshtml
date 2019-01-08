@@ -31,7 +31,7 @@ else
 		@foreach (var comment in Model.Comments)
 		{
 			<div class="media mb-4">
-				<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+				<img class="d-flex mr-3 rounded-circle" src="@(comment.UserImageUrl)" width="50" height="50" alt="No iamge">
 				<div class="media-body">
 					<h5 class="mt-0"><a asp-controller="Account" asp-action="Details" asp-route-userId="@(comment.UserId)">@(comment.Username)</a></h5>
 					@(comment.Description)
@@ -61,7 +61,7 @@ else
 							foreach (var reply in comment.Replies)
 							{
 								<div class="media mt-4">
-									<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+									<img class="d-flex mr-3 rounded-circle" src="@(reply.UserImageUrl)" height="50" width="50" alt="No image">
 									<div class="media-body">
 										<h5 class="mt-0">
 											<a asp-controller="Account" asp-action="Details" asp-route-userId="@(reply.UserId)">@(reply.Username)</a>
