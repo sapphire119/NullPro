@@ -22,8 +22,6 @@ namespace UnprofessionalsApp.Data
 
 		public DbSet<Firm> Firms { get; set; }
 
-		public DbSet<Message> Messages { get; set; }
-
 		public DbSet<Post> Posts { get; set; }
 
 		public DbSet<Reply> Replies { get; set; }
