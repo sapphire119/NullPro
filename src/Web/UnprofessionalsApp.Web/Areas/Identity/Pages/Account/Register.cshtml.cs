@@ -28,19 +28,22 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 		private readonly IImagesService imageService;
+		private readonly IFilesService filesService;
 
 		public RegisterModel(
             UserManager<UnprofessionalsAppUser> userManager,
             SignInManager<UnprofessionalsAppUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-			IImagesService imageService)
+			IImagesService imageService,
+			IFilesService filesService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
 			this.imageService = imageService;
+			this.filesService = filesService;
 		}
 
         [BindProperty]
@@ -99,11 +102,14 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
 
 				if (Input.ImageFile != null)
 				{
-					var filePath = await this.imageService.ReadFile(Input.ImageFile);
+					var filePath = await this.filesService.ReadFile(Input.ImageFile);
 
-					var urlPath = await this.imageService.GetUrlPath(filePath);
+					var uploadResult = 
+						await this.imageService.UploadImageFromFilePath(filePath);
 
-					var image = await this.imageService.CreateImage(urlPath);
+					var imageUrl = this.imageService.GetUrlPath(uploadResult);
+
+					var image = await this.imageService.CreateImage(imageUrl);
 
 					user.Image = image;
 				}
