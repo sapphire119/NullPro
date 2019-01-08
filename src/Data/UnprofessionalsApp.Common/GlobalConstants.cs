@@ -7,7 +7,6 @@ namespace UnprofessionalsApp.Common
 	public static class GlobalConstants
 	{
 		public static readonly string[] ApprovedRoles = { "Admin", "Manager", "User" };
-
 		public const string AdminRole = "Admin";
 
 		public const string ManagerRole = "Manager";
@@ -36,6 +35,8 @@ namespace UnprofessionalsApp.Common
 
 		public const string NoPhoneNumberForUser = @"User has not put in phone number";
 
+		public const string DefaultFirmNotSavedIntoDbContextMessage = "Coudn't save firms into db context";
+
 		public const int SuccessfullySavedIntoDbContextStatusCode = 1;
 
 		public const int DefaultUserImageId = 6;
@@ -45,5 +46,9 @@ namespace UnprofessionalsApp.Common
 		public const int TagsToRenderLimit = 8;
 
 		public const int EntitiesPerPageLimit = 8;
+
+		public const string DefaultXDocSearchParameter = "Body";
+
+		public const int AllowedFirmCapacityCount = 1200;
 	}
 }
