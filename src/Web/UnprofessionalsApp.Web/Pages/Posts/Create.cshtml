@@ -43,8 +43,6 @@
 			<option value="1">test</option>
 		</select>*@
 		@*@await Html.PartialAsync("_PostCategoriesPartial", Model.Categories);*@
-		<input type="hidden" asp-for="InputModel.Username" value="@(this.User.Identity.Name)" />
-
 		<input type="submit" value="Submit" />
 	</form>
 </div>

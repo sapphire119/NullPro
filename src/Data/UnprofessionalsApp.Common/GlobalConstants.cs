@@ -36,6 +36,8 @@ namespace UnprofessionalsApp.Common
 
 		public const string NoPhoneNumberForUser = @"User has not put in phone number";
 
+		public const int SuccessfullySavedIntoDbContextStatusCode = 1;
+
 		public const int TagsToRenderLimit = 8;
 
 		public const int EntitiesPerPageLimit = 8;

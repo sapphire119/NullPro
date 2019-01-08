@@ -26,6 +26,7 @@
 	using System.Linq;
 	using System.Threading.Tasks;
 	using UnprofessionalsApp.Mapping.Profiles.Categories;
+	using CloudinaryDotNet;
 
 	public class Startup
 	{
@@ -74,6 +75,8 @@
 				options.Cookie.HttpOnly = true;
 			});
 
+			services.AddCloudinary(CloudinaryInitializer.Initialize(Configuration));
+
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 			//App Services
 			services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
@@ -85,6 +88,8 @@
 			services.AddTransient<IUsersService, UserService>();
 			services.AddTransient<ICommentsService, CommentsService>();
 			services.AddTransient<IRepliesService, RepliesService>();
+			services.AddTransient<IImagesService, ImagesService>();
+			services.AddTransient<ITagsService, TagsService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

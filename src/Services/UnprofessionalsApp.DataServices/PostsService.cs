@@ -16,30 +16,74 @@
 	using AutoMapper;
 	using Microsoft.Extensions.Configuration;
 	using UnprofessionalsApp.ViewInputModels.InputModels.Posts;
+	using UnprofessionalsApp.DataTransferObjects.Posts;
 
 	public class PostsService : IPostsService
 	{
 		private readonly IRepository<Post> postsRepository;
+		private readonly IRepository<Tag> tagsRepository;
+		private readonly IRepository<TagPost> tagsPostsRepository;
 		private readonly IMapper mapper;
-		private readonly IConfiguration configuration;
 
-		public PostsService(IRepository<Post> postsRepository, IMapper mapper, IConfiguration configuration)
+		public PostsService(IRepository<Post> postsRepository,
+			IRepository<Tag> tagsRepository,
+			IRepository<TagPost> tagsPostsRepository,
+			IMapper mapper)
 		{
 			this.postsRepository = postsRepository;
+			this.tagsRepository = tagsRepository;
+			this.tagsPostsRepository = tagsPostsRepository;
 			this.mapper = mapper;
-			this.configuration = configuration;
 		}
 
-		public Task<int> CreatePost(PostCreateInputModel inputModel)
+		public async Task<int> AddTagsToPost(Post post, IEnumerable<Tag> currentTags)
 		{
-			throw new NotImplementedException();
+			foreach (var tag in currentTags)
+			{
+				await this.tagsPostsRepository.AddAsync(new TagPost { Tag = tag, Post = post });
+			}
+
+			var statusCode = await this.tagsPostsRepository.SaveChangesAsync();
+
+			return statusCode;
+		}
+
+		public async Task<Post> CreatePost(PostCreateDto postDto)
+		{
+			var destination = this.mapper.Map<Post>(postDto);
+
+			var areThereAnyPostsWithSameTitle =
+				this.postsRepository.All().Where(p => p.Title == destination.Title).Any();
+
+			if (areThereAnyPostsWithSameTitle)
+			{
+				return null;
+			}
+
+			await this.postsRepository.AddAsync(destination);
+
+			var statusCode = await this.postsRepository.SaveChangesAsync();
+
+			if (statusCode != GlobalConstants.SuccessfullySavedIntoDbContextStatusCode)
+			{
+				return null;
+			}
+
+			var currentPost = this.postsRepository.All().Where(p => p.Title == destination.Title).FirstOrDefault();
+
+			return currentPost;
 		}
 
 		public Task<int> GetAllPostsCount()
 		{
 			//this.configuration["Cloudinary"]
 			//TODO: Test Me
-			var result = Task.Run(() => this.postsRepository.All().Count());
+			var result = Task.Run(() =>
+			{
+				var testResult = this.postsRepository.All().Count();
+
+				return testResult;
+			});
 			return result;
 		}
 
@@ -67,7 +111,7 @@
 			return postsViewModel;
 		}
 
-		
+
 		//public Task<IEnumerable<CommentPostDetailsViewModel>> GetCommentsAsync(Post post)
 		//{
 		//	var commentTask = Task.Run(() => this.postsRepository.All()
@@ -91,6 +135,18 @@
 				var result = destination.FirstOrDefault();
 
 				return result;
+			});
+
+			return postTask;
+		}
+
+		public Task<Post> GetPostByPostName(string postTitle)
+		{
+			var postTask = Task.Run(() =>
+			{
+				var post = this.postsRepository.All().Where(p => p.Title == postTitle).FirstOrDefault();
+
+				return post;
 			});
 
 			return postTask;

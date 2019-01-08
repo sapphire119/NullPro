@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnprofessionalsApp.DataTransferObjects.Posts;
 using UnprofessionalsApp.Models;
 using UnprofessionalsApp.ViewInputModels.InputModels.Posts;
 using UnprofessionalsApp.ViewInputModels.ViewModels.Comments;
@@ -13,10 +14,14 @@ namespace UnprofessionalsApp.DataServices.Contracts
 	{
 		Task<TViewModel> GetPostByIdAsync<TViewModel>(int postId);
 
+		Task<Post> GetPostByPostName(string postName);
+
 		Task<IEnumerable<PostViewModel>> GetAllPostsForCurrentPage(int pageId, int pageSize, string orderByParam, string ordering);
 
 		Task<int> GetAllPostsCount();
 
-		Task<int> CreatePost(PostCreateInputModel inputModel);
+		Task<Post> CreatePost(PostCreateDto postDto);
+
+		Task<int> AddTagsToPost(Post result, IEnumerable<Tag> currentTags);
 	}
 }

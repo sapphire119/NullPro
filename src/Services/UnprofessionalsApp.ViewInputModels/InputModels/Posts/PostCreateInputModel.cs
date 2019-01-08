@@ -17,16 +17,11 @@ namespace UnprofessionalsApp.ViewInputModels.InputModels.Posts
 		[DataType(DataType.MultilineText)]
 		public string Description { get; set; }
 		
-		[CustomFileExtension(".jpg, .png, .jpeg", ErrorMessage = "Accepted file formats are: {0}")]
+		[CustomFileExtension(".jpg, .png, .jpeg, .gif", ErrorMessage = "Accepted file formats are: {0}")]
 		public IFormFile Image { get; set; }
 		
 		[Display(Name = "Category")]
 		public int CategoryId { get; set; }
-
-		[Required]
-		[RegularExpression(@"^\w+[.\-_]*\w*$", ErrorMessage = "An exception occured")]
-		[StringLength(20, MinimumLength = 2, ErrorMessage = "An exception occured")]
-		public string Username { get; set; }
 
 		[Required]
 		[RegularExpression(@"^[^'%@&*^!]+$", ErrorMessage = "Invalid tags format")]

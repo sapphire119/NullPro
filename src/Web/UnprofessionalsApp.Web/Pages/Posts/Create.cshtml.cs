@@ -4,10 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using UnprofessionalsApp.Common;
 using UnprofessionalsApp.DataServices.Contracts;
+using UnprofessionalsApp.DataTransferObjects.Posts;
+using UnprofessionalsApp.Models;
 using UnprofessionalsApp.ViewInputModels.InputModels.Posts;
 using UnprofessionalsApp.ViewInputModels.ViewModels.Categories;
 
@@ -20,12 +24,24 @@ namespace UnprofessionalsApp.Web.Pages.Posts
 		private readonly IPostsService postsService;
 		private readonly ICategoriesService categoriesService;
 		private readonly IMapper mapper;
+		private readonly IImagesService imagesService;
+		private readonly ITagsService tagsService;
+		private readonly UserManager<UnprofessionalsAppUser> userManager;
 
-		public CreateModel(IPostsService postsService, ICategoriesService categoriesService, IMapper mapper)
+		public CreateModel(
+			IMapper mapper,
+			IPostsService postsService, 
+			ICategoriesService categoriesService, 
+			IImagesService imagesService, 
+			ITagsService tagsService,
+			UserManager<UnprofessionalsAppUser> userManager)
 		{
 			this.postsService = postsService;
 			this.categoriesService = categoriesService;
 			this.mapper = mapper;
+			this.imagesService = imagesService;
+			this.tagsService = tagsService;
+			this.userManager = userManager;
 			this.categories = this.categoriesService.GetAllCategories().GetAwaiter().GetResult();
 		}
 
@@ -42,7 +58,7 @@ namespace UnprofessionalsApp.Web.Pages.Posts
 
 		//public int MyProperty { get; set; }
 
-		public IActionResult OnGetAsync()
+		public IActionResult OnGet()
         {
 			return this.Page();
         }
@@ -60,16 +76,36 @@ namespace UnprofessionalsApp.Web.Pages.Posts
 				return this.Page();
 			}
 
-			//var image = await this.imageService.CreateImage(this.InputModel.Image);
+			//this.imagesService.Test();
+			var filePath = await this.imagesService.ReadFile(this.InputModel.Image);
 
-			//var tags = await this.tagsService.CreateTags(this.InputModel.Tags);
+			var imageUrl = await this.imagesService.GetUrlPath(filePath);
+			
+			var tags = await this.tagsService.CreateTags(this.InputModel.Tags);
 
-			//var postDto = this.mapper.Map<PostCreateDto>(InputModel);
 
-			//var result = await this.postsService.CreatePost(postDto, image, tags);
+			var currentImage = await this.imagesService.CreateImage(imageUrl);
 
-			return this.Page();
-			//return this.RedirectToAction(string.Format("/Posts/details/{0}", ));
+			var currentTags = await this.tagsService.RemoveDuplicates(tags);
+
+			var currentUser = await this.userManager.GetUserAsync(this.User);
+
+			var postDto = this.mapper.Map<PostCreateDto>(InputModel);
+
+			postDto.UsernId = currentUser.Id;
+			postDto.ImageId = currentImage.Id;
+			//postDto.Tags = currentTags;
+
+			
+			var currentPost = await this.postsService.CreatePost(postDto);
+			if (currentPost == null)
+			{
+				return this.NotFound();
+			}
+
+			await this.postsService.AddTagsToPost(currentPost, currentTags);
+
+			return this.Redirect(string.Format("/Posts/Details/{0}", currentPost.Id));
 		}
     }
 }
