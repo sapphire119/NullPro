@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using UnprofessionalsApp.Common;
+using UnprofessionalsApp.DataServices;
 using UnprofessionalsApp.DataServices.Contracts;
 using UnprofessionalsApp.DataTransferObjects.Posts;
 using UnprofessionalsApp.Models;
@@ -26,6 +27,7 @@ namespace UnprofessionalsApp.Web.Pages.Posts
 		private readonly IMapper mapper;
 		private readonly IImagesService imagesService;
 		private readonly ITagsService tagsService;
+		private readonly IFilesService filesSerivce;
 		private readonly UserManager<UnprofessionalsAppUser> userManager;
 
 		public CreateModel(
@@ -34,6 +36,7 @@ namespace UnprofessionalsApp.Web.Pages.Posts
 			ICategoriesService categoriesService, 
 			IImagesService imagesService, 
 			ITagsService tagsService,
+			IFilesService filesSerivce,
 			UserManager<UnprofessionalsAppUser> userManager)
 		{
 			this.postsService = postsService;
@@ -41,6 +44,7 @@ namespace UnprofessionalsApp.Web.Pages.Posts
 			this.mapper = mapper;
 			this.imagesService = imagesService;
 			this.tagsService = tagsService;
+			this.filesSerivce = filesSerivce;
 			this.userManager = userManager;
 			this.categories = this.categoriesService.GetAllCategories().GetAwaiter().GetResult();
 		}
@@ -79,11 +83,13 @@ namespace UnprofessionalsApp.Web.Pages.Posts
 			//this.imagesService.Test();
 			var postDto = this.mapper.Map<PostCreateDto>(InputModel);
 
-			if (InputModel.Image != null)
+			if (InputModel.ImageFile != null)
 			{
-				var filePath = await this.imagesService.ReadFile(this.InputModel.Image);
+				var filePath = await this.filesSerivce.ReadFile(this.InputModel.ImageFile);
 
-				var imageUrl = await this.imagesService.GetUrlPath(filePath);
+				var uploadResult = await this.imagesService.UploadImageFromFilePath(filePath);
+
+				var imageUrl = this.imagesService.GetUrlPath(uploadResult);
 
 				var currentImage = await this.imagesService.CreateImage(imageUrl);
 

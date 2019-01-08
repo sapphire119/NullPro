@@ -20,8 +20,12 @@
 		public async Task<IActionResult> Details(string firmId)
 		{
 			var firmIdParsed = this.firmsService.GetParsedFirmId(firmId);
+			if (firmIdParsed == null)
+			{
+				return NotFound();
+			}
 
-			var model = await this.firmsService.GetFirmById<FirmDetailsViewModel>(firmIdParsed);
+			var model = await this.firmsService.GetFirmById<FirmDetailsViewModel>(firmIdParsed.Value);
 
 			return this.View(model);
 		}

@@ -2,3 +2,8 @@
 @model UnprofessionalsApp.Web.Pages.TestPage.IndexModel
 @{
 }
+
+<form asp-page="/TestPage/Index" method="post" enctype="multipart/form-data">
+	<input asp-for="InputModel.FirmFile" type="file"/>
+	<span asp-validation-for="InputModel.FirmFile"></span>
+</form>

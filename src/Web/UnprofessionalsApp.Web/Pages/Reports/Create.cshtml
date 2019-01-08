@@ -1,0 +1,21 @@
+﻿@page
+@model UnprofessionalsApp.Web.Pages.Reports.CreateModel
+@{
+}
+
+<h1>This is my reports page</h1>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-page="/reports/create" method="post">
+	<input type="text" asp-for="InputModel.Description" />
+	<span asp-validation-for="InputModel.Description"></span>
+	<input type="hidden" asp-for="InputModel.PostId" />
+	<input type="hidden" asp-for="InputModel.CommentId" />
+	<input type="hidden" asp-for="InputModel.FirmId" />
+	<input type="hidden" asp-for="InputModel.ReplyId" />
+	<input type="hidden" asp-for="InputModel.ReportedUserId" />
+	<input type="submit" value="Submit" />
+</form>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

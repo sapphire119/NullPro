@@ -8,4 +8,8 @@
     <ProjectReference Include="..\..\Data\UnprofessionalsApp.Models\UnprofessionalsApp.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Firms\" />
+  </ItemGroup>
+
 </Project>

@@ -90,6 +90,8 @@
 			services.AddTransient<IRepliesService, RepliesService>();
 			services.AddTransient<IImagesService, ImagesService>();
 			services.AddTransient<ITagsService, TagsService>();
+			services.AddTransient<IReportsService, ReportsService>();
+			services.AddTransient<IFilesService, FilesService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

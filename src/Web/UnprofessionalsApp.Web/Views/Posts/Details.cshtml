@@ -75,10 +75,10 @@
 			</div>
 			<!-- Side Widget -->
 			<div class="card my-4">
-				<h5 class="card-header">Side Widget</h5>
-				<div class="card-body">
-					You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
-				</div>
+				<a class="card-header font-weight-bold text-center text-dark" asp-page="/reports/create" asp-route-postId="@(Model.Id)">
+					<p>Found something concerning?</p>
+					<p>You can file a report here <i style="font-size:24px" class="fa">&#xf071;</i></p>
+				</a>
 			</div>
 		</div>
 	</div>

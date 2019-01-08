@@ -2,20 +2,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using UnprofessionalsApp.Common;
 using UnprofessionalsApp.DataServices.Contracts;
 using UnprofessionalsApp.ViewInputModels.InputModels.Firms;
 
-namespace UnprofessionalsApp.Web.Pages.TestPage
+namespace UnprofessionalsApp.Web.Pages.Firms
 {
-    public class IndexModel : PageModel
+	[Authorize(Roles = "Admin")]
+    public class CreateModel : PageModel
     {
 		private readonly IFilesService filesService;
 		private readonly IFirmsService firmsService;
 
-		public IndexModel(IFilesService filesService, IFirmsService firmsService)
+		public CreateModel(IFilesService filesService, IFirmsService firmsService)
 		{
 			this.filesService = filesService;
 			this.firmsService = firmsService;
@@ -24,17 +27,40 @@ namespace UnprofessionalsApp.Web.Pages.TestPage
 		[BindProperty]
 		public CreateFirmInputModel InputModel { get; set; }
 
-		public void OnGet()
+		public IActionResult OnGet()
         {
+			return this.Page();
         }
 
 		public async Task<IActionResult> OnPostAsync()
 		{
+			if (!ModelState.IsValid)
+			{
+				var errors = this.ModelState.SelectMany(x => x.Value.Errors.Select(e => e.ErrorMessage));
+				foreach (var error in errors)
+				{
+					this.ModelState.AddModelError(string.Empty, error);
+				}
+
+				return this.Page();
+			}
 			var filePath = await this.filesService.ReadFile(this.InputModel.FirmFile);
 
 			var readFile = this.filesService.ReadAllTextFromFile(filePath);
+			if (readFile == null)
+			{
+				return this.NotFound();
+			}
 
-			var xDoc = this.filesService.ParseToXDocument(readFile);
+			XDocument xDoc;
+			try
+			{
+				xDoc = this.filesService.ParseToXDocument(readFile);
+			}
+			catch (Exception)
+			{
+				return this.NotFound();
+			}
 
 			var deeds = await this.firmsService.GetAllDeedsFromXDoc(xDoc);
 
@@ -48,12 +74,14 @@ namespace UnprofessionalsApp.Web.Pages.TestPage
 			var filteredFirms = await this.firmsService.RemoveDupicateFirms(firms);
 
 			var statusCode = await this.firmsService.SeedFirmsIntoDbContext(filteredFirms);
-			if (statusCode != GlobalConstants.SuccessfullySavedIntoDbContextStatusCode)
+			if (statusCode < GlobalConstants.SuccessfullySavedIntoDbContextStatusCode)
 			{
-				return NotFound();
+				this.ModelState.AddModelError(string.Empty, GlobalConstants.DefaultFirmNotSavedIntoDbContextMessage);
+
+				return this.Page();
 			}
 
 			return this.Redirect("/Firms/Index");
 		}
-    }
+	}
 }

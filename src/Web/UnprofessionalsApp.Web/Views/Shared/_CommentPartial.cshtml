@@ -34,24 +34,37 @@ else
 				<img class="d-flex mr-3 rounded-circle" src="@(comment.UserImageUrl)" width="50" height="50" alt="No iamge">
 				<div class="media-body">
 					<h5 class="mt-0"><a asp-controller="Account" asp-action="Details" asp-route-userId="@(comment.UserId)">@(comment.Username)</a></h5>
-					@(comment.Description)
-					<div class="d-flex justify-content-end mb-3">
-						<button class="btn btn-secondary" onclick="myFunction@(comment.Id)()"><small>Reply</small> &laquo;</button>
+					<div class="d-flex justify-content-between">
+						<div>
+							@(comment.Description)
+						</div>
+						<div>
+							<small>@(comment.DateOfCreation)</small>
+						</div>
 					</div>
-					<form asp-controller="Replies" asp-action="CreateAsync" method="post" id="comment@(comment.Id)@(comment.PostId)" hidden>
-						<div class="form-group card">
-							<h6 class="card-header">Leave a Reply</h6>
-							<div class="card-body">
-								<input type="hidden" name="commentId" value="@(comment.Id)" />
-								<input type="hidden" name="userId" value="@(comment.UserId)" />
-								<input type="hidden" name="postId" value="@(comment.PostId)" />
-								<textarea class="form-control mb-3" rows="3" name="description" style="resize:vertical;"></textarea>
-								<div class="d-flex justify-content-end">
-									<button type="submit" class="btn btn-secondary"><small>Add Reply</small></button>
+					@if (this.User.Identity.IsAuthenticated)
+					{
+						<div class="d-flex justify-content-between mb-3">
+							<a class="font-weight-bold text-center" asp-page="/reports/create" asp-route-commentId="@(comment.Id)">
+								<i style="font-size:12px" class="fa">&#xf071;</i>
+							</a>
+							<button class="btn btn-secondary" onclick="myFunction@(comment.Id)()"><small>Reply</small> &laquo;</button>
+						</div>
+						<form asp-controller="Replies" asp-action="CreateAsync" method="post" id="comment@(comment.Id)@(comment.PostId)" hidden>
+							<div class="form-group card">
+								<h6 class="card-header">Leave a Reply</h6>
+								<div class="card-body">
+									<input type="hidden" name="commentId" value="@(comment.Id)" />
+									<input type="hidden" name="userId" value="@(comment.UserId)" />
+									<input type="hidden" name="postId" value="@(comment.PostId)" />
+									<textarea class="form-control mb-3" rows="3" name="description" style="resize:vertical;"></textarea>
+									<div class="d-flex justify-content-end">
+										<button type="submit" class="btn btn-secondary"><small>Add Reply</small></button>
+									</div>
 								</div>
 							</div>
-						</div>
-					</form>
+						</form>
+					}
 					<div class="d-flex justify-content-end">
 						<button class="badge text-dark bg-white border-0" onclick="showComments@(comment.Id)@(comment.PostId)()">Show/Hide all replies</button>
 					</div>
@@ -66,24 +79,38 @@ else
 										<h5 class="mt-0">
 											<a asp-controller="Account" asp-action="Details" asp-route-userId="@(reply.UserId)">@(reply.Username)</a>
 										</h5>
-										@(reply.Description)
-										<div class="d-flex justify-content-end mb-3">
-											<button class="btn btn-secondary" onclick="myReply@(reply.Id)@(comment.Id)()"><small>Reply</small> &laquo;</button>
+										<div class="d-flex justify-content-between">
+											<div>
+												@(reply.Description)
+											</div>
+											<div>
+												<small>@(reply.DateOfCreation)</small>
+											</div>
 										</div>
-										<form asp-controller="Replies" asp-action="CreateAsync" method="post" id="reply@(reply.Id)@(comment.Id)" hidden>
-											<div class="form-group card">
-												<h6 class="card-header">Leave a Reply</h6>
-												<div class="card-body">
-													<input type="hidden" name="commentId" value="@(comment.Id)" />
-													<input type="hidden" name="userId" value="@(comment.UserId)" />
-													<input type="hidden" name="postId" value="@(comment.PostId)" />
-													<textarea class="form-control mb-3" rows="3" name="description" style="resize:vertical;"></textarea>
-													<div class="d-flex justify-content-end">
-														<button type="submit" class="btn btn-secondary"><small>Add a Reply</small></button>
+										@if (this.User.Identity.IsAuthenticated)
+										{
+											<div class="d-flex justify-content-between mb-3">
+												<a class="font-weight-bold text-center" asp-page="/reports/create" asp-route-replyId="@(reply.Id)">
+													<i style="font-size:12px" class="fa">&#xf071;</i>
+												</a>
+												<button class="btn btn-secondary" onclick="myReply@(reply.Id)@(comment.Id)()"><small>Reply</small> &laquo;</button>
+											</div>
+
+											<form asp-controller="Replies" asp-action="CreateAsync" method="post" id="reply@(reply.Id)@(comment.Id)" hidden>
+												<div class="form-group card">
+													<h6 class="card-header">Leave a Reply</h6>
+													<div class="card-body">
+														<input type="hidden" name="commentId" value="@(comment.Id)" />
+														<input type="hidden" name="userId" value="@(comment.UserId)" />
+														<input type="hidden" name="postId" value="@(comment.PostId)" />
+														<textarea class="form-control mb-3" rows="3" name="description" style="resize:vertical;"></textarea>
+														<div class="d-flex justify-content-end">
+															<button type="submit" class="btn btn-secondary"><small>Add a Reply</small></button>
+														</div>
 													</div>
 												</div>
-											</div>
-										</form>
+											</form>
+										}
 									</div>
 								</div>
 							}
