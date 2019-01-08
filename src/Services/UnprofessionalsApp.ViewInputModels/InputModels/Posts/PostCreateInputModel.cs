@@ -23,9 +23,14 @@ namespace UnprofessionalsApp.ViewInputModels.InputModels.Posts
 		[Display(Name = "Category")]
 		public int CategoryId { get; set; }
 
+		[RegularExpression(@"^\d{9}$")]
+		public string FirmUniqueId { get; set; }
+
 		[Required]
 		[RegularExpression(@"^[^'%@&*^!]+$", ErrorMessage = "Invalid tags format")]
 		public string Tags { get; set; }
+
+
 										   //[Required]
 										   //[StringLength(15, MinimumLength = 3)]
 										   //[RegularExpression(@"^\w+[.\-_]*\w*$")]

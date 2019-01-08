@@ -23,16 +23,19 @@
 		private readonly IRepository<Post> postsRepository;
 		private readonly IRepository<Tag> tagsRepository;
 		private readonly IRepository<TagPost> tagsPostsRepository;
+		private readonly IFirmsService firmsService;
 		private readonly IMapper mapper;
 
 		public PostsService(IRepository<Post> postsRepository,
 			IRepository<Tag> tagsRepository,
 			IRepository<TagPost> tagsPostsRepository,
+			IFirmsService firmsService,
 			IMapper mapper)
 		{
 			this.postsRepository = postsRepository;
 			this.tagsRepository = tagsRepository;
 			this.tagsPostsRepository = tagsPostsRepository;
+			this.firmsService = firmsService;
 			this.mapper = mapper;
 		}
 
@@ -51,6 +54,12 @@
 		public async Task<Post> CreatePost(PostCreateDto postDto)
 		{
 			var destination = this.mapper.Map<Post>(postDto);
+
+			if (postDto.FirmUniqueId != null)
+			{
+				destination.FirmId = (await this.firmsService
+						.GetFirmByUniqueId<Firm>(postDto.FirmUniqueId)).Id;
+			}
 
 			var areThereAnyPostsWithSameTitle =
 				this.postsRepository.All().Where(p => p.Title == destination.Title).Any();

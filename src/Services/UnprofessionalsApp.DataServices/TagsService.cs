@@ -22,7 +22,14 @@ namespace UnprofessionalsApp.DataServices
 		{
 			var resultingTagsTask = Task.Run(() =>
 			{
-				var result = tags.Where(t => !this.tagsRepository.All().Any(it => it.Name == t.Name));
+				var result = tags
+				.Where(t => !this.tagsRepository.All().Any(it => it.Name.ToLower() == t.Name.ToLower()))
+				.Select(t => t.Name.ToLower())
+				.Distinct()
+				.Select(tagName => new Tag
+				{
+					Name = string.Concat(tagName[0].ToString().ToUpper(), tagName.Substring(1))
+				});
 
 				return result;
 			}); 

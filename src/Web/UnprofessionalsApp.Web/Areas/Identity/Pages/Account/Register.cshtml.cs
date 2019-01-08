@@ -6,12 +6,15 @@ using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using UnprofessionalsApp.Common;
+using UnprofessionalsApp.CustomAttributes;
+using UnprofessionalsApp.DataServices.Contracts;
 using UnprofessionalsApp.Models;
 using UnprofessionalsApp.Web.Extensions;
 
@@ -24,18 +27,21 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
 		private readonly UserManager<UnprofessionalsAppUser> userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+		private readonly IImagesService imageService;
 
-        public RegisterModel(
+		public RegisterModel(
             UserManager<UnprofessionalsAppUser> userManager,
             SignInManager<UnprofessionalsAppUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+			IImagesService imageService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-        }
+			this.imageService = imageService;
+		}
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -65,7 +71,11 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-        }
+
+			
+			[CustomFileExtension(".jpg, .png, .jpeg, .gif", ErrorMessage = "Accepted file formats are: {0}")]
+			public IFormFile ImageFile { get; set; }
+		}
 
 		
         public void OnGet(string returnUrl = null)
@@ -85,7 +95,23 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Account
 
 			if (ModelState.IsValid)
             {
-                var user = new UnprofessionalsAppUser { UserName = Input.Username, Email = Input.Email };
+				var user = new UnprofessionalsAppUser { UserName = Input.Username, Email = Input.Email };
+
+				if (Input.ImageFile != null)
+				{
+					var filePath = await this.imageService.ReadFile(Input.ImageFile);
+
+					var urlPath = await this.imageService.GetUrlPath(filePath);
+
+					var image = await this.imageService.CreateImage(urlPath);
+
+					user.Image = image;
+				}
+				else
+				{
+					user.ImageId = GlobalConstants.DefaultUserImageId;
+				}
+				
 
                 var result = await this.userManager.CreateAsync(user, Input.Password);
 				

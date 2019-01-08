@@ -78,6 +78,23 @@ namespace UnprofessionalsApp.DataServices
 			return firmTask;
 		}
 
+		public Task<TViewModel> GetFirmByUniqueId<TViewModel>(string uniqueFirmdId)
+		{
+			var firmTask = Task.Run(() =>
+			{
+				var source = this.firmsRepository.All()
+						.Where(f => f.UniqueFirmId == uniqueFirmdId);
+
+				var destination = this.mapper.ProjectTo<TViewModel>(source);
+
+				var result = destination.FirstOrDefault();
+
+				return result;
+			});
+
+			return firmTask;
+		}
+
 		//TODO: Think if GetParsedFirmId should be a service.
 		public Guid GetParsedFirmId(string id)
 		{

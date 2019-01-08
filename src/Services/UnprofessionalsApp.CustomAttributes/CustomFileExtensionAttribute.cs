@@ -30,7 +30,7 @@ namespace UnprofessionalsApp.CustomAttributes
 				return result;
 			}
 
-			return base.IsValid(value);
+			return true;
 		}
 	}
 }

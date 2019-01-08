@@ -11,6 +11,8 @@ namespace UnprofessionalsApp.DataTransferObjects.Posts
 
 		public string Description { get; set; }
 
+		public string FirmUniqueId { get; set; }
+
 		public int ImageId { get; set; }
 
 		public int CategoryId { get; set; }

@@ -77,31 +77,37 @@ namespace UnprofessionalsApp.Web.Pages.Posts
 			}
 
 			//this.imagesService.Test();
-			var filePath = await this.imagesService.ReadFile(this.InputModel.Image);
-
-			var imageUrl = await this.imagesService.GetUrlPath(filePath);
-			
-			var tags = await this.tagsService.CreateTags(this.InputModel.Tags);
-
-
-			var currentImage = await this.imagesService.CreateImage(imageUrl);
-
-			var currentTags = await this.tagsService.RemoveDuplicates(tags);
-
-			var currentUser = await this.userManager.GetUserAsync(this.User);
-
 			var postDto = this.mapper.Map<PostCreateDto>(InputModel);
 
-			postDto.UsernId = currentUser.Id;
-			postDto.ImageId = currentImage.Id;
+			if (InputModel.Image != null)
+			{
+				var filePath = await this.imagesService.ReadFile(this.InputModel.Image);
+
+				var imageUrl = await this.imagesService.GetUrlPath(filePath);
+
+				var currentImage = await this.imagesService.CreateImage(imageUrl);
+
+				postDto.ImageId = currentImage.Id;
+			}
+			else
+			{
+				postDto.ImageId = GlobalConstants.DefaultPostImageId;
+			}
+
+			var currentUser = await this.userManager.GetUserAsync(this.User);
 			//postDto.Tags = currentTags;
 
-			
+			postDto.UsernId = currentUser.Id;
+
 			var currentPost = await this.postsService.CreatePost(postDto);
 			if (currentPost == null)
 			{
 				return this.NotFound();
 			}
+
+			var tags = await this.tagsService.CreateTags(this.InputModel.Tags);
+
+			var currentTags = await this.tagsService.RemoveDuplicates(tags);
 
 			await this.postsService.AddTagsToPost(currentPost, currentTags);
 

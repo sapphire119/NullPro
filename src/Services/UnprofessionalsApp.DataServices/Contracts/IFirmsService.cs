@@ -14,6 +14,8 @@ namespace UnprofessionalsApp.DataServices.Contracts
 		
 		Task<TViewModel> GetFirmById<TViewModel>(Guid id);
 
+		Task<TViewModel> GetFirmByUniqueId<TViewModel>(string uniqueFirmdId);
+
 		Guid GetParsedFirmId(string id);
 
 		Task<int> GetAllFirmsCount();

@@ -38,6 +38,10 @@ namespace UnprofessionalsApp.Common
 
 		public const int SuccessfullySavedIntoDbContextStatusCode = 1;
 
+		public const int DefaultUserImageId = 6;
+
+		public const int DefaultPostImageId = 1;
+
 		public const int TagsToRenderLimit = 8;
 
 		public const int EntitiesPerPageLimit = 8;

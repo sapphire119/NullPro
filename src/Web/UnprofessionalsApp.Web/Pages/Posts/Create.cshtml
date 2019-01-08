@@ -36,8 +36,13 @@
 		</div>
 		<label asp-for="InputModel.Tags"></label>
 		<div class="col-md-10">
-			<input type="text" asp-for="InputModel.Tags" />
+			<input type="text" asp-for="InputModel.Tags" placeholder="Tag1, Tag2, Tag3..." />
 			<span asp-validation-for="InputModel.Tags" class="text-danger"></span>
+		</div>
+		<label asp-for="InputModel.FirmUniqueId"></label>
+		<div class="col-md-10">
+			<input type="text" asp-for="InputModel.FirmUniqueId" />
+			<span asp-validation-for="InputModel.FirmUniqueId" class="text-danger"></span>
 		</div>
 		@*<select asp-for="InputModel.CategoryId">
 			<option value="1">test</option>
