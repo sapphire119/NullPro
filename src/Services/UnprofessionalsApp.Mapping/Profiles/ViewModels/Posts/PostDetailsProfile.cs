@@ -15,6 +15,7 @@ namespace UnprofessionalsApp.Mapping.Profiles.Posts
 		public PostDetailsProfile()
 		{
 			CreateMap<Post, PostDetailsViewModel>()
+				.ForMember(x => x.ImageUrl, opts => opts.MapFrom(x => x.Image.Url))
 				.ForMember(x => x.Username, opts => opts.MapFrom(p => p.User.UserName))
 				.ForMember(x => x.FirmName, opts => opts.MapFrom(p => p.Firm.Name))
 				.ForMember(x => x.Comments, 

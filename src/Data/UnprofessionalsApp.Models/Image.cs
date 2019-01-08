@@ -9,8 +9,8 @@ namespace UnprofessionalsApp.Models
 	{
 		public string Url { get; set; }
 
-		public ICollection<UnprofessionalsAppUser> Users { get; set; }
+		public virtual ICollection<UnprofessionalsAppUser> Users { get; set; } = new HashSet<UnprofessionalsAppUser>();
 
-		public ICollection<Post> Posts { get; set; }
+		public virtual ICollection<Post> Posts { get; set; } = new HashSet<Post>();
 	}
 }

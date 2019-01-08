@@ -41,23 +41,7 @@
 
 		public string Username { get; set; }
 
-		public string ImageUrl
-		{
-			get
-			{
-				//TODO: Test me
-				var result = string.IsNullOrWhiteSpace(this.imageUrl) ?
-					GlobalConstants.DefaultImageUrl : this.imageUrl;
-
-				result = WebUtility.UrlDecode(result);
-
-				return result;
-			}
-			set
-			{
-				this.imageUrl = value;
-			}
-		}
+		public string ImageUrl { get; set; }
 
 		//public void CreateMappings(IMapperConfigurationExpression configuration)
 		//{

@@ -18,14 +18,61 @@ namespace UnprofessionalsApp.Web.Extensions
 	{
 		public static void Initialize(UnprofessionalsDbContext context, IServiceProvider services)
 		{
+			SeedImages(context);
 			SeedFirms(context);
 			SeedCategories(context);
 			SeedRolesAndUsers(services, context).GetAwaiter().GetResult();
-			SeedPosts(context);
+			//SeedPosts(context);
 			SeedTags(context);
 			SeedTagsToPosts(context);
 			SeedComments(context);
 			SeedReplies(context);
+		}
+
+		private static void SeedImages(UnprofessionalsDbContext context)
+		{
+			if (context.Images.Any())
+			{
+				return;
+			}
+
+			var image = new Image
+			{
+				Url = WebUtility.UrlEncode(@"https://res.cloudinary.com/drljwifz6/image/upload/v1546913580/c2lqsd9grh81isygwfpk.jpg"),
+			};
+
+			var image1 = new Image
+			{
+				Url = WebUtility.UrlEncode(@"https://res.cloudinary.com/drljwifz6/image/upload/v1546913577/bx7fifjy9r8vr9axlzjl.jpg"),
+			};
+
+			var image2 = new Image
+			{
+				Url = WebUtility.UrlEncode(@"https://res.cloudinary.com/drljwifz6/image/upload/v1546913578/x8e7lozv0e1hwfdkyf7h.jpg"),
+			};
+
+			var image3 = new Image
+			{
+				Url = WebUtility.UrlEncode(@"https://res.cloudinary.com/drljwifz6/image/upload/v1546913525/sample.jpg"),
+			};
+
+			var defaultImage = new Image
+			{
+				Url = WebUtility.UrlEncode(@"https://res.cloudinary.com/drljwifz6/image/upload/v1546913578/i3dqehgyyvuwlicprzug.png")
+			};
+
+			var images = new List<Image>
+			{
+				defaultImage,
+				image,
+				image1,
+				image2,
+				image3,
+			};
+
+			context.Images.AddRange(images);
+
+			context.SaveChanges();
 		}
 
 		private static void SeedReplies(UnprofessionalsDbContext context)
@@ -293,230 +340,232 @@ namespace UnprofessionalsApp.Web.Extensions
 			context.SaveChanges();
 		}
 
-		private static void SeedPosts(UnprofessionalsDbContext context)
-		{
-			if (context.Posts.Any()) return;
+		//private static void SeedPosts(UnprofessionalsDbContext context)
+		//{
+		//	if (context.Posts.Any()) return;
 
-			var post = new Post {
-				CategoryId = 1,
-				UserId = 1,
-				Description = "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop p",
-				Title = "Lorem ipsum",
-				ImageUrl = WebUtility.UrlEncode(@"https://antitrustlair.files.wordpress.com/2013/02/post_danmark.jpg"),  };
+		//	var post = new Post
+		//	{
+		//		CategoryId = 1,
+		//		UserId = 1,
+		//		Description = "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop p",
+		//		Title = "Lorem ipsum",
+		//		ImageId = 1
+		//	};
 
-			var post1 = new Post
-			{
-				CategoryId = 2,
-				UserId = 2,
-				Description = "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop p",
-				Title = "Ipsum Lorem",
-				ImageUrl = WebUtility.UrlEncode(@"https://wallpaperbrowse.com/media/images/soap-bubble-1958650_960_720.jpg"),
-			};
-			var post2 = new Post
-			{
-				CategoryId = 4,
-				UserId = 3,
-				Description = "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop p",
-				Title = "Ipsum Lorem",
-				ImageUrl = WebUtility.UrlEncode(@"https://wallpaperbrowse.com/media/images/3848765-wallpaper-images-download.jpg"),
-			};
+		//	var post1 = new Post
+		//	{
+		//		CategoryId = 2,
+		//		UserId = 2,
+		//		Description = "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop p",
+		//		Title = "Ipsum Lorem",
+		//		ImageId = 2,
+		//	};
+		//	var post2 = new Post
+		//	{
+		//		CategoryId = 4,
+		//		UserId = 3,
+		//		Description = "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop p",
+		//		Title = "Ipsum Lorem",
+		//		ImageId = 3,
+		//	};
 
-			var post3 = new Post
-			{
-				CategoryId = 7,
-				UserId = 4,
-				Description = "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop p",
-				Title = "Ipsum Lorem",
-				ImageUrl = WebUtility.UrlEncode(@"https://www.w3schools.com/w3css/img_lights.jpg"),
-			};
+		//	var post3 = new Post
+		//	{
+		//		CategoryId = 7,
+		//		UserId = 4,
+		//		Description = "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop p",
+		//		Title = "Ipsum Lorem",
+		//		ImageId = 4,
+		//	};
 
-			var post4 = new Post
-			{
-				CategoryId = 6,
-				UserId = 1,
-				DateOfCreation = DateTime.UtcNow.AddDays(-10),
-				Description = "Test Post for date time",
-				Title = "Test Date TIme",
-				ImageUrl = WebUtility.UrlEncode(@"http://farm4.static.flickr.com/3658/3349010639_f9e507d05e.jpg"),
-			};
+		//	var post4 = new Post
+		//	{
+		//		CategoryId = 6,
+		//		UserId = 1,
+		//		DateOfCreation = DateTime.UtcNow.AddDays(-10),
+		//		Description = "Test Post for date time",
+		//		Title = "Test Date TIme",
+		//		ImageId = 5,
+		//	};
 
-			var post5 = new Post
-			{
-				CategoryId = 3,
-				UserId = 1,
-				DateOfCreation = DateTime.UtcNow.AddDays(-15),
-				Description = "Test Post for no image",
-				Title = "Test for no image",
-				ImageUrl = string.Empty
-			};
+		//	var post5 = new Post
+		//	{
+		//		CategoryId = 3,
+		//		UserId = 1,
+		//		DateOfCreation = DateTime.UtcNow.AddDays(-15),
+		//		Description = "Test Post for no image",
+		//		Title = "Test for no image",
+		//		ImageUrl = string.Empty
+		//	};
 
-			var post6 = new Post
-			{
-				CategoryId = 1,
-				UserId = 1,
-				DateOfCreation = DateTime.UtcNow.AddDays(-9),
-				Description = "Test Postsss",
-				Title = "No image",
-				ImageUrl = string.Empty
-			};
+		//	var post6 = new Post
+		//	{
+		//		CategoryId = 1,
+		//		UserId = 1,
+		//		DateOfCreation = DateTime.UtcNow.AddDays(-9),
+		//		Description = "Test Postsss",
+		//		Title = "No image",
+		//		ImageUrl = string.Empty
+		//	};
 
-			var post7 = new Post
-			{
-				CategoryId = 1,
-				UserId = 2,
-				DateOfCreation = DateTime.UtcNow.AddDays(-9),
-				Description = "Test",
-				Title = "Yes image",
-				ImageUrl = string.Empty
-			};
+		//	var post7 = new Post
+		//	{
+		//		CategoryId = 1,
+		//		UserId = 2,
+		//		DateOfCreation = DateTime.UtcNow.AddDays(-9),
+		//		Description = "Test",
+		//		Title = "Yes image",
+		//		ImageUrl = string.Empty
+		//	};
 
-			var post8 = new Post
-			{
-				CategoryId = 1,
-				UserId = 4,
-				DateOfCreation = DateTime.UtcNow.AddDays(-7),
-				Description = "Test Postsss",
-				Title = "All Hail",
-				ImageUrl = string.Empty
-			};
+		//	var post8 = new Post
+		//	{
+		//		CategoryId = 1,
+		//		UserId = 4,
+		//		DateOfCreation = DateTime.UtcNow.AddDays(-7),
+		//		Description = "Test Postsss",
+		//		Title = "All Hail",
+		//		ImageUrl = string.Empty
+		//	};
 
-			var post9 = new Post
-			{
-				CategoryId = 1,
-				UserId = 4,
-				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
-				DateOfCreation = DateTime.UtcNow.AddDays(-16),
-				Description = "Firm post",
-				Title = "Firm post",
-				ImageUrl = string.Empty
-			};
+		//	var post9 = new Post
+		//	{
+		//		CategoryId = 1,
+		//		UserId = 4,
+		//		FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+		//		DateOfCreation = DateTime.UtcNow.AddDays(-16),
+		//		Description = "Firm post",
+		//		Title = "Firm post",
+		//		ImageUrl = string.Empty
+		//	};
 
-			var post10 = new Post
-			{
-				CategoryId = 1,
-				UserId = 4,
-				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
-				DateOfCreation = DateTime.UtcNow.AddDays(-5),
-				Description = "Firm postttt",
-				Title = "Firm posttt",
-				ImageUrl = string.Empty
-			};
+		//	var post10 = new Post
+		//	{
+		//		CategoryId = 1,
+		//		UserId = 4,
+		//		FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+		//		DateOfCreation = DateTime.UtcNow.AddDays(-5),
+		//		Description = "Firm postttt",
+		//		Title = "Firm posttt",
+		//		ImageUrl = string.Empty
+		//	};
 
-			var post11 = new Post
-			{
-				CategoryId = 2,
-				UserId = 1,
-				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
-				DateOfCreation = DateTime.UtcNow.AddDays(-50),
-				Description = "Firm posttttahjskd",
-				Title = "Firm posttthaskjdsad",
-				ImageUrl = string.Empty
-			};
+		//	var post11 = new Post
+		//	{
+		//		CategoryId = 2,
+		//		UserId = 1,
+		//		FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+		//		DateOfCreation = DateTime.UtcNow.AddDays(-50),
+		//		Description = "Firm posttttahjskd",
+		//		Title = "Firm posttthaskjdsad",
+		//		ImageUrl = string.Empty
+		//	};
 
-			var post12 = new Post
-			{
-				CategoryId = 3,
-				UserId = 1,
-				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
-				DateOfCreation = DateTime.UtcNow.AddDays(-3),
-				Description = "asdhaskjdkd",
-				Title = "Fiasdasdkjdsad",
-				ImageUrl = string.Empty
-			};
+		//	var post12 = new Post
+		//	{
+		//		CategoryId = 3,
+		//		UserId = 1,
+		//		FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+		//		DateOfCreation = DateTime.UtcNow.AddDays(-3),
+		//		Description = "asdhaskjdkd",
+		//		Title = "Fiasdasdkjdsad",
+		//		ImageUrl = string.Empty
+		//	};
 
-			var post13 = new Post
-			{
-				CategoryId = 5,
-				UserId = 1,
-				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
-				DateOfCreation = DateTime.UtcNow.AddDays(-13),
-				Description = "Firm post is firm post",
-				Title = "Coke",
-				ImageUrl = string.Empty
-			};
+		//	var post13 = new Post
+		//	{
+		//		CategoryId = 5,
+		//		UserId = 1,
+		//		FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+		//		DateOfCreation = DateTime.UtcNow.AddDays(-13),
+		//		Description = "Firm post is firm post",
+		//		Title = "Coke",
+		//		ImageUrl = string.Empty
+		//	};
 
-			var post14 = new Post
-			{
-				CategoryId = 2,
-				UserId = 1,
-				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
-				DateOfCreation = DateTime.UtcNow.AddDays(-14),
-				Description = "Mr.Random",
-				Title = "Random is Random",
-				ImageUrl = string.Empty
-			};
+		//	var post14 = new Post
+		//	{
+		//		CategoryId = 2,
+		//		UserId = 1,
+		//		FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+		//		DateOfCreation = DateTime.UtcNow.AddDays(-14),
+		//		Description = "Mr.Random",
+		//		Title = "Random is Random",
+		//		ImageUrl = string.Empty
+		//	};
 
-			var post15 = new Post
-			{
-				CategoryId = 1,
-				UserId = 1,
-				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
-				DateOfCreation = DateTime.UtcNow.AddDays(-17),
-				Description = "Firm Firm Firm Firm Firm Firm",
-				Title = "Firm's Firm",
-				ImageUrl = string.Empty
-			};
+		//	var post15 = new Post
+		//	{
+		//		CategoryId = 1,
+		//		UserId = 1,
+		//		FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+		//		DateOfCreation = DateTime.UtcNow.AddDays(-17),
+		//		Description = "Firm Firm Firm Firm Firm Firm",
+		//		Title = "Firm's Firm",
+		//		ImageUrl = string.Empty
+		//	};
 
-			var post16 = new Post
-			{
-				CategoryId = 6,
-				UserId = 1,
-				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
-				DateOfCreation = DateTime.UtcNow.AddDays(-14),
-				Description = "IBM",
-				Title = "CIA FBI BAI IVAN",
-				ImageUrl = string.Empty
-			};
+		//	var post16 = new Post
+		//	{
+		//		CategoryId = 6,
+		//		UserId = 1,
+		//		FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+		//		DateOfCreation = DateTime.UtcNow.AddDays(-14),
+		//		Description = "IBM",
+		//		Title = "CIA FBI BAI IVAN",
+		//		ImageUrl = string.Empty
+		//	};
 
-			var post17 = new Post
-			{
-				CategoryId = 4,
-				UserId = 1,
-				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
-				DateOfCreation = DateTime.UtcNow.AddDays(-12),
-				Description = "Dim4o",
-				Title = "Vizitka",
-				ImageUrl = string.Empty
-			};
+		//	var post17 = new Post
+		//	{
+		//		CategoryId = 4,
+		//		UserId = 1,
+		//		FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+		//		DateOfCreation = DateTime.UtcNow.AddDays(-12),
+		//		Description = "Dim4o",
+		//		Title = "Vizitka",
+		//		ImageUrl = string.Empty
+		//	};
 
-			var post18 = new Post
-			{
-				CategoryId = 9,
-				UserId = 1,
-				FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
-				DateOfCreation = DateTime.UtcNow.AddDays(-18),
-				Description = "Million Million Million",
-				Title = "VZEMI TOZI SHHHHHHH",
-				ImageUrl = string.Empty
-			};
+		//	var post18 = new Post
+		//	{
+		//		CategoryId = 9,
+		//		UserId = 1,
+		//		FirmId = Guid.Parse("BE1D0710-8CC7-4A30-95D0-0052F11ABBAF"),
+		//		DateOfCreation = DateTime.UtcNow.AddDays(-18),
+		//		Description = "Million Million Million",
+		//		Title = "VZEMI TOZI SHHHHHHH",
+		//		ImageUrl = string.Empty
+		//	};
 
-			var posts = new List<Post>()
-			{
-				post,
-				post1,
-				post2,
-				post3,
-				post4,
-				post5,
-				post6,
-				post7,
-				post8,
-				post9,
-				post10,
-				post11,
-				post12,
-				post13,
-				post14,
-				post15,
-				post16,
-				post17,
-				post18,
-			};
+		//	var posts = new List<Post>()
+		//	{
+		//		post,
+		//		post1,
+		//		post2,
+		//		post3,
+		//		post4,
+		//		post5,
+		//		post6,
+		//		post7,
+		//		post8,
+		//		post9,
+		//		post10,
+		//		post11,
+		//		post12,
+		//		post13,
+		//		post14,
+		//		post15,
+		//		post16,
+		//		post17,
+		//		post18,
+		//	};
 
-			context.Posts.AddRange(posts);
+		//	context.Posts.AddRange(posts);
 
-			context.SaveChanges();
-		}
+		//	context.SaveChanges();
+		//}
 
 		private static void SeedCategories(UnprofessionalsDbContext context)
 		{

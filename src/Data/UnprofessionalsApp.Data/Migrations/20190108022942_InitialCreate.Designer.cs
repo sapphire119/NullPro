@@ -10,7 +10,7 @@ using UnprofessionalsApp.Data;
 namespace UnprofessionalsApp.Data.Migrations
 {
     [DbContext(typeof(UnprofessionalsDbContext))]
-    [Migration("20190102013846_InitialCreate")]
+    [Migration("20190108022942_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -154,8 +154,6 @@ namespace UnprofessionalsApp.Data.Migrations
 
                     b.Property<int>("PostId");
 
-                    b.Property<int>("Rating");
-
                     b.Property<int>("UserId");
 
                     b.HasKey("Id");
@@ -172,15 +170,15 @@ namespace UnprofessionalsApp.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("DateOfRegistration");
+
+                    b.Property<bool>("IsBlackListed");
+
                     b.Property<string>("LegalForm")
                         .IsRequired();
 
                     b.Property<string>("Name")
                         .IsRequired();
-
-                    b.Property<int>("Popularity");
-
-                    b.Property<int>("Rating");
 
                     b.Property<string>("UniqueFirmId")
                         .IsRequired()
@@ -189,6 +187,20 @@ namespace UnprofessionalsApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Firms");
+                });
+
+            modelBuilder.Entity("UnprofessionalsApp.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Url")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("UnprofessionalsApp.Models.Message", b =>
@@ -228,11 +240,7 @@ namespace UnprofessionalsApp.Data.Migrations
 
                     b.Property<Guid?>("FirmId");
 
-                    b.Property<string>("ImageUrl");
-
-                    b.Property<int>("Popularity");
-
-                    b.Property<int>("Rating");
+                    b.Property<int>("ImageId");
 
                     b.Property<string>("Title");
 
@@ -243,6 +251,8 @@ namespace UnprofessionalsApp.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("FirmId");
+
+                    b.HasIndex("ImageId");
 
                     b.HasIndex("UserId");
 
@@ -260,8 +270,6 @@ namespace UnprofessionalsApp.Data.Migrations
                     b.Property<DateTime>("DateOfCreation");
 
                     b.Property<string>("Description");
-
-                    b.Property<int>("Rating");
 
                     b.Property<int>("UserId");
 
@@ -353,10 +361,14 @@ namespace UnprofessionalsApp.Data.Migrations
 
                     b.Property<DateTime>("DateOfRegistration");
 
+                    b.Property<string>("Description");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<int>("ImageId");
 
                     b.Property<bool>("IsBlackListed");
 
@@ -384,6 +396,8 @@ namespace UnprofessionalsApp.Data.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -478,10 +492,15 @@ namespace UnprofessionalsApp.Data.Migrations
                         .WithMany("Posts")
                         .HasForeignKey("FirmId");
 
+                    b.HasOne("UnprofessionalsApp.Models.Image", "Image")
+                        .WithMany("Posts")
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("UnprofessionalsApp.Models.UnprofessionalsAppUser", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("UnprofessionalsApp.Models.Reply", b =>
@@ -536,6 +555,14 @@ namespace UnprofessionalsApp.Data.Migrations
                     b.HasOne("UnprofessionalsApp.Models.Tag", "Tag")
                         .WithMany("Posts")
                         .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("UnprofessionalsApp.Models.UnprofessionalsAppUser", b =>
+                {
+                    b.HasOne("UnprofessionalsApp.Models.Image", "Image")
+                        .WithMany("Users")
+                        .HasForeignKey("ImageId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -23,22 +23,7 @@
 
 		public string Description { get; set; }
 
-		public string ImageUrl
-		{
-			get
-			{
-				var result = string.IsNullOrWhiteSpace(this.imageUrl) ?
-					GlobalConstants.DefaultImageUrl : this.imageUrl;
-
-				result = WebUtility.UrlDecode(result);
-
-				return result;
-			}
-			set
-			{
-				this.imageUrl = value;
-			}
-		}
+		public string ImageUrl { get; set; }
 
 		public string DateOfCreation { get; set; }
 

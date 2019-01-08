@@ -60,13 +60,13 @@ namespace UnprofessionalsApp.Web.Pages.Posts
 				return this.Page();
 			}
 
-			var image = await this.imageService.CreateImage(this.InputModel.Image);
+			//var image = await this.imageService.CreateImage(this.InputModel.Image);
 
-			var tags = await this.tagsService.CreateTags(this.InputModel.Tags);
+			//var tags = await this.tagsService.CreateTags(this.InputModel.Tags);
 
-			var postDto = this.mapper.Map<PostCreateDto>(InputModel);
+			//var postDto = this.mapper.Map<PostCreateDto>(InputModel);
 
-			var result = await this.postsService.CreatePost(postDto, image, tags);
+			//var result = await this.postsService.CreatePost(postDto, image, tags);
 
 			return this.Page();
 			//return this.RedirectToAction(string.Format("/Posts/details/{0}", ));

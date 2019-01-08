@@ -73,10 +73,43 @@ namespace Sandbox
 			Cloudinary cloudinary = new Cloudinary(account);
 			var imageUploadParams = new ImageUploadParams()
 			{
-				File = new FileDescription(@"https://helpx.adobe.com/gr_en/stock/how-to/visual-reverse-image-search/_jcr_content/main-pars/image.img.jpg/visual-reverse-image-search-v2_1000x560.jpg")
+				File = new FileDescription(@"https://antitrustlair.files.wordpress.com/2013/02/post_danmark.jpg")
 			};
 
+			var imageUploadParams1 = new ImageUploadParams()
+			{
+				File = new FileDescription(@"https://wallpaperbrowse.com/media/images/soap-bubble-1958650_960_720.jpg")
+			};
+
+			var imageUploadParams2 = new ImageUploadParams()
+			{
+				File = new FileDescription(@"https://www.w3schools.com/w3css/img_lights.jpg")
+			};
+
+			var imageUploadParams3 = new ImageUploadParams()
+			{
+				File = new FileDescription(@"https://antitrustlair.files.wordpress.com/2013/02/post_danmark.jpg")
+			};
+
+			var imageUploadParams4 = new ImageUploadParams()
+			{
+				File = new FileDescription(@"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png")
+			};
+
+			var imageUploadParams5 = new ImageUploadParams()
+			{
+				File = new FileDescription(@"https://wallpaperbrowse.com/media/images/soap-bubble-1958650_960_720.jpg")
+			};
+
+
+
 			var uploadResult = cloudinary.Upload(imageUploadParams);
+			var uploadResult1 = cloudinary.Upload(imageUploadParams1);
+			var uploadResult2 = cloudinary.Upload(imageUploadParams2);
+			var uploadResult3 = cloudinary.Upload(imageUploadParams3);
+			var uploadResult4 = cloudinary.Upload(imageUploadParams4);
+			var defaultResult = cloudinary.Upload(imageUploadParams5);
+
 
 			var uploadUrl = uploadResult.SecureUri.ToString();
 			//			var user = new UnprofessionalsAppUser();

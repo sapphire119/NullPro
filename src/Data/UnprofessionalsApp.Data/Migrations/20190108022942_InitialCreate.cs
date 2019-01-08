@@ -24,34 +24,6 @@ namespace UnprofessionalsApp.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    IsBlackListed = table.Column<bool>(nullable: false),
-                    DateOfRegistration = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
@@ -71,13 +43,26 @@ namespace UnprofessionalsApp.Data.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     UniqueFirmId = table.Column<string>(maxLength: 9, nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    Popularity = table.Column<int>(nullable: false),
-                    Rating = table.Column<int>(nullable: false),
+                    IsBlackListed = table.Column<bool>(nullable: false),
+                    DateOfRegistration = table.Column<DateTime>(nullable: false),
                     LegalForm = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Firms", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Url = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -110,6 +95,42 @@ namespace UnprofessionalsApp.Data.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    IsBlackListed = table.Column<bool>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    ImageId = table.Column<int>(nullable: false),
+                    DateOfRegistration = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -235,9 +256,7 @@ namespace UnprofessionalsApp.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    ImageUrl = table.Column<string>(nullable: true),
-                    Popularity = table.Column<int>(nullable: false),
-                    Rating = table.Column<int>(nullable: false),
+                    ImageId = table.Column<int>(nullable: false),
                     DateOfCreation = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false),
@@ -259,11 +278,17 @@ namespace UnprofessionalsApp.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Posts_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Posts_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -273,7 +298,6 @@ namespace UnprofessionalsApp.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(nullable: true),
-                    Rating = table.Column<int>(nullable: false),
                     DateOfCreation = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
                     PostId = table.Column<int>(nullable: false)
@@ -326,7 +350,6 @@ namespace UnprofessionalsApp.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(nullable: true),
-                    Rating = table.Column<int>(nullable: false),
                     DateOfCreation = table.Column<DateTime>(nullable: false),
                     CommentId = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
@@ -432,6 +455,11 @@ namespace UnprofessionalsApp.Data.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_ImageId",
+                table: "AspNetUsers",
+                column: "ImageId");
+
+            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
@@ -472,6 +500,11 @@ namespace UnprofessionalsApp.Data.Migrations
                 name: "IX_Posts_FirmId",
                 table: "Posts",
                 column: "FirmId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_ImageId",
+                table: "Posts",
+                column: "ImageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_UserId",
@@ -573,6 +606,9 @@ namespace UnprofessionalsApp.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Images");
         }
     }
 }

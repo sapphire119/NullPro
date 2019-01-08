@@ -14,6 +14,7 @@ namespace UnprofessionalsApp.Mapping.Profiles.Users
 		public UserDetailsProfile()
 		{
 			CreateMap<UnprofessionalsAppUser, UserDetailsViewModel>()
+				.ForMember(x => x.ImageUrl, opts => opts.MapFrom(x => x.Image.Url))
 				.ForMember(x => x.Username, opts => opts.MapFrom(x => x.UserName))
 				.ForMember(x => x.Email, opts => opts.MapFrom(x => x.Email))
 				.ForMember(x => x.PhoneNumber, opts => opts.MapFrom(x => x.PhoneNumber))

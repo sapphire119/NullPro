@@ -12,6 +12,10 @@
 
 		public string Description { get; set; }
 
+		public int ImageId { get; set; }
+
+		public virtual Image Image { get; set; }
+
 		public DateTime DateOfRegistration { get; set; } = DateTime.UtcNow;
 
 		public virtual ICollection<Post> Posts { get; set; } = new HashSet<Post>();

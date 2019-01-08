@@ -19,7 +19,9 @@ namespace UnprofessionalsApp.Models
 
 		public string Description { get; set; }
 
-		public string ImageUrl { get; set; }
+		public int ImageId { get; set; }
+
+		public virtual Image Image { get; set; }
 
 		public DateTime DateOfCreation { get; set; } = DateTime.UtcNow;
 

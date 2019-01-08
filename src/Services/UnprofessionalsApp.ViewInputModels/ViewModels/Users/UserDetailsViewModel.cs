@@ -42,6 +42,8 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Users
 			}
 		}
 
+		public string ImageUrl { get; set; }
+
 		public string Email
 		{
 			get

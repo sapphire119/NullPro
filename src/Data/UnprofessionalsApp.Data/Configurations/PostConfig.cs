@@ -16,7 +16,10 @@
 
 			builder.Property(e => e.DateOfCreation);
 
-			builder.Property(e => e.ImageUrl);
+			builder.HasOne(e => e.Image)
+				.WithMany(i => i.Posts)
+				.HasForeignKey(e => e.ImageId)
+				.OnDelete(DeleteBehavior.Restrict);
 
 			builder.HasOne(e => e.Firm)
 				.WithMany(f => f.Posts)
@@ -26,7 +29,9 @@
 				.WithMany(c => c.Posts);
 
 			builder.HasOne(e => e.User)
-				.WithMany(u => u.Posts);
+				.WithMany(u => u.Posts)
+				.HasForeignKey(e => e.UserId)
+				.OnDelete(DeleteBehavior.Restrict);
 		}
 	}
 }

@@ -39,7 +39,6 @@ namespace UnprofessionalsApp.Web.Pages.Categories
 				return Page();
 			}
 			//TODO: Write a Display Error message for lack of posts on details category page.
-			this.ModelState.AddModelError(string.Empty, "Category does not contain any posts.");
 			return this.RedirectToPage("/Categories/Index");
 		}
 	}

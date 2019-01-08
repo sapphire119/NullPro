@@ -30,8 +30,6 @@ namespace UnprofessionalsApp.Common
 
 		public const string DescriptionExtensionStrings = "...";
 
-		public const string DefaultImageUrl = @"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png";
-
 		public const string NoDescriptionForUser = @"User has not put in any description about himself";
 
 		public const string NoEmailForUser = @"User has not put in any email";
