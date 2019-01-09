@@ -28,7 +28,7 @@
     <Folder Include="Areas\Administrator\Controllers\" />
     <Folder Include="Areas\Administrator\Data\" />
     <Folder Include="Areas\Administrator\Models\" />
-    <Folder Include="Areas\Administrator\Views\Shared\" />
+    <Folder Include="Areas\Administrator\Pages\Shared\" />
     <Folder Include="Areas\Administrator\Views\" />
     <Folder Include="Areas\Manager\Controllers\" />
     <Folder Include="Areas\Manager\Data\" />
