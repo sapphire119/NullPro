@@ -160,5 +160,25 @@
 
 			return postTask;
 		}
+
+		public Task<IEnumerable<TViewModel>> GetPostsByUsernameAsync<TViewModel>(
+			UnprofessionalsAppUser currentUser)
+		{
+			var postTask = Task.Run(() =>
+			{
+				var source = this.postsRepository.All()
+				.Where(p => !p.IsDeleted && p.UserId == currentUser.Id);
+				//.To<TViewModel>()
+				//.FirstOrDefault()
+
+				var destination = this.mapper.ProjectTo<TViewModel>(source);
+
+				var result = destination as IEnumerable<TViewModel>;
+
+				return result;
+			});
+
+			return postTask;
+		}
 	}
 }

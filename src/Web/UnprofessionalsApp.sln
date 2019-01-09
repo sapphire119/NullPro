@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "..\Tests\Sandbox
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnprofessionalsApp.DataTransferObjects", "..\Services\UnprofessionalsApp.DataTransferObjects\UnprofessionalsApp.DataTransferObjects.csproj", "{01B9225E-B25E-4C1F-85EA-B4009854B1B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnprofessionalsApp.CustomAttributes", "..\Services\UnprofessionalsApp.CustomAttributes\UnprofessionalsApp.CustomAttributes.csproj", "{A1A9B7A5-1BE6-4199-A30A-BFC9AA87E84F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnprofessionalsApp.CustomAttributes", "..\Services\UnprofessionalsApp.CustomAttributes\UnprofessionalsApp.CustomAttributes.csproj", "{A1A9B7A5-1BE6-4199-A30A-BFC9AA87E84F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

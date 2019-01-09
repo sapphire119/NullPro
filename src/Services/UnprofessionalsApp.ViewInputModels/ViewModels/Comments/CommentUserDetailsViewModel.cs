@@ -33,8 +33,7 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Comments
 		}
 
 		public string DateOfCreation { get; set; }
-		
-		//Potential break
+
 		public int PostId { get; set; }
 
 		public string PostTitle { get; set; }

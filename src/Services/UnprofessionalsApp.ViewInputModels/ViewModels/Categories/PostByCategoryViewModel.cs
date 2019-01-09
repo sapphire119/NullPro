@@ -39,6 +39,8 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Categories
 
 		public string DateOfCreation { get; set; }
 
+		public bool IsDeleted { get; set; }
+
 		public int UserId { get; set; }
 
 		public string Username { get; set; }

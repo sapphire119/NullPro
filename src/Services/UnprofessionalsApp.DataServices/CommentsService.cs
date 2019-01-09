@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using UnprofessionalsApp.Common;
 using UnprofessionalsApp.DataServices.Contracts;
@@ -31,6 +32,24 @@ namespace UnprofessionalsApp.DataServices
 			var statusResult = await this.commentsRepository.SaveChangesAsync();
 
 			return statusResult;
+		}
+
+		public Task<IEnumerable<TViewModel>> GetCommentsForCurrentUser<TViewModel>(
+			UnprofessionalsAppUser currentUser)
+		{
+			var commentTask = Task.Run(() =>
+			{
+				var source = this.commentsRepository.All()
+				.Where(c => !c.IsDeleted && c.UserId == currentUser.Id);
+
+				var destination = this.mapper.ProjectTo<TViewModel>(source);
+
+				var result = destination as IEnumerable<TViewModel>;
+
+				return result;
+			});
+
+			return commentTask;
 		}
 
 		//public async Task CreateComment<T>(T inputModel)
