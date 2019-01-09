@@ -6,6 +6,7 @@
 	using System.Linq;
 	using System.Threading.Tasks;
 	using UnprofessionalsApp.DataServices.Contracts;
+	using UnprofessionalsApp.ViewInputModels.InputModels.Pagination;
 	using UnprofessionalsApp.ViewInputModels.ViewModels.Firms;
 
 	public class FirmsController : Controller
