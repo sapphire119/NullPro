@@ -19,6 +19,9 @@ namespace UnprofessionalsApp.Models
 
 		public string Description { get; set; }
 
+		public bool IsDeleted { get; set; } = false;
+
+
 		public int ImageId { get; set; }
 
 		public virtual Image Image { get; set; }

@@ -11,6 +11,8 @@
 			builder.HasKey(e => e.Id);
 
 			builder.Property(e => e.Name);
+
+			builder.Property(e => e.IsDeleted);
 		}
 	}
 }

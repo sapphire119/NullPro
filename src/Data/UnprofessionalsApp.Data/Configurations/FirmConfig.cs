@@ -9,7 +9,9 @@
 		public void Configure(EntityTypeBuilder<Firm> builder)
 		{
 			builder.HasKey(e => e.Id);
-			
+
+			builder.Property(e => e.IsDeleted);
+
 			builder.Property(e => e.UniqueFirmId)
 				.HasMaxLength(9)
 				.IsRequired();

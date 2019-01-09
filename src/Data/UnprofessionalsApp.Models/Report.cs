@@ -7,6 +7,8 @@
 	{
 		public string Description { get; set; }
 
+		public bool IsDeleted { get; set; } = false;
+
 		public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 
 		public int? CommentId { get; set; }

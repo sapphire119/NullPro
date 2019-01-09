@@ -12,7 +12,8 @@ namespace UnprofessionalsApp.Mapping.Profiles.InputModels.Reports
 		public ReportCreateProfile()
 		{
 			CreateMap<ReporCreateInputModel, Report>()
-				.ForMember(x => x.Description, opts => opts.MapFrom(x => x.Description));
+				.ForMember(x => x.Description, opts => opts.MapFrom(x => x.Description))
+				.ForMember(x => x.IsDeleted, opts => opts.Ignore());
 		}
 	}
 }

@@ -10,6 +10,8 @@ namespace UnprofessionalsApp.Models
 
 		public DateTime DateOfCreation { get; set; } = DateTime.UtcNow;
 
+		public bool IsDeleted { get; set; } = false;
+
 		public int UserId { get; set; }
 
 		public virtual UnprofessionalsAppUser User { get; set; }

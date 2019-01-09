@@ -8,6 +8,8 @@ namespace UnprofessionalsApp.Models
 	{
 		public string Description { get; set; }
 
+		public bool IsDeleted { get; set; } = false;
+
 		public DateTime DateOfCreation { get; set; } = DateTime.UtcNow;
 
 		public int CommentId { get; set; }

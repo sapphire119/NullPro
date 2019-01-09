@@ -13,6 +13,8 @@
 			builder.Property(e => e.Description)
 				.IsRequired();
 
+			builder.Property(e => e.IsDeleted);
+
 			builder.Property(e => e.CreationDate);
 
 			builder.HasOne(e => e.User)

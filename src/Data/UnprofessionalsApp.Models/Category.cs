@@ -7,6 +7,8 @@ namespace UnprofessionalsApp.Models
 	{
 		public string Name { get; set; }
 
+		public bool IsDeleted { get; set; } = false;
+
 		public virtual ICollection<Post> Posts { get; set; } = new HashSet<Post>();
 	}
 }

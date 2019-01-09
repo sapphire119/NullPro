@@ -14,6 +14,7 @@ namespace UnprofessionalsApp.Mapping.Profiles.InputModels.Comments
 			CreateMap<CreateInputModel, Comment>()
 				.ForMember(x => x.Description, opts => opts.MapFrom(x => x.Description.Trim()))
 				.ForMember(x => x.PostId, opts => opts.MapFrom(x => x.PostId))
+				.ForMember(x => x.IsDeleted, opts => opts.Ignore())
 				.ForMember(x => x.UserId, opts => opts.MapFrom(x => x.UserId));
 		}
 	}

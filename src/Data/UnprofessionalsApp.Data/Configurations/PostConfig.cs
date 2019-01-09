@@ -14,6 +14,8 @@
 
 			builder.Property(e => e.Description);
 
+			builder.Property(e => e.IsDeleted);
+
 			builder.Property(e => e.DateOfCreation);
 
 			builder.HasOne(e => e.Image)

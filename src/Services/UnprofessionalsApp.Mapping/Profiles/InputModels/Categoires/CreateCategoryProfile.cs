@@ -12,7 +12,8 @@ namespace UnprofessionalsApp.Mapping.Profiles.InputModels.Categoires
 		public CreateCategoryProfile()
 		{
 			CreateMap<CreateCategoryInputModel, Category>()
-				.ForMember(x => x.Name, opts => opts.MapFrom(x => x.Name));
+				.ForMember(x => x.Name, opts => opts.MapFrom(x => x.Name))
+				.ForMember(x => x.IsDeleted, opts => opts.Ignore());
 		}
 	}
 }

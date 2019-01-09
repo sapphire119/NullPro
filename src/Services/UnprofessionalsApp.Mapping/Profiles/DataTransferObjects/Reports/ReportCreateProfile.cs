@@ -18,6 +18,7 @@ namespace UnprofessionalsApp.Mapping.Profiles.DataTransferObjects.Reports
 
 			CreateMap<ReportCreateDto, Report>()
 				.ForMember(x => x.Description, opts => opts.MapFrom(x => x.Description))
+				.ForMember(x => x.IsDeleted, opts => opts.Ignore())
 				.ForMember(x => x.UserId, opts => opts.MapFrom(x => x.UserId));
 		}
 	}

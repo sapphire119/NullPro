@@ -14,6 +14,7 @@ namespace UnprofessionalsApp.Mapping.Profiles.InputModels.Replies
 			CreateMap<CreateInputModel, Reply>()
 				.ForMember(x => x.Description, opts => opts.MapFrom(x => x.Description.Trim()))
 				.ForMember(x => x.UserId, opts => opts.MapFrom(x => x.UserId))
+				.ForMember(x => x.IsDeleted, opts => opts.Ignore())
 				.ForMember(x => x.CommentId, opts => opts.MapFrom(x => x.CommentId));
 		}
 	}
