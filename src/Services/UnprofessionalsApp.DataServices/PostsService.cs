@@ -95,6 +95,30 @@
 
 			currentPost.IsDeleted = true;
 
+			var comments = this.postsRepository.All()
+				.Where(p => p.Id == currentPost.Id)
+				.SelectMany(p => p.Comments);
+
+			if (comments.Any())
+			{
+				foreach (var comment in comments)
+				{
+					comment.IsDeleted = true;
+				}
+			}
+
+			var replies = this.postsRepository.All()
+						.Where(p => p.Id == currentPost.Id)
+						.SelectMany(p => p.Comments.SelectMany(c => c.Replies));
+
+			if (replies.Any())
+			{
+				foreach (var reply in replies)
+				{
+					reply.IsDeleted = true;
+				}
+			}
+
 			var statusCode = await this.postsRepository.SaveChangesAsync();
 
 			return statusCode;
@@ -177,11 +201,6 @@
 			{
 				var source = this.postsRepository.All()
 				.Where(p => p.Id == postId);
-
-				if (source == null)
-				{
-					return default(TViewModel);
-				}
 				//.To<TViewModel>()
 				//.FirstOrDefault()
 

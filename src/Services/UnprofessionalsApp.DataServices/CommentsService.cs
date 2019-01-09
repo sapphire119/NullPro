@@ -34,6 +34,72 @@ namespace UnprofessionalsApp.DataServices
 			return statusResult;
 		}
 
+		public async Task<int> DeleteComment(CommentEntityInputModel inputModel)
+		{
+			var currentComment = this.commentsRepository.All()
+					.Where(c => c.Id == inputModel.Id).FirstOrDefault();
+
+			if (currentComment == null)
+			{
+				return default(int);
+			}
+
+			currentComment.IsDeleted = true;
+
+			var replies = this.commentsRepository.All()
+				.Where(c => c.Id == currentComment.Id)
+				.SelectMany(p => p.Replies);
+
+			if (replies.Any())
+			{
+				foreach (var reply in replies)
+				{
+					reply.IsDeleted = true;
+				}
+			}
+
+			var statusCode = await this.commentsRepository.SaveChangesAsync();
+
+			return statusCode;
+		}
+
+		public async Task<int> EditComment(CommentEntityInputModel inputModel)
+		{
+			var currentComment = this.commentsRepository.All()
+				.Where(c => c.Id == inputModel.Id)
+				.FirstOrDefault();
+
+			if (currentComment == null)
+			{
+				return default(int);
+			}
+
+			if (currentComment.Description != inputModel.Description)
+			{
+				currentComment.Description = inputModel.Description;
+			}
+
+			var statusCode = await this.commentsRepository.SaveChangesAsync();
+
+			return statusCode;
+		}
+
+		public Task<TViewModel> GetCommentIdAsync<TViewModel>(int commentId)
+		{
+			var commentTask = Task.Run(() =>
+			{
+				var source = this.commentsRepository.All().Where(c => c.Id == commentId);
+
+				var destination = this.mapper.ProjectTo<TViewModel>(source);
+
+				var result = destination.FirstOrDefault();
+
+				return result;
+			});
+
+			return commentTask;
+		}
+
 		public Task<IEnumerable<TViewModel>> GetCommentsForCurrentUser<TViewModel>(
 			UnprofessionalsAppUser currentUser)
 		{

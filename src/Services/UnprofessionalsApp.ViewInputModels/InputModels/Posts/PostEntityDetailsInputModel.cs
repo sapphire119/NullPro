@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
 using UnprofessionalsApp.Common;
 
@@ -23,7 +24,7 @@ namespace UnprofessionalsApp.ViewInputModels.InputModels.Posts
 		{
 			get
 			{
-				if (this.description.Length > GlobalConstants.AllowedCharactersToRenderForPostDetailsDescription)
+				if (this.description.Count() > GlobalConstants.AllowedCharactersToRenderForPostDetailsDescription)
 				{
 					var result = string.Concat(
 						this.description.Substring(0, GlobalConstants.AllowedCharactersToRenderForPostDetailsDescription),
