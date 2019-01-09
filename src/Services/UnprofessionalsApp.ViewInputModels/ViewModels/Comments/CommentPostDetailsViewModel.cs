@@ -22,6 +22,8 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Comments
 
 		public string UserImageUrl { get; set; }
 
+		public bool IsDeleted { get; set; }
+
 		public int PostId { get; set; }
 
 		public IEnumerable<ReplyPostDetailsViewModel> Replies { get; set; }

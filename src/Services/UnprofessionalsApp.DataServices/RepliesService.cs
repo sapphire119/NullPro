@@ -9,7 +9,7 @@ using UnprofessionalsApp.Models;
 using UnprofessionalsApp.ViewInputModels.InputModels.Replies;
 
 using AutoMapper;
-
+using System.Linq;
 
 namespace UnprofessionalsApp.DataServices
 {
@@ -33,6 +33,40 @@ namespace UnprofessionalsApp.DataServices
 			var statusResult = await this.repliesRepository.SaveChangesAsync();
 
 			return statusResult;
+		}
+
+		public async Task<int> DeleteReply(ReplyEntityInputModel inputModel)
+		{
+			var currentReply = this.repliesRepository.All()
+					.Where(c => c.Id == inputModel.Id)
+					.FirstOrDefault();
+
+			if (currentReply == null)
+			{
+				return default(int);
+			}
+
+			currentReply.IsDeleted = true;
+
+			var statusCode = await this.repliesRepository.SaveChangesAsync();
+
+			return statusCode;
+		}
+
+		public Task<TViewModel> GetReplyByIdAsync<TViewModel>(int commentId)
+		{
+			var replyTask = Task.Run(() =>
+			{
+				var source = this.repliesRepository.All().Where(c => c.Id == commentId);
+
+				var destination = this.mapper.ProjectTo<TViewModel>(source);
+
+				var result = destination.FirstOrDefault();
+
+				return result;
+			});
+
+			return replyTask;
 		}
 	}
 }

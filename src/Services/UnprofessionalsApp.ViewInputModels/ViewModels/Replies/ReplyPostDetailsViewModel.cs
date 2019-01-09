@@ -13,6 +13,8 @@ namespace UnprofessionalsApp.ViewInputModels.ViewModels.Replies
 
 		public DateTime DateOfCreation { get; set; }
 
+		public bool IsDeleted { get; set; }
+
 		public int CommentId { get; set; }
 
 		public int UserId { get; set; }

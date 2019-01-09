@@ -5,7 +5,7 @@ using UnprofessionalsApp.CustomAttributes;
 
 namespace UnprofessionalsApp.ViewInputModels.Pagination.Reports
 {
-	public class ReportsPaginationModel
+	public class ReportPaginationModel
 	{
 		private int totalPages;
 

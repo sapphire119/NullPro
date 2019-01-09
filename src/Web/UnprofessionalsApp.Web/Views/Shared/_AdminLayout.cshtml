@@ -20,7 +20,7 @@
 </head>
 <body>
 	<header>
-		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3"> 
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
 			<div class="container-fluid">
 				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Unprofessioanals</a>
 				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +29,7 @@
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item">
-							<a class="nav-link" asp-area="" asp-page="/posts/index">Posts</a>
+							<a class="nav-link" asp-page="/posts/index">Posts</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" asp-page="/categories/index">Categories</a>
@@ -45,29 +45,23 @@
 						</li>
 						@if (User.Identity.IsAuthenticated)
 						{
-							<li class="nav-item">
-								<a class="nav-link" asp-page="/Posts/Create">Create Post</a>
-							</li>
+						<li class="nav-item">
+							<a class="nav-link" asp-page="/Posts/Create">Create Post</a>
+						</li>
 						}
-						@*@if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+						@if (User.IsInRole("Admin"))
 						{
-							@if (User.IsInRole("Manager"))
-							{
+						<li class="nav-item">
+							<a class="nav-link" asp-area="Administrator" asp-page="/reports/index">Reports</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" asp-page="/firms/create">Create Firms</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" asp-page="/categories/create">Create Category</a>
+						</li>
+						}
 
-							}
-							else if (User.IsInRole("Admin"))
-							{
-								<li class="nav-item">
-									<a class="nav-link" asp-area="Administrator" asp-page="/reports/index">Reports</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" asp-page="/firms/create">Create Firms</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" asp-page="/categories/create">Create Category</a>
-								</li>
-							}
-						}*@
 						<partial name="_LoginPartial" />
 					</ul>
 				</div>

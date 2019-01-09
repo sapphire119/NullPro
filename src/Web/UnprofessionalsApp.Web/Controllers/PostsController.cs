@@ -25,6 +25,10 @@ namespace UnprofessionalsApp.Web.Controllers
 		{
 			//TODO: Validate Details Action in PostsController
 			var model = await this.postsService.GetPostByIdAsync<PostDetailsViewModel>(postId);
+			if (model == null)
+			{
+				return NotFound();
+			}
 			//This is where the user can comment or reply to a comment on a post.
 			//Post details should include:
 

@@ -2,37 +2,35 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using UnprofessionalsApp.Common;
 using UnprofessionalsApp.DataServices.Contracts;
 using UnprofessionalsApp.Models;
-using UnprofessionalsApp.ViewInputModels.InputModels.Posts;
+using UnprofessionalsApp.ViewInputModels.InputModels.Replies;
 
-namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Posts
+namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Replies
 {
-	[Authorize]
     public class DeleteModel : PageModel
     {
 		private readonly UserManager<UnprofessionalsAppUser> userManager;
-		private readonly IPostsService postsService;
+		private readonly IRepliesService repliesService;
 
 		public DeleteModel(UserManager<UnprofessionalsAppUser> userManager,
-			IPostsService postsService)
+			IRepliesService repliesService)
 		{
 			this.userManager = userManager;
-			this.postsService = postsService;
+			this.repliesService = repliesService;
 		}
 
-		public PostEntityDetailsInputModel Data { get; set; }
 
-		public async Task<IActionResult> OnGetAsync(int postId)
+		public ReplyEntityInputModel Data { get; set; }
+
+		public async Task<IActionResult> OnGetAsync(int replyId)
 		{
-
-			this.Data = await this.postsService
-				.GetPostByIdAsync<PostEntityDetailsInputModel>(postId);
+			this.Data = await this.repliesService
+				.GetReplyByIdAsync<ReplyEntityInputModel>(replyId);
 
 			if (this.Data == null)
 			{
@@ -42,23 +40,23 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Posts
 			return this.Page();
 		}
 
-		public async Task<IActionResult> OnPostAsync(int postId)
+		public async Task<IActionResult> OnPostAsync(int replyId)
 		{
-			var currentPost = await this.postsService
-				.GetPostByIdAsync<PostEntityDetailsInputModel>(postId);
+			var currentReply = await this.repliesService
+				.GetReplyByIdAsync<ReplyEntityInputModel>(replyId);
 
-			if (currentPost == null)
+			if (currentReply == null)
 			{
 				return this.NotFound();
 			}
 
-			var status = await this.postsService.DeletePost(currentPost);
+			int status = await this.repliesService.DeleteReply(currentReply);
 			if (status < GlobalConstants.SuccessfullySavedIntoDbContextStatusCode)
 			{
 				return this.NotFound();
 			}
 
-			return this.Redirect("~/posts/index");
+			return this.LocalRedirect("/Posts/Index");
 		}
 	}
 }

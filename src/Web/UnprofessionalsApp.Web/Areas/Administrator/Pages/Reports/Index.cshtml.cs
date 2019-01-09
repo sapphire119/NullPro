@@ -22,7 +22,7 @@ namespace UnprofessionalsApp.Web.Areas.Administrator.Pages.Reports
 		}
 
 		[BindProperty(SupportsGet = true)]
-		public ReportsPaginationModel Pagination { get; set; }
+		public PostPaginationModel Pagination { get; set; }
 
 		public IEnumerable<ReportViewModel> Data { get; set; }
 

@@ -27,7 +27,7 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Posts
 
 		public IEnumerable<PostEntityDetailsViewModel> Data { get; set; }
 
-		public async Task<IActionResult> OnGetAsync()
+		public async Task<IActionResult> OnGetAsync(string returnUrl = null)
 		{
 			var currentUser = await this.userManager.GetUserAsync(this.User);
 

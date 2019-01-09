@@ -169,6 +169,7 @@
 			var postsViewModel = Task.Run(() =>
 			{
 				var source = this.postsRepository.All()
+				.Where(p => p.IsDeleted == false)
 				/*.AsQueryable()*/ // Вече е IQueryable, но за всеки случай
 				.OrderBy(string.Concat(orderByParam, $" {ordering}"))
 				.Skip((currentPage - 1) * pageSize)
@@ -200,7 +201,7 @@
 			var postTask = Task.Run(() =>
 			{
 				var source = this.postsRepository.All()
-				.Where(p => p.Id == postId);
+				.Where(p => p.Id == postId && p.IsDeleted == false);
 				//.To<TViewModel>()
 				//.FirstOrDefault()
 

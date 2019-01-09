@@ -6,6 +6,13 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Areas\Manager\**" />
+    <Content Remove="Areas\Manager\**" />
+    <EmbeddedResource Remove="Areas\Manager\**" />
+    <None Remove="Areas\Manager\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
@@ -28,12 +35,9 @@
     <Folder Include="Areas\Administrator\Controllers\" />
     <Folder Include="Areas\Administrator\Data\" />
     <Folder Include="Areas\Administrator\Models\" />
-    <Folder Include="Areas\Administrator\Pages\Shared\" />
+    <Folder Include="Areas\Administrator\Pages\Comments\" />
+    <Folder Include="Areas\Administrator\Pages\Posts\" />
     <Folder Include="Areas\Administrator\Views\" />
-    <Folder Include="Areas\Manager\Controllers\" />
-    <Folder Include="Areas\Manager\Data\" />
-    <Folder Include="Areas\Manager\Models\" />
-    <Folder Include="Areas\Manager\Views\" />
   </ItemGroup>
 
 </Project>

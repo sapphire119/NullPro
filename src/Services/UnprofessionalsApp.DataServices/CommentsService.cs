@@ -37,7 +37,8 @@ namespace UnprofessionalsApp.DataServices
 		public async Task<int> DeleteComment(CommentEntityInputModel inputModel)
 		{
 			var currentComment = this.commentsRepository.All()
-					.Where(c => c.Id == inputModel.Id).FirstOrDefault();
+					.Where(c => c.Id == inputModel.Id && c.IsDeleted == false)
+					.FirstOrDefault();
 
 			if (currentComment == null)
 			{
@@ -47,7 +48,7 @@ namespace UnprofessionalsApp.DataServices
 			currentComment.IsDeleted = true;
 
 			var replies = this.commentsRepository.All()
-				.Where(c => c.Id == currentComment.Id)
+				.Where(c => c.Id == currentComment.Id && c.IsDeleted == false)
 				.SelectMany(p => p.Replies);
 
 			if (replies.Any())
@@ -117,14 +118,5 @@ namespace UnprofessionalsApp.DataServices
 
 			return commentTask;
 		}
-
-		//public async Task CreateComment<T>(T inputModel)
-		//{
-		//	var comment = this.mapper.Map<Comment>(inputModel);
-
-		//	await this.commentsRepository.AddAsync(comment);
-
-		//	throw new NotImplementedException();
-		//}
 	}
 }
