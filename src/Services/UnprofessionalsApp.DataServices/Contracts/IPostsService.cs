@@ -25,5 +25,9 @@ namespace UnprofessionalsApp.DataServices.Contracts
 		Task<int> AddTagsToPost(Post result, IEnumerable<Tag> currentTags);
 
 		Task<IEnumerable<TViewModel>> GetPostsByUsernameAsync<TViewModel>(UnprofessionalsAppUser currentUser);
+
+		Task<int> EditPost(PostEntityDetailsInputModel inputModel);
+
+		Task<int> DeletePost(PostEntityDetailsInputModel inputModel);
 	}
 }

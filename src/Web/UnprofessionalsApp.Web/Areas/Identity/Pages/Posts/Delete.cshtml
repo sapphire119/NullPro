@@ -1,0 +1,27 @@
+﻿@page
+@model UnprofessionalsApp.Web.Areas.Identity.Pages.Posts.DeleteModel
+@{
+	ViewData["Title"] = "Post Edit";
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<div class="row">
+	<div class="col-md-6 offset-md-3">
+		<h1 class="text-center">Edit</h1>
+		<hr style="height:2px;" />
+		<form class="mx-auto" method="post" asp-page="/posts/delete">
+			<div class="form-group">
+				<label asp-for="InputModel.Title" class="text-mishmash"></label>
+				<input type="text" asp-for="InputModel.Title" class="form-control" disabled value="@(Model.InputModel.Title)">
+			</div>
+			<div class="form-group">
+				<label asp-for="InputModel.Description" class="text-mishmash"></label>
+				<textarea class="form-control" rows="3" asp-for="InputModel.Description" disabled style="resize:vertical;">@(Model.InputModel.Description)</textarea>
+			</div>
+			<div class="button-holder mt-4 d-flex justify-content-center">
+				<button type="submit" class="btn btn-primary btn-xs">Edit <i style="font-size:24px" class="fa">&#xf040;</i></button>
+			</div>
+			<input type="hidden" asp-for="InputModel.Id" />
+		</form>
+	</div>
+</div>

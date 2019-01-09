@@ -83,6 +83,47 @@
 			return currentPost;
 		}
 
+		public async Task<int> DeletePost(PostEntityDetailsInputModel inputModel)
+		{
+			var currentPost = this.postsRepository.All()
+					.Where(p => p.Id == inputModel.Id).FirstOrDefault();
+
+			if (currentPost == null)
+			{
+				return default(int);
+			}
+
+			currentPost.IsDeleted = true;
+
+			var statusCode = await this.postsRepository.SaveChangesAsync();
+
+			return statusCode;
+		}
+
+		public async Task<int> EditPost(PostEntityDetailsInputModel inputModel)
+		{
+			var currentPost = this.postsRepository.All().Where(p => p.Id == inputModel.Id).FirstOrDefault();
+
+			if (currentPost == null)
+			{
+				return default(int);
+			}
+
+			if (currentPost.Title != inputModel.Title)
+			{
+				currentPost.Title = inputModel.Title;
+			}
+
+			if (currentPost.Description != inputModel.Description)
+			{
+				currentPost.Description = inputModel.Description;
+			}
+
+			var statusCode = await this.postsRepository.SaveChangesAsync();
+
+			return statusCode;
+		}
+
 		public Task<int> GetAllPostsCount()
 		{
 			//this.configuration["Cloudinary"]
@@ -136,6 +177,11 @@
 			{
 				var source = this.postsRepository.All()
 				.Where(p => p.Id == postId);
+
+				if (source == null)
+				{
+					return default(TViewModel);
+				}
 				//.To<TViewModel>()
 				//.FirstOrDefault()
 
