@@ -7,6 +7,7 @@ namespace UnprofessionalsApp.Common
 	public static class GlobalConstants
 	{
 		public static readonly string[] ApprovedRoles = { "Admin", "Manager", "User" };
+		
 		public const string AdminRole = "Admin";
 
 		public const string ManagerRole = "Manager";
@@ -35,7 +36,9 @@ namespace UnprofessionalsApp.Common
 
 		public const string NoPhoneNumberForUser = @"User has not put in phone number";
 
-		public const string DefaultFirmNotSavedIntoDbContextMessage = "Coudn't save firms into db context";
+		public const string DefaultNotSavedIntoDbContextMessage = "Coudn't save firms into db context";
+
+		public const string CategoryIsPresentMessage = "Category is already present";
 
 		public const int SuccessfullySavedIntoDbContextStatusCode = 1;
 

@@ -1,0 +1,15 @@
+﻿@page
+@model UnprofessionalsApp.Web.Pages.Categories.CreateModel
+@{
+
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<form asp-page="/categories/create" method="post">
+	<label asp-for="InputModel.Name"></label>
+	<div>
+		<input asp-for="InputModel.Name" value="" />
+		<span asp-validation-for="InputModel.Name"></span>
+	</div>
+	<input type="submit" value="Add Category" />
+</form>

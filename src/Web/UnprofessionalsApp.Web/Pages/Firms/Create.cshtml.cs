@@ -76,7 +76,7 @@ namespace UnprofessionalsApp.Web.Pages.Firms
 			var statusCode = await this.firmsService.SeedFirmsIntoDbContext(filteredFirms);
 			if (statusCode < GlobalConstants.SuccessfullySavedIntoDbContextStatusCode)
 			{
-				this.ModelState.AddModelError(string.Empty, GlobalConstants.DefaultFirmNotSavedIntoDbContextMessage);
+				this.ModelState.AddModelError(string.Empty, GlobalConstants.DefaultNotSavedIntoDbContextMessage);
 
 				return this.Page();
 			}

@@ -3,6 +3,8 @@
 	using Microsoft.AspNetCore.Mvc.Rendering;
 	using System.Collections.Generic;
 	using System.Threading.Tasks;
+	using UnprofessionalsApp.Models;
+	using UnprofessionalsApp.ViewInputModels.InputModels.Categories;
 	using UnprofessionalsApp.ViewInputModels.ViewModels.Categories;
 
 	public interface ICategoriesService
@@ -14,5 +16,9 @@
 		Task<IEnumerable<PostByCategoryViewModel>> GetAllRealtedPosts(int categoryId);
 
 		Task<bool> AreThereAnyPostsWithCategory(int categoryId);
+
+		Task<int> CreateCategory(CreateCategoryInputModel inputModel);
+
+		Task<Category> FindByName(string name);
 	}
 }

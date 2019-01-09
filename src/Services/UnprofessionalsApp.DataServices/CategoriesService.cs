@@ -9,6 +9,7 @@ using UnprofessionalsApp.ViewInputModels.ViewModels.Categories;
 using UnprofessionalsApp.ViewInputModels.ViewModels.Posts;
 using UnprofessionalsApp.ViewInputModels.ViewModels.Home;
 using AutoMapper;
+using UnprofessionalsApp.ViewInputModels.InputModels.Categories;
 
 namespace UnprofessionalsApp.DataServices
 {
@@ -88,6 +89,36 @@ namespace UnprofessionalsApp.DataServices
 				.Any());
 
 			return result;
+		}
+
+		public async Task<int> CreateCategory(CreateCategoryInputModel inputModel)
+		{
+			var destination = this.mapper.Map<Category>(inputModel);
+
+			await this.categoriesRepository.AddAsync(destination);
+
+			var statusCode = await this.categoriesRepository.SaveChangesAsync();
+
+			return statusCode;
+		}
+
+		public Task<Category> FindByName(string name)
+		{
+			var categoryTask = Task.Run(() =>
+			{
+				var category = this.categoriesRepository.All()
+				.Where(c => c.Name.ToLower() == name.ToLower())
+				.FirstOrDefault();
+
+				if (category == null)
+				{
+					return default(Category);
+				}
+
+				return category;
+			});
+
+			return categoryTask;
 		}
 	}
 }
