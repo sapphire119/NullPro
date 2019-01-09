@@ -26,15 +26,15 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Posts
 			this.postsService = postsService;
 		}
 
-		[BindProperty]
-		public PostEntityDetailsInputModel InputModel { get; set; }
+		
+		public PostEntityDetailsInputModel Data { get; set; }
 
 		public async Task<IActionResult> OnGetAsync(int postId)
 		{
-			this.InputModel = await this.postsService
+			this.Data = await this.postsService
 				.GetPostByIdAsync<PostEntityDetailsInputModel>(postId);
 
-			if (this.InputModel == null)
+			if (this.Data == null)
 			{
 				return this.NotFound();
 			}
@@ -42,21 +42,18 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Posts
 			return this.Page();
 		}
 
-		public async Task<IActionResult> OnPostAsync()
+		public async Task<IActionResult> OnPostAsync(int postId)
 		{
-			if (!ModelState.IsValid)
-			{
-				var errors = ModelState.SelectMany(e => e.Value.Errors);
-				foreach (var error in errors)
-				{
-					ModelState.AddModelError(string.Empty, error.ErrorMessage);
-				}
+			var currentPost = await this.postsService
+				.GetPostByIdAsync<PostEntityDetailsInputModel>(postId);
 
-				return this.Page();
+			if (currentPost == null)
+			{
+				return this.NotFound();
 			}
 
-			var status = await this.postsService.DeletePost(this.InputModel);
-			if (status != GlobalConstants.SuccessfullySavedIntoDbContextStatusCode)
+			var status = await this.postsService.DeletePost(currentPost);
+			if (status < GlobalConstants.SuccessfullySavedIntoDbContextStatusCode)
 			{
 				return this.NotFound();
 			}
