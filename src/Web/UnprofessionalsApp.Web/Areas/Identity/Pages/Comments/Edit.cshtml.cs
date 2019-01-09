@@ -32,7 +32,7 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Comments
 		public async Task<IActionResult> OnGetAsync(int commentId)
 		{
 			this.InputModel = await this.commentsService
-				.GetCommentIdAsync<CommentEntityInputModel>(commentId);
+				.GetCommentByIdAsync<CommentEntityInputModel>(commentId);
 
 			if (this.InputModel == null)
 			{

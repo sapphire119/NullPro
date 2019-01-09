@@ -6,7 +6,7 @@ namespace UnprofessionalsApp.Common
 {
 	public static class GlobalConstants
 	{
-		public static readonly string[] ApprovedRoles = { "Admin", "Manager", "User" };
+		public static readonly string[] ApprovedRoles = { "Admin", "User" };
 		
 		public const string AdminRole = "Admin";
 

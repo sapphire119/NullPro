@@ -9,30 +9,30 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using UnprofessionalsApp.Common;
 using UnprofessionalsApp.DataServices.Contracts;
 using UnprofessionalsApp.Models;
-using UnprofessionalsApp.ViewInputModels.InputModels.Comments;
+using UnprofessionalsApp.ViewInputModels.InputModels.Reports;
 
-namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Comments
+namespace UnprofessionalsApp.Web.Areas.Administrator.Pages.Reports
 {
-	[Authorize]
+	[Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel
     {
 		private readonly UserManager<UnprofessionalsAppUser> userManager;
-		private readonly ICommentsService commentsService;
+		private readonly IReportsService reportsService;
 
 		public DeleteModel(UserManager<UnprofessionalsAppUser> userManager,
-			ICommentsService commentsService)
+			IReportsService reportsService)
 		{
 			this.userManager = userManager;
-			this.commentsService = commentsService;
+			this.reportsService = reportsService;
 		}
 
 
-		public CommentEntityInputModel Data { get; set; }
+		public ReportEntityInputModel Data { get; set; }
 
-		public async Task<IActionResult> OnGetAsync(int commentId)
+		public async Task<IActionResult> OnGetAsync(int reportId)
 		{
-			this.Data = await this.commentsService
-				.GetCommentByIdAsync<CommentEntityInputModel>(commentId);
+			this.Data = await this.reportsService
+				.GetReportByIdAsync<ReportEntityInputModel>(reportId);
 
 			if (this.Data == null)
 			{
@@ -42,23 +42,23 @@ namespace UnprofessionalsApp.Web.Areas.Identity.Pages.Comments
 			return this.Page();
 		}
 
-		public async Task<IActionResult> OnPostAsync(int commentId)
+		public async Task<IActionResult> OnPostAsync(int reportId)
 		{
-			var currentComment = await this.commentsService
-				.GetCommentByIdAsync<CommentEntityInputModel>(commentId);
+			var currentReport = await this.reportsService
+				.GetReportByIdAsync<ReportEntityInputModel>(reportId);
 
-			if (currentComment == null)
+			if (currentReport == null)
 			{
 				return this.NotFound();
 			}
 
-			int status = await this.commentsService.DeleteComment(currentComment);
+			int status = await this.reportsService.DeleteComment(currentReport);
 			if (status < GlobalConstants.SuccessfullySavedIntoDbContextStatusCode)
 			{
 				return this.NotFound();
 			}
 
-			return this.RedirectToPage("/posts/index");
+			return this.RedirectToPage("/reports/index");
 		}
 	}
 }

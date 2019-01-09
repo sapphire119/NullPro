@@ -1,4 +1,103 @@
-﻿@page
+﻿@page "{currentPage=1}/{sortBy=UserId}/{ordering=ascending}/{pageSize=10}"
 @model UnprofessionalsApp.Web.Areas.Administrator.Pages.Reports.IndexModel
 @{
+	ViewData["Title"] = "All Reports";
+
+	var pageMinLength = Model.Pagination.CurrentPage - (Model.Pagination.CurrentPage % 10);
+	var pageMaxLength = Model.Pagination.ResultPerPage + pageMinLength - 1;
+	if (pageMaxLength > Model.Pagination.TotalPages)
+	{
+		pageMaxLength = Model.Pagination.TotalPages;
+	}
 }
+<div class="d-flex justify-content-between">
+	<div class="dropdown col-md-3">
+		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Select Page Size
+		</button>
+		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+			<a class="dropdown-item" asp-area="Administrator" asp-page="/reports/index" asp-route-currentpage="1" asp-route-ordering="@(Model.Pagination.Ordering)" asp-route-sortby="@(Model.Pagination.SortBy)" asp-route-pageSize="10">10</a>
+			<a class="dropdown-item" asp-area="Administrator" asp-page="/reports/index" asp-route-currentpage="1" asp-route-ordering="@(Model.Pagination.Ordering)" asp-route-sortby="@(Model.Pagination.SortBy)" asp-route-pageSize="20">20</a>
+			<a class="dropdown-item" asp-area="Administrator" asp-page="/reports/index" asp-route-currentpage="1" asp-route-ordering="@(Model.Pagination.Ordering)" asp-route-sortby="@(Model.Pagination.SortBy)" asp-route-pageSize="50">50</a>
+		</div>
+	</div>
+	<div class="dropdown">
+		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Order by
+		</button>
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			<a class="dropdown-item sort-link" asp-area="Administrator" asp-page="/reports/index" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-sortby="CreationDate" asp-route-ordering="ascending">Creation Date &uarr;</a>
+			<a class="dropdown-item sort-link" asp-area="Administrator" asp-page="/reports/index" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-sortby="CreationDate" asp-route-ordering="descending">Creation Date &darr;</a>
+			<a class="dropdown-item sort-link" asp-area="Administrator" asp-page="/reports/index" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-sortby="UserId" asp-route-ordering="ascending">Users &uarr;</a>
+			<a class="dropdown-item sort-link" asp-area="Administrator" asp-page="/reports/index" asp-route-pageSize="@Model.Pagination.PageSize" asp-route-sortby="UserId" asp-route-ordering="descending">Users &darr;</a>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h4>Bootstrap Snipp for Datatable</h4>
+			<div class="table-responsive">
+				@if (this.Model.Data.Any())
+				{
+					<table id="mytable" class="table table-bordred table-striped">
+						<thead>
+							<tr>
+								<td>Made on date</td>
+								<td>Description</td>
+								<td>Submitted by</td>
+								<td>Reported On</td>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var report in Model.Data)
+							{
+								<tr>
+									<td>@(report.CreationDate)</td>
+									<td>@(report.Description)</td>
+									<td><a asp-controller="Account" asp-action="Details" asp-route-userId="@(report.UserId)">@(report.Username)</a></td>
+									<td><p data-placement="top" title="Delete"><a asp-area="Administrator" asp-page="/reports/delete" asp-route-reportId="@(report.Id)" class="btn btn-danger btn-xs" data-title="Delete"><i style="font-size:24px" class="fa">&#xf00d;</i></a></p></td>
+								</tr>
+							}
+
+						</tbody>
+					</table>
+				}
+				else
+				{
+					<p>You have no comments.</p>
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+<nav aria-label="Page navigation example">
+	<ul class="pagination pg-blue justify-content-center">
+		<li class="page-item @(Model.Pagination.CurrentPage == 1 ? "disabled":"")" title="First">
+			<a asp-page="/firms/index" class="page-link" asp-route-currentpage="1" asp-route-sortby="@Model.Pagination.SortBy" asp-route-ordering="@Model.Pagination.Ordering" asp-route-pageSize="@Model.Pagination.PageSize">
+				&laquo;
+			</a>
+		</li>
+		<li class="page-item @(Model.Pagination.CurrentPage - 1 <= 0 ? "disabled" : "")">
+			<a asp-page="/firms/index" asp-route-ordering="@(Model.Pagination.Ordering)" asp-route-sortby="@Model.Pagination.SortBy" asp-route-pageSize="@(Model.Pagination.PageSize)" asp-route-currentpage="@(Model.Pagination.CurrentPage - 1)" class="page-link">Previous</a>
+		</li>
+		@for (var pageId = pageMinLength; pageId <= pageMaxLength; pageId++)
+		{
+			if (pageId == 0) { pageId++; }
+
+			<li class="page-item @(pageId == Model.Pagination.CurrentPage ? "active" : "")">
+				<a asp-page="/firms/index" asp-route-ordering="@Model.Pagination.Ordering" asp-route-sortby="@Model.Pagination.SortBy" asp-route-pageSize="@(Model.Pagination.PageSize)" asp-route-currentpage="@pageId" class="page-link">@pageId</a>
+			</li>
+		}
+		<li class="page-item @(Model.Pagination.CurrentPage + 1 > Model.Pagination.TotalPages ? "disabled" : "")">
+			<a asp-page="/firms/index" asp-route-ordering="@Model.Pagination.Ordering" asp-route-sortby="@Model.Pagination.SortBy" asp-route-pageSize="@(Model.Pagination.PageSize)" asp-route-currentpage="@(Model.Pagination.CurrentPage + 1)" class="page-link">Next</a>
+		</li>
+
+		<li class="page-item  @(Model.Pagination.CurrentPage == Model.Pagination.TotalPages? "disabled":"")" title="Last">
+			<a asp-page="/firms/index" class="page-link" asp-route-currentPage="@Model.Pagination.TotalPages" asp-route-sortby="@Model.Pagination.SortBy" asp-route-ordering="@Model.Pagination.Ordering" asp-route-pageSize="@Model.Pagination.PageSize">
+				&raquo;
+			</a>
+		</li>
+	</ul>
+</nav>

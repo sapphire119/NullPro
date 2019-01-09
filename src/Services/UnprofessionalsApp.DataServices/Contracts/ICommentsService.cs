@@ -11,8 +11,8 @@ namespace UnprofessionalsApp.DataServices.Contracts
 
 		Task<IEnumerable<TViewModel>> GetCommentsForCurrentUser<TViewModel>(UnprofessionalsAppUser currentUser);
 
-		Task<TViewModel> GetCommentIdAsync<TViewModel>(int commentId);
-
+		Task<TViewModel> GetCommentByIdAsync<TViewModel>(int commentId);
+		
 		Task<int> DeleteComment(CommentEntityInputModel currentComment);
 
 		Task<int> EditComment(CommentEntityInputModel inputModel);

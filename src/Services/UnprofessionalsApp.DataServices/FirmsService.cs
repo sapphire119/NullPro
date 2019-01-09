@@ -124,11 +124,13 @@ namespace UnprofessionalsApp.DataServices
 			string orderByParam, 
 			string ordering)
 		{
+			var sortBy = orderByParam == "PostsAboutFirm" ? "Posts.Count()" : orderByParam;
+
 			//Test And Validate Me.
 			var firmsForCurrentPage = Task.Run(() =>
 			{
 				var source = this.firmsRepository.All() // Вече е IQueryable, но за всеки случай
-				.OrderBy(string.Concat(orderByParam, $" {ordering}"))
+				.OrderBy(string.Concat(sortBy, $" {ordering}"))
 				.ThenBy(f => f.Posts.Count())
 				.Skip((currentPage - 1) * pageSize)
 				.Take(pageSize);

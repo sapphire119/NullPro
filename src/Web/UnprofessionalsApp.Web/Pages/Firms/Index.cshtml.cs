@@ -27,7 +27,7 @@ namespace UnprofessionalsApp.Web.Pages.Firms
 		//public int Count { get; set; }
 
 		[BindProperty(SupportsGet = true)]
-		public FirmPaginationInputModel Pagination { get; set; }
+		public FirmPaginationModel Pagination { get; set; }
 
 		////Data Validation: Validate me
 		//[BindProperty(SupportsGet = true)]

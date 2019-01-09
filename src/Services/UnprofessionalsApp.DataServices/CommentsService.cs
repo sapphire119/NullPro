@@ -84,7 +84,7 @@ namespace UnprofessionalsApp.DataServices
 			return statusCode;
 		}
 
-		public Task<TViewModel> GetCommentIdAsync<TViewModel>(int commentId)
+		public Task<TViewModel> GetCommentByIdAsync<TViewModel>(int commentId)
 		{
 			var commentTask = Task.Run(() =>
 			{
