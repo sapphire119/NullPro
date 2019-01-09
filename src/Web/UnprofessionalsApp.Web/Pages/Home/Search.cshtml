@@ -181,7 +181,7 @@
 				{
 					<tr>
 						<td scope="row">@(Model.Counter++)</td>
-						<td><a href="#">@(tag.Name)</a></td>
+						<td><a asp-page="/tags/details" asp-route-tagId="@(tag.Id)">@(tag.Name)</a></td>
 					</tr>
 				}
 			</tbody>

@@ -8,11 +8,11 @@
 	// Add profile data for application users by adding properties to the UnprofessionalsAppUser class
 	public class UnprofessionalsAppUser : IdentityUser<int>
 	{
-		public bool IsBlackListed { get; set; } = false;
-
 		public string Description { get; set; }
 
 		public int ImageId { get; set; }
+
+		public bool IsDeleted { get; set; } = false;
 
 		public virtual Image Image { get; set; }
 

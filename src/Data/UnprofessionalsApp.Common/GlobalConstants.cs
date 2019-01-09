@@ -7,7 +7,6 @@ namespace UnprofessionalsApp.Common
 	public static class GlobalConstants
 	{
 		public static readonly string[] ApprovedRoles = { "Admin", "User" };
-		
 		public const string AdminRole = "Admin";
 
 		public const string ManagerRole = "Manager";
@@ -24,10 +23,6 @@ namespace UnprofessionalsApp.Common
 
 		public const string PostDetailsDateOfCreationFormat = @"{0} at {1}";
 
-		public const int AllowedCharactersToRenderForPostDescription = 97;
-
-		public const int AllowedCharactersToRenderForPostDetailsDescription = 25;
-
 		public const string DescriptionExtensionStrings = "...";
 
 		public const string NoDescriptionForUser = @"User has not put in any description about himself";
@@ -40,6 +35,10 @@ namespace UnprofessionalsApp.Common
 
 		public const string CategoryIsPresentMessage = "Category is already present";
 
+		public static string UserHasNoDescriptionMessage = "User has no description";
+
+		public const string DefaultXDocSearchParameter = "Body";
+
 		public const int SuccessfullySavedIntoDbContextStatusCode = 1;
 
 		public const int DefaultUserImageId = 6;
@@ -50,7 +49,11 @@ namespace UnprofessionalsApp.Common
 
 		public const int EntitiesPerPageLimit = 8;
 
-		public const string DefaultXDocSearchParameter = "Body";
+		public const int AllowedCharactersToRenderForPostDescription = 97;
+
+		public const int AllowedCharactersToRenderForPostDetailsDescription = 25;
+
+		public const int DefaultUserDescriptionRenderCount = 15;
 
 		public const int AllowedFirmCapacityCount = 1200;
 	}

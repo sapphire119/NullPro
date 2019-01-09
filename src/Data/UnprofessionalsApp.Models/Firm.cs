@@ -12,8 +12,6 @@ namespace UnprofessionalsApp.Models
 
 		public string Name { get; set; }
 
-		public bool IsBlackListed { get; set; } = false;
-
 		public bool IsDeleted { get; set; } = false;
 
 		public DateTime DateOfRegistration { get; set; } = DateTime.UtcNow;

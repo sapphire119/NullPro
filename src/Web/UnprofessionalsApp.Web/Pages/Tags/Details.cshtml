@@ -1,11 +1,14 @@
-﻿@page "{categoryId?}"
-@model UnprofessionalsApp.Web.Pages.Categories.DetailsModel
+﻿@page "{tagId?}"
+@model UnprofessionalsApp.Web.Pages.Tags.DetailsModel
+@{
+}
+
 @{
 	ViewData["Title"] = "Category Details";
 	var counter = 1;
 }
 
-@if (this.Model.AreThereAnyPostsForCategory)
+@if (this.Model.AreThereAnyPostsForTag)
 {
 	<div class="row">
 		<div class="container col-md-8 text-center">

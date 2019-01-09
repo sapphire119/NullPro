@@ -18,9 +18,6 @@
 
 			builder.Property(e => e.Name)
 				.IsRequired();
-
-			builder.Property(e => e.IsBlackListed)
-				.IsRequired();
 			
 			builder.Property(e => e.LegalForm)
 				.IsRequired();

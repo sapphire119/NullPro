@@ -21,6 +21,14 @@
 			this.userManager = userManager;
 		}
 
+		
+		public async Task<IActionResult> Index()
+		{
+			IEnumerable<UserViewModel> model = await this.usersService.GetAllUsers<UserViewModel>();
+
+			return this.View(model);
+		}
+
 		[Route("Account/Details/{userId?}")]
 		public async Task<IActionResult> Details(int userId)
 		{

@@ -25,6 +25,22 @@
 			this.mapper = mapper;
 		}
 
+		public Task<IEnumerable<TViewModel>> GetAllUsers<TViewModel>()
+		{
+			var usersTask = Task.Run(() =>
+			{
+				var source = this.userRepository.All().Where(u => u.IsDeleted == false);
+
+				var destination = this.mapper.ProjectTo<TViewModel>(source);
+
+				var result = destination as IEnumerable<TViewModel>;
+
+				return result;
+			});
+
+			return usersTask;
+		}
+
 		public Task<TViewModel> GetUserByIdAsync<TViewModel>(int userId)
 		{
 			//TODO: Check if invalid userId

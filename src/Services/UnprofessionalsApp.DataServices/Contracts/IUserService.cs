@@ -10,5 +10,7 @@
 	public interface IUsersService
 	{
 		Task<TViewModel> GetUserByIdAsync<TViewModel>(int userId);
+
+		Task<IEnumerable<TViewModel>> GetAllUsers<TViewModel>();
 	}
 }
