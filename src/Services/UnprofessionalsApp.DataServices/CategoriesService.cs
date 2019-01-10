@@ -120,5 +120,10 @@ namespace UnprofessionalsApp.DataServices
 
 			return categoryTask;
 		}
+
+		public int GetCount()
+		{
+			return this.categoriesRepository.All().Count();
+		}
 	}
 }

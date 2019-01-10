@@ -18,6 +18,8 @@
 		Task<bool> AreThereAnyPostsWithCategory(int categoryId);
 
 		Task<int> CreateCategory(CreateCategoryInputModel inputModel);
+		
+		int GetCount();
 
 		Task<Category> FindByName(string name);
 	}
